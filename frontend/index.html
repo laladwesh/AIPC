@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>frontend</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#001e40",
+                        "primary-container": "#003366",
+                        "primary-fixed": "#d5e3ff",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7f9fd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f8",
+                        "surface-container-high": "#e6e8ec",
+                        "outline-variant": "#c3c6d1",
+                        "secondary": "#5c5f60",
+                        "on-surface": "#191c1f",
+                        "on-surface-variant": "#43474f",
+                    },
+                    spacing: { "xs": "4px", "sm": "8px", "md": "16px", "lg": "24px", "xl": "48px", "gutter": "24px" },
+                    fontFamily: { "sans": ["Inter", "sans-serif"] }
+                }
+            }
+        }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

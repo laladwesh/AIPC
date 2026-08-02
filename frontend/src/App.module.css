@@ -1,0 +1,944 @@
+.app {
+  	width: 100%;
+  	position: relative;
+  	background-color: #fcfcfb;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	text-align: left;
+  	font-size: 11px;
+  	color: #5f6a6e;
+  	font-family: 'IBM Plex Mono';
+	scroll-behavior: smooth;
+}
+.masthead {
+  	align-self: stretch;
+  	background-color: #101e24;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	justify-content: space-between;
+  	padding: 18px 72px;
+  	gap: 20px;
+  	font-size: 18px;
+  	color: #fcfcfb;
+  	font-family: 'Libre Caslon Text';
+}
+.aipc49 {
+  	position: relative;
+  	font-weight: 600;
+}
+.navCta {
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	gap: 32px;
+  	font-size: 11px;
+  	color: #c9d0d1;
+  	font-family: 'IBM Plex Mono';
+}
+.nav {
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	gap: 28px;
+}
+.about {
+  	position: relative;
+  	letter-spacing: 0.1em;
+}
+.registerCta {
+  	border-radius: 3px;
+  	background-color: #fcfcfb;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	padding: 11px 20px;
+  	color: #101e24;
+}
+.register {
+  	position: relative;
+  	letter-spacing: 0.1em;
+  	font-weight: 500;
+}
+.hero {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 92px 72px 56px;
+  	gap: 20px;
+	background-image: url('/bg.png');
+  	background-size: cover;
+  	background-repeat: no-repeat;
+  	background-position: top;
+  	color: #c9d0d1;
+}
+.ruleDevice {
+  	width: 72px;
+  	height: 10px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 3px;
+}
+.rectangle {
+  	align-self: stretch;
+  	height: 2px;
+  	position: relative;
+  	background-color: #fcfcfb;
+}
+.rectangle2 {
+  	align-self: stretch;
+  	height: 1px;
+  	position: relative;
+  	background-color: #d98a7a;
+}
+.rectangle3 {
+  	align-self: stretch;
+  	height: 2px;
+  	position: relative;
+  	background-color: #fcfcfb;
+  	opacity: 0.42;
+}
+.allIitsPlacement {
+  	align-self: stretch;
+  	position: relative;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+}
+.thAipcMeet {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 64px;
+  	letter-spacing: 0.02em;
+  	line-height: 68px;
+  	font-family: 'Libre Caslon Display';
+  	color: #fcfcfb;
+  	text-shadow: 1px 0 0 #fcfcfb, 0 1px 0 #fcfcfb, -1px 0 0 #fcfcfb, 0 -1px 0 #fcfcfb;
+}
+.registerToConfirm {
+  	width: 400px;
+  	position: relative;
+  	font-size: 18px;
+  	line-height: 24px;
+  	font-weight: 300;
+  	font-family: 'IBM Plex Sans';
+  	display: inline-block;
+}
+.factRow {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+}
+.fact {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 20px 32px 4px 0px;
+  	box-sizing: border-box;
+  	gap: 8px;
+  	min-width: 190px;
+}
+.iitGuwahati {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 18px;
+  	line-height: 24px;
+  	font-weight: 600;
+  	font-family: 'IBM Plex Sans';
+  	color: #fcfcfb;
+}
+.membershipBand {
+  	align-self: stretch;
+  	background-color: #eaeded;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 48px 72px 54px;
+  	gap: 24px;
+}
+.the23Member {
+  	position: relative;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+}
+.emblemGrid {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+	justify-content: center;
+  	flex-wrap: wrap;
+  	align-content: flex-start;
+  	gap: 26px 20px;
+  	text-align: center;
+  	font-size: 9.5px;
+}
+.iitBhilai {
+  	width: 84px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: center;
+  	gap: 10px;
+}
+.emblemRingIcon {
+  	width: 84px;
+  	height: 84px;
+  	position: relative;
+  	/* border-radius: 48px; */
+}
+.bhilai {
+  	align-self: stretch;
+  	position: relative;
+}
+.registration2 {
+  	align-self: stretch;
+  	background-color: #fcfcfb;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 104px 72px;
+  	font-family: 'IBM Plex Sans';
+}
+.twoColumns {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	flex-wrap: wrap;
+  	align-content: flex-start;
+  	gap: 56px 80px;
+}
+.colCommittee {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 16px;
+  	min-width: 330px;
+}
+.confirmYourAttendance {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 24px;
+  	line-height: 30px;
+  	font-weight: 600;
+  	font-family: 'Libre Caslon Text';
+  	color: #1d4a57;
+}
+.eachInstituteSends {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 18px;
+  	line-height: 24px;
+  	font-weight: 600;
+  	color: #101e24;
+}
+.onceYouRegister {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 16px;
+  	line-height: 26px;
+}
+.colThisMeeting {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 16px;
+  	min-width: 330px;
+  	font-family: 'Libre Caslon Text';
+}
+.thisEdition {
+  	align-self: stretch;
+  	position: relative;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+  	font-family: 'IBM Plex Mono';
+}
+.the49thMeet {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 24px;
+  	line-height: 30px;
+  	font-weight: 600;
+  	color: #1d4a57;
+}
+.iitGuwahatiHosts {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 16px;
+  	line-height: 26px;
+  	font-family: 'IBM Plex Sans';
+}
+.figuresRule {
+  	align-self: stretch;
+  	height: 2px;
+  	position: relative;
+  	background-color: #1d4a57;
+}
+.figures {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	flex-wrap: wrap;
+  	align-content: flex-start;
+  	gap: 20px 0px;
+  	font-size: 32px;
+  	color: #1d4a57;
+}
+.figure {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 18px 18px 0px 0px;
+  	box-sizing: border-box;
+  	gap: 10px;
+  	min-width: 120px;
+}
+.div {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 38px;
+  	font-weight: 600;
+}
+.participatingIits {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 11px;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+  	font-family: 'IBM Plex Mono';
+  	color: #5f6a6e;
+}
+.riverRule {
+  	align-self: stretch;
+  	background-color: #fcfcfb;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 0px 72px;
+}
+.riverRuleIcon {
+  	align-self: stretch;
+  	height: 40px;
+  	position: relative;
+  	max-width: 100%;
+  	overflow: hidden;
+  	flex-shrink: 0;
+}
+.programme2 {
+  	align-self: stretch;
+  	background-color: #fcfcfb;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 104px 72px;
+  	gap: 16px;
+}
+.dayCards {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	flex-wrap: wrap;
+  	align-content: flex-start;
+  	padding: 18px 0px 0px;
+  	gap: 24px;
+  	font-size: 12px;
+}
+.day01 {
+  	flex: 1;
+  	background-color: #fcfcfb;
+  	border: 1px solid #c9d0d1;
+  	box-sizing: border-box;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 0px 30px 32px;
+  	min-width: 250px;
+}
+.cardTopRule {
+  	align-self: stretch;
+  	height: 3px;
+  	position: relative;
+  	background-color: #1d4a57;
+}
+.spacer {
+  	width: 10px;
+  	height: 26px;
+  	position: relative;
+}
+.sectionIndex {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	gap: 12px;
+  	color: #9c3327;
+}
+.programme4 {
+  	position: relative;
+  	font-size: 11px;
+  	letter-spacing: 0.16em;
+  	font-weight: 500;
+  	font-family: 'IBM Plex Sans';
+  	color: #5f6a6e;
+}
+.rule {
+  	height: 1px;
+  	flex: 1;
+  	position: relative;
+  	background-color: #c9d0d1;
+}
+.spacer2 {
+  	width: 10px;
+  	height: 14px;
+  	position: relative;
+}
+.september {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 32px;
+  	line-height: 38px;
+  	font-weight: 600;
+  	font-family: 'Libre Caslon Text';
+  	color: #1d4a57;
+}
+.monday {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 11px;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+}
+.toBeConfirmed {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 13px;
+  	line-height: 18px;
+  	font-family: 'IBM Plex Sans';
+}
+.travelAndStay {
+  	align-self: stretch;
+  	background-color: #eaeded;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 104px 72px;
+  	position: relative;
+  	isolation: isolate;
+}
+.twoColumns2 {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	flex-wrap: wrap;
+  	align-content: flex-start;
+  	gap: 56px 80px;
+  	z-index: 0;
+  	flex-shrink: 0;
+}
+.colHostInstitution {
+  	flex: 1;
+  	overflow: visible;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 20px;
+  	min-width: 330px;
+}
+.bracketedStatement {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 32px;
+  	position: relative;
+  	isolation: isolate;
+  	font-size: 18px;
+  	color: #101e24;
+  	font-family: 'IBM Plex Sans';
+}
+.sevenHundredAcres {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 24px;
+  	font-weight: 600;
+  	z-index: 0;
+  	flex-shrink: 0;
+}
+.bracketArm {
+  	width: 18px;
+  	height: 1.5px;
+  	position: absolute;
+  	margin: 0 !important;
+  	top: 0px;
+  	left: 0px;
+  	background-color: #3c7383;
+  	z-index: 1;
+  	flex-shrink: 0;
+}
+.bracketArm2 {
+  	width: 1.5px;
+  	height: 18px;
+  	position: absolute;
+  	margin: 0 !important;
+  	top: 0px;
+  	left: 0px;
+  	background-color: #3c7383;
+  	z-index: 2;
+  	flex-shrink: 0;
+}
+.bracketArm3 {
+  	width: 18px;
+  	height: 1.5px;
+  	position: absolute;
+  	margin: 0 !important;
+  	right: 0px;
+  	bottom: 0px;
+  	background-color: #3c7383;
+  	z-index: 3;
+  	flex-shrink: 0;
+}
+.bracketArm4 {
+  	width: 1.5px;
+  	height: 18px;
+  	position: absolute;
+  	margin: 0 !important;
+  	right: 0px;
+  	bottom: 0px;
+  	background-color: #3c7383;
+  	z-index: 4;
+  	flex-shrink: 0;
+}
+.campusPhotograph {
+    /* 1. Responsive Proportions */
+    width: 100%;
+    max-width: 420px; 
+    aspect-ratio: 4 / 3;
+    margin: 32px; /* Breathing room from the text above */
+    
+    /* 2. Image Handling */
+    background-image: url('/campus.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* 3. The Physical Photograph Look */
+    border: 8px solid #ffffff; /* Thick white photo frame */
+    box-shadow: 0 14px 28px rgba(0,0,0,0.12), 0 10px 10px rgba(0,0,0,0.08); /* Realistic shadow */
+    box-sizing: border-box;
+    
+    /* 4. Anchor label to bottom-left */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    
+    /* 5. The playful rotated position */
+    transform: rotate(-2.5deg);
+    transform-origin: center center;
+}
+
+.campusPhotograph2 {
+    /* 1. Typography */
+    letter-spacing: 0.12em;
+    line-height: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    font-size: 11px;
+    color: #101e24;
+    
+    /* 2. Label Layout & Styling */
+    border-left: 2px solid #101e24;
+    padding: 6px 12px;
+    margin-left: 8px; /* Slight inset from the white frame */
+    margin-top: 8px;
+    width: max-content;
+    
+    /* 3. Solid background so it punches out over the photo */
+    background-color: #ffffff44;
+}
+.colArrivingAndStaying {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 18px;
+  	min-width: 330px;
+  	font-size: 16px;
+  	font-family: 'IBM Plex Sans';
+}
+.gettingThere {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 11px;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+  	font-family: 'IBM Plex Mono';
+}
+.item {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	padding: 10px 0px 0px;
+  	gap: 14px;
+}
+.dash {
+  	height: 2px;
+  	width: 12px;
+  	position: relative;
+  	background-color: #9c3327;
+}
+.t {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+}
+.everySessionTakes {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 26px;
+}
+.wellSendYour {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 13px;
+  	line-height: 18px;
+}
+.travelAndStayChild {
+  	width: 609.2px;
+  	height: 329.4px;
+  	margin: 0 !important;
+  	position: absolute;
+  	top: 310px;
+  	left: 64px;
+  	border-radius: 12px;
+  	object-fit: contain;
+  	z-index: 1;
+  	flex-shrink: 0;
+}
+.directory {
+  	align-self: stretch;
+  	background-color: #fcfcfb;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 104px 72px;
+  	gap: 16px;
+  	font-size: 16px;
+  	font-family: 'IBM Plex Sans';
+}
+.searchBar {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	padding: 14px 0px 0px;
+  	gap: 16px;
+}
+.searchField {
+  	height: 46px;
+  	flex: 1;
+  	border-radius: 3px;
+  	background-color: #fcfcfb;
+  	border: 1px solid #c9d0d1;
+  	box-sizing: border-box;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	padding: 0px 16px;
+}
+.searchInstituteOr {
+  	position: relative;
+  	line-height: 26px;
+}
+.div7 {
+  	position: relative;
+  	font-size: 11px;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+  	font-family: 'IBM Plex Mono';
+}
+.rollTable {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 20px 0px 0px;
+  	color: #1d4a57;
+}
+.head {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	padding: 0px 0px 12px;
+  	font-size: 11px;
+  	color: #5f6a6e;
+  	font-family: 'IBM Plex Mono';
+}
+.c1 {
+  	height: 14px;
+  	width: 300px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	display: flex;
+  	align-items: flex-start;
+}
+.institute {
+  	width: 61px;
+  	position: relative;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+  	display: inline-block;
+  	flex-shrink: 0;
+}
+.c2 {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+}
+.iitBhilai2 {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	padding: 15px 0px;
+}
+.institute2 {
+  	width: 300px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	display: flex;
+  	align-items: center;
+}
+.professor {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	font-size: 18px;
+  	color: #101e24;
+}
+.profDSaha {
+  	flex: 1;
+  	position: relative;
+  	line-height: 24px;
+  	font-weight: 600;
+}
+.rowRule {
+  	align-self: stretch;
+  	height: 1px;
+  	position: relative;
+  	background-color: #c9d0d1;
+}
+.institute10 {
+  	width: 300px;
+  	overflow: hidden;
+  	flex-shrink: 0;
+  	display: flex;
+  	align-items: center;
+  	gap: 10px;
+}
+.roleChip {
+  	border-radius: 2px;
+  	background-color: #9c3327;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: center;
+  	padding: 4px 9px;
+  	font-size: 10px;
+  	color: #fcfcfb;
+  	font-family: 'IBM Plex Mono';
+}
+.host {
+  	position: relative;
+  	letter-spacing: 0.12em;
+  	text-transform: uppercase;
+  	font-weight: 500;
+}
+.footer {
+  	align-self: stretch;
+  	background-color: #101e24;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	padding: 68px 72px 44px;
+  	gap: 36px;
+  	font-size: 18px;
+  	color: #fcfcfb;
+  	font-family: 'IBM Plex Sans';
+}
+.ruleDevice2 {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 3px;
+}
+.rectangle4 {
+  	align-self: stretch;
+  	height: 3px;
+  	position: relative;
+  	background-color: #fcfcfb;
+}
+.rectangle5 {
+  	align-self: stretch;
+  	height: 2px;
+  	position: relative;
+  	background-color: #d98a7a;
+}
+.rectangle6 {
+  	align-self: stretch;
+  	height: 3px;
+  	position: relative;
+  	background-color: #fcfcfb;
+  	opacity: 0.42;
+}
+.footerColumns {
+  	align-self: stretch;
+  	overflow: hidden;
+  	display: flex;
+  	align-items: flex-start;
+  	flex-wrap: wrap;
+  	align-content: flex-start;
+  	gap: 36px 56px;
+}
+.col {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 10px;
+  	min-width: 220px;
+  	font-size: 16px;
+  	color: #c9d0d1;
+}
+.thAipcMeet2 {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 18px;
+  	line-height: 24px;
+  	font-weight: 600;
+  	color: #fcfcfb;
+}
+.col2 {
+  	flex: 1;
+  	overflow: hidden;
+  	display: flex;
+  	flex-direction: column;
+  	align-items: flex-start;
+  	gap: 10px;
+  	min-width: 220px;
+}
+.registrationQueries {
+  	align-self: stretch;
+  	position: relative;
+  	line-height: 24px;
+  	font-weight: 600;
+}
+.writeToThe {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 16px;
+  	line-height: 26px;
+  	color: #c9d0d1;
+}
+.legalRule {
+  	align-self: stretch;
+  	height: 1px;
+  	position: relative;
+  	background-color: #c9d0d1;
+  	opacity: 0.35;
+}
+.hostedByIit {
+  	align-self: stretch;
+  	position: relative;
+  	font-size: 11px;
+  	letter-spacing: 0.12em;
+  	line-height: 14px;
+  	text-transform: uppercase;
+  	font-weight: 500;
+  	font-family: 'IBM Plex Mono';
+  	color: #c9d0d1;
+}
+
+
+
+#aipc-registration-widget { font-family: 'Inter', sans-serif; background-color: #f7f9fd; }
+#aipc-registration-widget .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+/* OTP Input hide arrows */
+#aipc-registration-widget input[type="number"]::-webkit-outer-spin-button,
+#aipc-registration-widget input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+#aipc-registration-widget input[type="number"] {
+	-moz-appearance: textfield;
+}
+
+/* View Transitions */
+#aipc-registration-widget .view-section { display: none; opacity: 0; transition: opacity 0.3s ease-in-out; }
+#aipc-registration-widget .view-section.active { display: flex; opacity: 1; }
+
+/* Pending Pulsing Icon */
+#aipc-registration-widget .pulsing-icon { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+@keyframes pulse {
+	0%, 100% { opacity: 1; transform: scale(1); }
+	50% { opacity: 0.7; transform: scale(1.05); }
+}
+
+/* intl-tel-input override */
+#aipc-registration-widget .iti { width: 100%; display: block; }

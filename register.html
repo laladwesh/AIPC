@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>AIPC Recruiter Onboarding</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#001e40",
+                        "primary-container": "#003366",
+                        "primary-fixed": "#d5e3ff",
+                        "on-primary": "#ffffff",
+                        "surface": "#f7f9fd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f8",
+                        "surface-container-high": "#e6e8ec",
+                        "outline-variant": "#c3c6d1",
+                        "secondary": "#5c5f60",
+                        "on-surface": "#191c1f",
+                        "on-surface-variant": "#43474f",
+                    },
+                    spacing: { "xs": "4px", "sm": "8px", "md": "16px", "lg": "24px", "xl": "48px", "gutter": "24px" },
+                    fontFamily: { "sans": ["Inter", "sans-serif"] }
+                }
+            }
+        }
+    </script>
+
+    <!-- intl-tel-input CSS & JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/css/intlTelInput.css">
+    <script src="https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/intlTelInput.min.js"></script>
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f7f9fd; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* OTP Input hide arrows */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+        input[type="number"] {
+            -moz-appearance: textfield;
+        }
+        
+        /* View Transitions */
+        .view-section { display: none; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        .view-section.active { display: flex; opacity: 1; }
+        
+        /* Pending Pulsing Icon */
+        .pulsing-icon { animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.05); }
+        }
+
+        /* intl-tel-input override */
+        .iti { width: 100%; display: block; }
+    </style>
+</head>
+
+<body class="flex flex-col md:flex-row min-h-screen text-on-surface">
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- PERSISTENT SIDEBAR FOR DESKTOP -->
+    <!-- <aside class="hidden md:flex flex-col bg-surface-container-lowest border-r border-outline-variant w-64 z-30 shrink-0 sticky top-0 h-screen">
+        <div class="px-lg py-xl border-b border-outline-variant">
+            <h1 class="text-xl font-bold text-primary mb-1">AIPC PORTAL</h1>
+            <p class="text-sm text-secondary">Onboarding Progress</p>
+        </div>
+        
+        <nav class="flex-1 mt-md relative select-none" id="sidebar-nav">
+            <div id="nav-step-1" class="relative flex items-center gap-sm py-md px-lg transition-colors border-r-2 border-primary bg-surface-container-high">
+                <div class="z-10 flex items-center justify-center w-8 h-8 rounded-full border-2 border-primary bg-white text-primary shadow-sm icon-container">
+                    <span class="material-symbols-outlined text-[18px]">person</span>
+                </div>
+                <div class="flex flex-col ml-sm">
+                    <span class="text-sm font-medium text-primary title">Contact Info</span>
+                    <span class="text-xs font-semibold text-primary status">Active</span>
+                </div>
+            </div>
+
+            <div id="nav-step-2" class="relative flex items-center gap-sm py-md px-lg transition-colors text-secondary">
+                <div class="absolute left-[33px] top-[-24px] bottom-[-24px] w-[2px] bg-outline-variant nav-line-1 z-1"></div>
+                <div class="z-10 flex items-center justify-center w-8 h-8 rounded-full border-2 border-outline-variant bg-white shadow-sm icon-container">
+                    <span class="material-symbols-outlined text-[18px]">verified_user</span>
+                </div>
+                <div class="flex flex-col ml-sm">
+                    <span class="text-sm font-medium title">Verification</span>
+                    <span class="text-xs font-semibold status hidden">Pending</span>
+                </div>
+            </div>
+
+            <div id="nav-step-3" class="relative flex items-center gap-sm py-md px-lg transition-colors text-secondary">
+                <div class="absolute left-[33px] top-[-24px] bottom-[24px] w-[2px] bg-outline-variant nav-line-2 z-1"></div>
+                <div class="z-10 flex items-center justify-center w-8 h-8 rounded-full border-2 border-outline-variant bg-white shadow-sm icon-container">
+                    <span class="material-symbols-outlined text-[18px]">pending_actions</span>
+                </div>
+                <div class="flex flex-col ml-sm">
+                    <span class="text-sm font-medium title">Approval</span>
+                    <span class="text-xs font-semibold status hidden">Pending</span>
+                </div>
+            </div>
+        </nav>
+
+        <div class="p-lg border-t border-outline-variant mt-auto flex items-center gap-sm text-secondary cursor-pointer hover:text-primary" onclick="showToast('Email support@aipc.edu for urgent onboarding assistance.', 'info')">
+            <span class="material-symbols-outlined text-[20px]">help</span>
+            <span class="text-sm font-medium">Need assistance?</span>
+        </div>
+    </aside> -->
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-1 min-h-screen flex flex-col w-full">
+        
+        <!-- PERSISTENT HEADER -->
+        <header class="flex justify-between items-center px-lg w-full sticky top-0 z-40 bg-surface-container-lowest h-16 border-b border-outline-variant shadow-sm">
+            <div class="flex items-center gap-3">
+                <a href="/index.html">
+                    <span class="text-lg font-semibold text-primary">AIPC Portal</span>
+                </a>
+            </div>
+            <div class="flex items-center gap-md text-secondary">
+                <div class="h-8 w-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden flex items-center justify-center">
+                    <!-- <img src="https://ui-avatars.com/api/?name=HR&background=001e40&color=fff" alt="Profile" onerror="this.src='https://placehold.co/32x32/001e40/fff?text=HR'"> -->
+                </div>
+            </div>
+        </header>
+
+        <!-- DYNAMIC VIEWS CONTAINER -->
+        <main class="flex-1 flex flex-col items-center justify-center p-4 sm:p-8 md:p-xl relative">
+            
+            <!-- VIEW 1: CONTACT INFO -->
+            <section id="view-1" class="view-section active w-full max-w-[640px]">
+                <div class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm overflow-hidden p-6 sm:p-10">
+                    <div class="mb-8 text-left">
+                        <h2 id="view-1-title" class="text-2xl sm:text-3xl font-semibold text-primary mb-2">Create Company Profile</h2>
+                        <p id="view-1-subtitle" class="text-secondary text-sm sm:text-base">Enter your primary corporate contact details to establish your profile.</p>
+                    </div>
+                    <form id="form-contact" class="space-y-6">
+                        <div id="company-name-group" class="space-y-2">
+                            <label for="company_name" class="block text-sm font-medium text-on-surface-variant">Company Name</label>
+                            <input required type="text" id="company_name" class="w-full px-4 py-3 border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none" placeholder="e.g., Acme Corp">
+                        </div>
+
+                        <div class="space-y-2">
+                            <label for="corporate_email" class="block text-sm font-medium text-on-surface-variant">Corporate Email</label>
+                            <input required type="email" id="corporate_email" class="w-full px-4 py-3 border border-outline-variant rounded focus:border-primary outline-none" placeholder="hr@acmecorp.com">
+                            
+                            <!-- Mode Switcher Link -->
+                            <div class="flex justify-between items-center pt-1 text-xs">
+                                <span id="form-mode-label" class="text-secondary">New to AIPC?</span>
+                                <button type="button" id="btn-toggle-login" onclick="toggleAuthMode()" class="text-primary font-medium hover:underline focus:outline-none">
+                                    Log in with Email + OTP instead
+                                </button>
+                            </div>
+                        </div>
+
+                        <div id="contact-number-group" class="space-y-2">
+                            <label for="contact_number" class="block text-sm font-medium text-on-surface-variant">Contact Number</label>
+                            <div class="w-full relative">
+                                <input required type="tel" id="contact_number" class="w-full px-4 py-3 border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface-container-lowest text-on-surface">
+                            </div>
+                        </div>
+
+                        <button type="submit" id="btn-submit-contact" class="w-full h-12 mt-4 flex items-center justify-center gap-2 bg-primary text-white text-sm font-medium rounded hover:bg-primary-container transition-all cursor-pointer">
+                            <span>Send Verification Code</span>
+                            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </button>
+                    </form>
+                </div>
+            </section>
+
+            <!-- VIEW 2: OTP VERIFICATION -->
+            <section id="view-2" class="view-section flex-col items-center w-full max-w-[640px]">
+                <div class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm p-6 sm:p-10 text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-fixed rounded-2xl mb-6">
+                        <span class="material-symbols-outlined text-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">mark_email_read</span>
+                    </div>
+                    <h2 class="text-2xl sm:text-3xl font-semibold text-primary mb-2">Verify Your Email</h2>
+                    <p class="text-secondary mb-8 text-sm sm:text-base">We've sent a 6-digit verification code to <strong id="display-email" class="text-primary"></strong>.</p>
+                    
+                    <form id="form-otp" class="space-y-8">
+                        <div class="flex justify-center gap-2 sm:gap-3 otp-container">
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" required class="w-10 sm:w-12 h-12 sm:h-14 text-center text-xl sm:text-2xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low">
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" required class="w-10 sm:w-12 h-12 sm:h-14 text-center text-xl sm:text-2xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low">
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" required class="w-10 sm:w-12 h-12 sm:h-14 text-center text-xl sm:text-2xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low">
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" required class="w-10 sm:w-12 h-12 sm:h-14 text-center text-xl sm:text-2xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low">
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" required class="w-10 sm:w-12 h-12 sm:h-14 text-center text-xl sm:text-2xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low">
+                            <input type="text" inputmode="numeric" pattern="[0-9]*" maxlength="1" required class="w-10 sm:w-12 h-12 sm:h-14 text-center text-xl sm:text-2xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low">
+                        </div>
+                        <div class="space-y-4">
+                            <button type="submit" id="btn-submit-otp" class="w-full h-12 bg-primary text-white text-sm font-medium rounded hover:bg-primary-container transition-all flex justify-center items-center gap-3 cursor-pointer">
+                                Verify & Proceed
+                            </button>
+                            <div>
+                                <button type="button" id="btn-resend" class="text-sm font-medium text-primary-container hover:text-primary transition-colors focus:outline-none cursor-pointer">
+                                    Resend Code
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- VIEW 3: PENDING APPROVAL -->
+            <section id="view-3" class="view-section flex-col items-center w-full max-w-[800px]">
+                <div class="w-full max-w-[640px] bg-surface-container-lowest border border-outline-variant rounded-lg shadow-sm overflow-hidden">
+                    <div class="bg-surface-container-low h-32 w-full flex items-end justify-center relative">
+                        <div id="status-icon-container" class="absolute -bottom-10 w-20 h-20 bg-surface-container-lowest rounded-xl shadow-md border border-outline-variant flex items-center justify-center pulsing-icon">
+                            <span id="status-icon" class="material-symbols-outlined text-[40px] text-primary-container" style="font-variation-settings: 'FILL' 1;">pending_actions</span>
+                        </div>
+                    </div>
+                    <div class="pt-16 pb-xl px-6 sm:px-xl flex flex-col items-center text-center">
+                        <h2 id="status-heading" class="text-2xl sm:text-3xl font-semibold text-primary mb-4">Registration Pending</h2>
+                        <p id="status-description" class="text-secondary mb-8 max-w-[480px] text-sm sm:text-base">
+                            Thank you for registering. Our team is currently reviewing your company profile. You will receive an email once your account is approved.
+                        </p>
+                        <a href="/profile.html">
+                            <button type="button" id="status-action-btn" onclick="handleDashboardNavigation()" class="h-12 px-6 flex items-center justify-center gap-2 border border-outline-variant text-primary font-medium rounded hover:bg-surface-container-low transition-all cursor-pointer">
+                                <span>Go to Dashboard</span>
+                                <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+                            </button>
+                        </a>
+                    </div>
+                </div>
+                
+                <!-- Info Cards -->
+                <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-[640px]">
+                    <div class="bg-surface-container-lowest p-6 border border-outline-variant rounded-lg">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span id="info-card-1-icon" class="material-symbols-outlined text-primary">schedule</span>
+                            <h3 id="info-card-1-title" class="font-semibold text-primary">Next Steps</h3>
+                        </div>
+                        <p id="info-card-1-text" class="text-sm text-secondary">Verification typically takes 24-48 business hours. We'll notify you via email.</p>
+                    </div>
+                    <div class="bg-surface-container-lowest p-6 border border-outline-variant rounded-lg">
+                        <div class="flex items-center gap-3 mb-2">
+                            <span id="info-card-2-icon" class="material-symbols-outlined text-primary">task_alt</span>
+                            <h3 id="info-card-2-title" class="font-semibold text-primary">Data Status</h3>
+                        </div>
+                        <p id="info-card-2-text" class="text-sm text-secondary">Your contact credentials have been encrypted and queued for review.</p>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+
+        <!-- PERSISTENT FOOTER -->
+        <footer class="flex justify-between items-center px-lg py-md border-t border-outline-variant bg-surface-container-lowest mt-auto text-xs sm:text-sm">
+            <span class="text-secondary">© 2026 AIPC Portal. Institutional Stability Guaranteed.</span>
+            <div class="flex gap-6 font-medium text-secondary">
+                <a href="#" onclick="showToast('Privacy Policy details', 'info')" class="hover:text-primary">Privacy</a>
+                <a href="https://iitg.ac.in/ccd/contact_us.html" class="hover:text-primary">Support</a>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Application Logic -->
+    <script>
+        // State Management
+        let appState = {
+            step: 1,
+            companyData: {}
+        };
+
+        let isLoginMode = false;
+
+        // --- Telephone Input Setup ---
+        let phoneInput = null;
+        const phoneInputField = document.querySelector("#contact_number");
+        if (phoneInputField && window.intlTelInput) {
+            phoneInput = window.intlTelInput(phoneInputField, {
+                initialCountry: "in",
+                separateDialCode: true,
+                strictMode: true,
+                utilsScript: "https://cdn.jsdelivr.net/npm/intl-tel-input@19.5.6/build/js/utils.js",
+                dropdownContainer: document.body,
+            });
+
+            phoneInputField.addEventListener('input', () => {
+                phoneInputField.classList.remove('border-red-500', 'ring-1', 'ring-red-500');
+            });
+        }
+
+        // Custom Toast Notification System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'error' ? 'bg-red-800' : type === 'success' ? 'bg-emerald-800' : 'bg-primary';
+            const icon = type === 'error' ? 'error' : type === 'success' ? 'check_circle' : 'info';
+            
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 text-sm transition-all transform translate-y-2 opacity-0 pointer-events-auto max-w-md`;
+            toast.innerHTML = `
+                <span class="material-symbols-outlined text-[20px] shrink-0">${icon}</span>
+                <span class="flex-1">${message}</span>
+                <button onclick="this.parentElement.remove()" class="text-white/80 hover:text-white">&times;</button>
+            `;
+            
+            container.appendChild(toast);
+            requestAnimationFrame(() => {
+                toast.classList.remove('translate-y-2', 'opacity-0');
+            });
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.add('opacity-0');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 4000);
+        }
+
+        // --- Dynamic API Base URL ---
+        const API_BASE_URL = window.API_BASE_URL || 
+            (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+                ? 'http://localhost:5000/api/v1' 
+                : '/api/v1');
+
+        const api = {
+            // 1. New Company Registration
+            registerCompany: async (data) => {
+                let response;
+                try {
+                    response = await fetch(`${API_BASE_URL}/auth/register`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ 
+                            companyName: data.name, 
+                            email: data.email, 
+                            contactNumber: data.phone 
+                        })
+                    });
+                } catch (err) {
+                    throw new Error('Network error. Unable to reach the server.');
+                }
+
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(result.error || result.message || 'Failed to initiate registration.');
+                }
+                return result;
+            },
+
+            // // 2. Check if Company Registered
+            // getRegisteredCompany: async (email) => {
+            //     let response;
+            //     try {
+            //         response = await fetch(`${API_BASE_URL}/auth/check-company?email=${encodeURIComponent(email)}`, {
+            //             method: 'GET',
+            //             credentials: 'include'
+            //         });
+            //     } catch (e) {
+            //         return { isRegistered: false };
+            //     }
+            //     if (!response.ok) return { isRegistered: false };
+            //     return await response.json().catch(() => ({ isRegistered: false }));
+            // },
+
+            // 3. Existing Company Login Request
+            requestLoginOtp: async (email) => {
+                let response;
+                try {
+                    response = await fetch(`${API_BASE_URL}/auth/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ email })
+                    });
+                } catch (err) {
+                    throw new Error('Network error. Unable to reach the server.');
+                }
+
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(result.error || result.message || 'Login request failed.');
+                }
+                return result;
+            },
+
+            // 4. Verify OTP (Registration or Login)
+            verifyOtp: async (email, otp) => {
+                if (!email) throw new Error('Email address is missing.');
+                let response;
+                try {
+                    response = await fetch(`${API_BASE_URL}/auth/verify-otp`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        credentials: 'include',
+                        body: JSON.stringify({ email, otp })
+                    });
+                } catch (err) {
+                    throw new Error('Network error. Unable to reach the server.');
+                }
+
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(result.error || result.message || 'Verification failed. Please check your code.');
+                }
+                return result;
+            },
+
+            // 5. Check Session (Quietly handles 401/403 for unauthenticated visitors)
+            checkSession: async () => {
+                try {
+                    const response = await fetch(`${API_BASE_URL}/auth/me`, {
+                        method: 'GET',
+                        credentials: 'include'
+                    });
+                    if (response.status === 401 || response.status === 403 || !response.ok) {
+                        return null; // Visitor is unauthenticated, stay on step 1
+                    }
+                    const result = await response.json().catch(() => ({}));
+                    return result.company || null;
+                } catch (err) {
+                    // Backend unreachable or offline
+                    return null;
+                }
+            }
+        };
+
+        // --- AUTO-LOGIN / CHECK SESSION ON LOAD ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            const user = await api.checkSession();
+            if (user) {
+                appState.companyData = user;
+                const emailDisplay = document.getElementById('display-email');
+                if (emailDisplay) emailDisplay.innerText = user.email || '';
+                updateStatusView(user);
+                navigateToStep(3);
+            }
+        });
+
+        // Dynamic Status Renderer for View 3
+        function updateStatusView(company) {
+            const status = company?.status || 'PENDING_APPROVAL';
+            const companyName = company?.companyName || company?.name || 'Company';
+
+            const heading = document.getElementById('status-heading');
+            const desc = document.getElementById('status-description');
+            const iconContainer = document.getElementById('status-icon-container');
+            const icon = document.getElementById('status-icon');
+            const actionBtn = document.getElementById('status-action-btn');
+
+            const info1Title = document.getElementById('info-card-1-title');
+            const info1Text = document.getElementById('info-card-1-text');
+            const info1Icon = document.getElementById('info-card-1-icon');
+            const info2Title = document.getElementById('info-card-2-title');
+            const info2Text = document.getElementById('info-card-2-text');
+
+            if (status === 'APPROVED') {
+                if (heading) heading.innerText = 'Registration Approved!';
+                if (desc) desc.innerText = `Congratulations! ${companyName} has been fully verified and approved. You can now access all recruiter portal features.`;
+                
+                if (iconContainer) {
+                    iconContainer.className = 'absolute -bottom-10 w-20 h-20 bg-emerald-50 rounded-xl shadow-md border border-emerald-200 flex items-center justify-center';
+                }
+                if (icon) {
+                    icon.innerText = 'verified';
+                    icon.className = 'material-symbols-outlined text-[40px] text-emerald-600';
+                }
+
+                if (actionBtn) {
+                    actionBtn.className = 'h-12 px-6 flex items-center justify-center gap-2 bg-primary text-white font-medium rounded hover:bg-primary-container transition-all cursor-pointer shadow-sm';
+                    actionBtn.innerHTML = `<span>Access Dashboard</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+                }
+
+                if (info1Title) info1Title.innerText = 'Account Status';
+                if (info1Text) info1Text.innerText = 'Your corporate profile is active and eligible for job postings & campus recruitment.';
+                if (info1Icon) info1Icon.innerText = 'check_circle';
+
+                if (info2Title) info2Title.innerText = 'Recruiter Portal';
+                if (info2Text) info2Text.innerText = 'Post open positions, schedule candidate interviews, and manage application pipelines.';
+            } else if (status === 'REJECTED') {
+                if (heading) heading.innerText = 'Registration Declined';
+                if (desc) desc.innerText = `We were unable to verify ${companyName}. Please contact our support team to update your details or request a re-review.`;
+
+                if (iconContainer) {
+                    iconContainer.className = 'absolute -bottom-10 w-20 h-20 bg-red-50 rounded-xl shadow-md border border-red-200 flex items-center justify-center';
+                }
+                if (icon) {
+                    icon.innerText = 'gpp_bad';
+                    icon.className = 'material-symbols-outlined text-[40px] text-red-600';
+                }
+
+                if (actionBtn) {
+                    actionBtn.className = 'h-12 px-6 flex items-center justify-center gap-2 border border-red-300 text-red-700 font-medium rounded hover:bg-red-50 transition-all cursor-pointer';
+                    actionBtn.innerHTML = `<span>Contact Support</span><span class="material-symbols-outlined text-[18px]">mail</span>`;
+                }
+
+                if (info1Title) info1Title.innerText = 'Action Required';
+                if (info1Text) info1Text.innerText = 'Review your corporate domain and tax ID details sent via email.';
+                if (info1Icon) info1Icon.innerText = 'error';
+
+                if (info2Title) info2Title.innerText = 'Re-application';
+                if (info2Text) info2Text.innerText = 'You may submit updated compliance documents to support@aipc.edu.';
+            } else {
+                // Default: PENDING_APPROVAL
+                if (heading) heading.innerText = 'Registration Pending';
+                if (desc) desc.innerText = 'Thank you for registering. Our team is currently reviewing your company profile. You will receive an email once your account is approved.';
+
+                if (iconContainer) {
+                    iconContainer.className = 'absolute -bottom-10 w-20 h-20 bg-surface-container-lowest rounded-xl shadow-md border border-outline-variant flex items-center justify-center pulsing-icon';
+                }
+                if (icon) {
+                    icon.innerText = 'pending_actions';
+                    icon.className = 'material-symbols-outlined text-[40px] text-primary-container';
+                }
+
+                if (actionBtn) {
+                    actionBtn.className = 'h-12 px-6 flex items-center justify-center gap-2 border border-outline-variant text-primary font-medium rounded hover:bg-surface-container-low transition-all cursor-pointer';
+                    actionBtn.innerHTML = `<span>Go to Dashboard</span><span class="material-symbols-outlined text-[18px]">arrow_forward</span>`;
+                }
+
+                if (info1Title) info1Title.innerText = 'Next Steps';
+                if (info1Text) info1Text.innerText = 'Verification typically takes 24-48 business hours. We\'ll notify you via email.';
+                if (info1Icon) info1Icon.innerText = 'schedule';
+
+                if (info2Title) info2Title.innerText = 'Data Status';
+                if (info2Text) info2Text.innerText = 'Your contact credentials have been encrypted and queued for review.';
+            }
+        }
+
+        function handleDashboardNavigation() {
+            const status = appState.companyData?.status;
+            if (status === 'REJECTED') {
+                showToast('Support Hotline: support@aipc.edu', 'info');
+            } else {
+                showToast('Redirecting to Recruiter Dashboard...', 'info');
+            }
+        }
+
+        // --- View Controller ---
+        function navigateToStep(targetStep) {
+            document.querySelectorAll('.view-section').forEach(el => el.classList.remove('active'));
+            const targetView = document.getElementById(`view-${targetStep}`);
+            if (targetView) targetView.classList.add('active');
+            
+            updateSidebarUI(targetStep);
+            appState.step = targetStep;
+            
+            if (targetStep === 2) startResendCooldown();
+        }
+
+        function updateSidebarUI(activeStep) {
+            const steps = [1, 2, 3];
+            steps.forEach(step => {
+                const navEl = document.getElementById(`nav-step-${step}`);
+                if (!navEl) return;
+
+                const iconContainer = navEl.querySelector('.icon-container');
+                const status = navEl.querySelector('.status');
+                
+                navEl.className = "relative flex items-center gap-sm py-md px-lg transition-colors";
+                if (iconContainer) iconContainer.className = "z-10 flex items-center justify-center w-8 h-8 rounded-full shadow-sm icon-container";
+                
+                if (step < activeStep) {
+                    navEl.classList.add('text-secondary');
+                    if (iconContainer) {
+                        iconContainer.className = "z-10 flex items-center justify-center w-8 h-8 rounded-full shadow-sm icon-container bg-primary text-white";
+                        iconContainer.innerHTML = `<span class="material-symbols-outlined text-[18px]">check</span>`;
+                    }
+                    if (status) {
+                        status.innerText = "Completed";
+                        status.classList.remove('hidden');
+                        status.classList.add('text-primary-container');
+                    }
+                } else if (step === activeStep) {
+                    navEl.classList.add('text-primary', 'bg-surface-container-high', 'border-r-2', 'border-primary');
+                    if (iconContainer) {
+                        iconContainer.className = "z-10 flex items-center justify-center w-8 h-8 rounded-full shadow-sm icon-container border-2 border-primary bg-white text-primary";
+                    }
+                    if (status) {
+                        if (step === 3) {
+                            const currentStatus = appState.companyData?.status;
+                            status.innerText = currentStatus === 'APPROVED' ? 'Approved' : currentStatus === 'REJECTED' ? 'Declined' : 'Under Review';
+                            status.className = currentStatus === 'APPROVED' ? 'text-xs font-semibold status text-emerald-600' : currentStatus === 'REJECTED' ? 'text-xs font-semibold status text-red-600' : 'text-xs font-semibold status text-primary';
+                        } else {
+                            status.innerText = "Active";
+                        }
+                        status.classList.remove('hidden');
+                    }
+                } else {
+                    navEl.classList.add('text-secondary');
+                    if (iconContainer) {
+                        iconContainer.className = "z-10 flex items-center justify-center w-8 h-8 rounded-full shadow-sm icon-container border-2 border-outline-variant bg-white";
+                    }
+                    if (status) {
+                        status.innerText = "Pending";
+                        status.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Email blur handler to check registration
+        const corpEmailInput = document.getElementById('corporate_email');
+        if (corpEmailInput) {
+            corpEmailInput.addEventListener('blur', async (e) => {
+                const email = e.target.value.trim();
+                if (!email || !email.includes('@')) return;
+
+                try {
+                    const res = await api.getRegisteredCompany(email);
+                    if (res && res.isRegistered) {
+                        const company = res.company;
+                        appState.companyData = company;
+
+                        if (['PENDING_APPROVAL', 'APPROVED', 'REJECTED'].includes(company.status)) {
+                            showToast(`Welcome back! Registration status: ${company.status.replace('_', ' ')}.`, 'info');
+                            updateStatusView(company);
+                            navigateToStep(3);
+                        }
+                    }
+                } catch (err) {
+                    console.log('User check status:', err);
+                }
+            });
+        }
+
+        function toggleAuthMode() {
+            isLoginMode = !isLoginMode;
+            
+            const nameGroup = document.getElementById('company-name-group');
+            const phoneGroup = document.getElementById('contact-number-group');
+            const submitBtn = document.getElementById('btn-submit-contact');
+            const modeLabel = document.getElementById('form-mode-label');
+            const toggleBtn = document.getElementById('btn-toggle-login');
+            const titleEl = document.getElementById('view-1-title');
+            const subtitleEl = document.getElementById('view-1-subtitle');
+
+            if (isLoginMode) {
+                if (nameGroup) nameGroup.classList.add('hidden');
+                if (phoneGroup) phoneGroup.classList.add('hidden');
+                
+                document.getElementById('company_name').required = false;
+                document.getElementById('contact_number').required = false;
+
+                if (titleEl) titleEl.innerText = 'Log In to AIPC';
+                if (subtitleEl) subtitleEl.innerText = 'Enter your corporate email to receive a login verification code.';
+                if (submitBtn) submitBtn.querySelector('span').innerText = 'Send Login Code';
+                if (modeLabel) modeLabel.innerText = 'Need to create an account?';
+                if (toggleBtn) toggleBtn.innerText = 'Register Company Profile';
+            } else {
+                if (nameGroup) nameGroup.classList.remove('hidden');
+                if (phoneGroup) phoneGroup.classList.remove('hidden');
+                
+                document.getElementById('company_name').required = true;
+                document.getElementById('contact_number').required = true;
+
+                if (titleEl) titleEl.innerText = 'Create Company Profile';
+                if (subtitleEl) subtitleEl.innerText = 'Enter your primary corporate contact details to establish your profile.';
+                if (submitBtn) submitBtn.querySelector('span').innerText = 'Send Verification Code';
+                if (modeLabel) modeLabel.innerText = 'New to AIPC?';
+                if (toggleBtn) toggleBtn.innerText = 'Log in with Email + OTP instead';
+            }
+        }
+
+        // Helper to safely obtain target corporate email
+        function getTargetEmail() {
+            return appState.companyData?.email || document.getElementById('corporate_email')?.value.trim() || '';
+        }
+
+        // Form 1 Submission Handler
+        document.getElementById('form-contact').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = document.getElementById('corporate_email').value.trim();
+            const btn = document.getElementById('btn-submit-contact');
+
+            btn.disabled = true;
+
+            try {
+                if (isLoginMode) {
+                    await api.requestLoginOtp(email);
+                    appState.companyData = { ...appState.companyData, email };
+                } else {
+                    if (phoneInput && !phoneInput.isValidNumber()) {
+                        showToast('Please enter a valid phone number for the selected country.', 'error');
+                        btn.disabled = false;
+                        return;
+                    }
+
+                    const phoneValue = phoneInput ? phoneInput.getNumber() : document.getElementById('contact_number').value.trim();
+
+                    appState.companyData = {
+                        name: document.getElementById('company_name').value.trim(),
+                        email: email,
+                        phone: phoneValue
+                    };
+                    await api.registerCompany(appState.companyData);
+                }
+
+                const displayEmailEl = document.getElementById('display-email');
+                if (displayEmailEl) displayEmailEl.innerText = email;
+                showToast(`Code sent to ${email}`, 'success');
+                navigateToStep(2);
+            } catch (err) {
+                showToast(err.message || 'An error occurred during submission.', 'error');
+            } finally {
+                btn.disabled = false;
+            }
+        });
+
+        // OTP inputs auto-tab and paste logic
+        const otpInputs = document.querySelectorAll('.otp-container input');
+        
+        // Support Pasting complete OTP code
+        const otpContainer = document.querySelector('.otp-container');
+        if (otpContainer) {
+            otpContainer.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
+                const digits = pasteData.replace(/\D/g, '').split('');
+                
+                if (digits.length > 0) {
+                    otpInputs.forEach((input, index) => {
+                        if (digits[index]) {
+                            input.value = digits[index];
+                        }
+                    });
+                    const lastIdx = Math.min(digits.length - 1, otpInputs.length - 1);
+                    otpInputs[lastIdx].focus();
+                }
+            });
+        }
+
+        otpInputs.forEach((input, index) => {
+            input.addEventListener('input', (e) => {
+                let val = e.target.value.replace(/[^0-9]/g, '');
+                e.target.value = val;
+                
+                if (val.length === 1 && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+                
+                otpInputs.forEach(i => i.classList.remove('border-red-500'));
+                const err = document.getElementById('otp-error');
+                if (err) err.remove();
+            });
+
+            input.addEventListener('keydown', (e) => {
+                if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                    otpInputs[index - 1].focus();
+                } else if (e.key === 'ArrowLeft' && index > 0) {
+                    otpInputs[index - 1].focus();
+                } else if (e.key === 'ArrowRight' && index < otpInputs.length - 1) {
+                    otpInputs[index + 1].focus();
+                }
+            });
+        });
+
+        // OTP Submission
+        document.getElementById('form-otp').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-otp');
+            const code = Array.from(otpInputs).map(i => i.value).join('');
+
+            if (code.length < 6) {
+                showToast('Please enter all 6 digits of the code.', 'error');
+                return;
+            }
+
+            const targetEmail = getTargetEmail();
+            if (!targetEmail) {
+                showToast('Email address is missing. Please go back to step 1.', 'error');
+                return;
+            }
+
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Verifying...`;
+            btn.disabled = true;
+
+            try {
+                const verifyRes = await api.verifyOtp(targetEmail, code);
+                if (verifyRes.company) {
+                    appState.companyData = verifyRes.company;
+                }
+                
+                btn.classList.add('bg-green-600');
+                btn.classList.remove('bg-primary');
+                btn.innerHTML = `<span class="material-symbols-outlined text-[18px]">check_circle</span> Verified`;
+                
+                showToast('Verification successful!', 'success');
+                updateStatusView(appState.companyData);
+                setTimeout(() => navigateToStep(3), 800);
+            } catch (err) {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                
+                otpInputs.forEach(i => {
+                    i.classList.add('border-red-500');
+                    i.value = '';
+                });
+                otpInputs[0].focus();
+
+                let errorMsg = document.getElementById('otp-error');
+                if (!errorMsg) {
+                    errorMsg = document.createElement('p');
+                    errorMsg.id = 'otp-error';
+                    errorMsg.className = 'text-red-500 text-sm font-medium mt-2 text-center';
+                    document.querySelector('.otp-container').after(errorMsg);
+                }
+                errorMsg.innerText = err.message || 'Incorrect verification code. Please try again.';
+            }
+        });
+
+        // Resend Button Listener & Timer
+        const resendBtn = document.getElementById('btn-resend');
+        if (resendBtn) {
+            resendBtn.addEventListener('click', async () => {
+                if (resendBtn.disabled) return;
+                
+                const targetEmail = getTargetEmail();
+                if (!targetEmail) {
+                    showToast('Missing email. Please go back to Step 1.', 'error');
+                    return;
+                }
+
+                try {
+                    if (isLoginMode) {
+                        await api.requestLoginOtp(targetEmail);
+                    } else {
+                        await api.registerCompany(appState.companyData);
+                    }
+                    showToast('A new verification code has been sent!', 'success');
+                    startResendCooldown();
+                } catch (err) {
+                    showToast(err.message || 'Failed to resend code.', 'error');
+                }
+            });
+        }
+
+        function startResendCooldown() {
+            if (!resendBtn) return;
+            
+            let timeLeft = 60;
+            resendBtn.disabled = true;
+            resendBtn.classList.add('text-secondary', 'cursor-not-allowed');
+            resendBtn.classList.remove('text-primary-container', 'hover:text-primary');
+            
+            const interval = setInterval(() => {
+                resendBtn.innerText = `Resend Code in ${timeLeft}s`;
+                timeLeft--;
+                
+                if (timeLeft < 0) {
+                    clearInterval(interval);
+                    resendBtn.disabled = false;
+                    resendBtn.innerText = "Resend Code";
+                    resendBtn.classList.remove('text-secondary', 'cursor-not-allowed');
+                    resendBtn.classList.add('text-primary-container', 'hover:text-primary');
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

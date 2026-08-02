@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html class="light h-full bg-surface-container-low antialiased" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>AIPC Admin Dashboard</title>
+    
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#001e40",
+                        "primary-container": "#003366",
+                        "primary-fixed": "#d5e3ff",
+                        "on-primary": "#ffffff",
+                        surface: "#f7f9fd",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-container-low": "#f2f4f8",
+                        "surface-container-high": "#e6e8ec",
+                        "outline-variant": "#c3c6d1",
+                        secondary: "#5c5f60",
+                        "on-surface": "#191c1f",
+                        "on-surface-variant": "#43474f",
+                        error: "#ba1a1a",
+                        "error-container": "#ffdad6",
+                        "on-error-container": "#93000a",
+                        success: "#137333",
+                        "success-container": "#e6f4ea",
+                    },
+                    fontFamily: { sans: ["Inter", "sans-serif"] }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        
+        /* Hide number input spin arrows */
+        input[type="number"]::-webkit-outer-spin-button,
+        input[type="number"]::-webkit-inner-spin-button {
+            -webkit-appearance: none;
+            margin: 0;
+        }
+
+        /* View section display modes */
+        .view-section { display: none; opacity: 0; transition: opacity 0.3s ease-in-out; }
+        .view-section.active { display: flex; opacity: 1; }
+
+        /* Toast animation keyframes */
+        @keyframes slideIn { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        .toast-enter { animation: slideIn 0.3s ease-out forwards; }
+        .toast-exit { animation: fadeOut 0.3s ease-out forwards; }
+    </style>
+</head>
+<body class="bg-surface text-on-surface h-full flex flex-col overflow-hidden">
+
+    <!-- AUTHENTICATION CONTAINER -->
+    <div id="auth-container" class="view-section active flex-col items-center justify-center min-h-screen p-6">
+        
+        <!-- STEP 1: Admin Email Input View -->
+        <div id="view-login" class="w-full max-w-md bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg p-8">
+            <div class="text-center mb-8">
+                <div class="inline-flex items-center justify-center w-12 h-12 bg-primary text-white rounded-lg mb-4 shadow-sm">
+                    <span class="material-symbols-outlined text-[24px]">admin_panel_settings</span>
+                </div>
+                <h1 class="text-2xl font-bold text-primary">TPO Admin Portal</h1>
+                <p class="text-sm text-secondary mt-2">Secure access for placement administrators</p>
+            </div>
+            
+            <form id="form-login" class="space-y-6">
+                <div>
+                    <label class="block text-sm font-medium text-on-surface-variant mb-2">Admin Email</label>
+                    <input required type="email" id="admin_email" class="w-full px-4 py-3 border border-outline-variant rounded focus:border-primary focus:ring-1 focus:ring-primary outline-none transition-all" placeholder="admin@iit.ac.in">
+                </div>
+                <button type="submit" id="btn-submit-login" class="w-full h-12 bg-primary text-white font-medium rounded hover:bg-primary-container transition-all flex items-center justify-center gap-2">
+                    <span>Send Access Code</span>
+                    <span class="material-symbols-outlined text-[18px]">login</span>
+                </button>
+            </form>
+        </div>
+
+        <!-- STEP 2: Admin OTP Verification View -->
+        <div id="view-otp" class="hidden w-full max-w-md bg-surface-container-lowest border border-outline-variant rounded-xl shadow-lg p-8 text-center">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-primary-fixed rounded-2xl mb-6">
+                <span class="material-symbols-outlined text-primary text-[32px]" style="font-variation-settings: 'FILL' 1;">security</span>
+            </div>
+            <h2 class="text-2xl font-bold text-primary mb-2">Admin Verification</h2>
+            <p class="text-sm text-secondary mb-8">Enter the 6-digit access code sent to <br><strong id="display-admin-email" class="text-primary"></strong></p>
+            
+            <form id="form-otp" class="space-y-8">
+                <div class="flex justify-center gap-2 otp-container">
+                    <input type="number" maxlength="1" required class="w-12 h-14 text-center text-xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low transition-all">
+                    <input type="number" maxlength="1" required class="w-12 h-14 text-center text-xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low transition-all">
+                    <input type="number" maxlength="1" required class="w-12 h-14 text-center text-xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low transition-all">
+                    <input type="number" maxlength="1" required class="w-12 h-14 text-center text-xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low transition-all">
+                    <input type="number" maxlength="1" required class="w-12 h-14 text-center text-xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low transition-all">
+                    <input type="number" maxlength="1" required class="w-12 h-14 text-center text-xl font-bold border-2 border-outline-variant rounded focus:border-primary focus:ring-2 focus:ring-primary outline-none bg-surface-container-low transition-all">
+                </div>
+                <div id="otp-error" class="hidden text-error text-sm font-medium"></div>
+                <div class="space-y-4">
+                    <button type="submit" id="btn-submit-otp" class="w-full h-12 bg-primary text-white font-medium rounded hover:bg-primary-container transition-all flex items-center justify-center">
+                        Verify & Login
+                    </button>
+                    <button type="button" onclick="cancelLogin()" class="text-sm font-medium text-secondary hover:text-primary transition-colors">
+                        Cancel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ADMIN DASHBOARD CONTAINER -->
+    <div id="dashboard-container" class="view-section hidden h-screen w-full bg-surface flex-row">
+        
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 bg-surface-container-lowest border-r border-outline-variant flex flex-col z-20 hidden md:flex">
+            <div class="p-6 border-b border-outline-variant">
+                <div class="flex items-center gap-2 text-primary">
+                    <span class="material-symbols-outlined text-[28px]">shield_person</span>
+                    <h1 class="text-xl font-bold">AIPC Admin</h1>
+                </div>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <button id="nav-pending-btn" onclick="switchTab('pending')" class="w-full flex items-center gap-3 px-4 py-3 bg-surface-container-high text-primary rounded-lg font-medium border-l-4 border-primary transition-colors">
+                    <span class="material-symbols-outlined">pending_actions</span>
+                    Pending Requests
+                    <span id="nav-badge" class="ml-auto bg-primary text-white text-xs py-0.5 px-2 rounded-full">0</span>
+                </button>
+                <button id="nav-approved-btn" onclick="switchTab('approved')" class="w-full flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-low hover:text-primary rounded-lg font-medium transition-colors border-l-4 border-transparent">
+                    <span class="material-symbols-outlined">verified</span>
+                    Approved Partners
+                    <span id="approved-nav-badge" class="ml-auto bg-success text-white text-xs py-0.5 px-2 rounded-full">0</span>
+                </button>
+                <button id="nav-rejected-btn" onclick="switchTab('rejected')" class="w-full flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-low hover:text-primary rounded-lg font-medium transition-colors border-l-4 border-transparent">
+                    <span class="material-symbols-outlined">cancel</span>
+                    Rejected Registrations
+                    <span id="rejected-nav-badge" class="ml-auto bg-error text-white text-xs py-0.5 px-2 rounded-full">0</span>
+                </button>
+            </nav>
+            <div class="p-4 border-t border-outline-variant">
+                <button onclick="handleLogout()" class="flex items-center gap-3 px-4 py-3 w-full text-secondary hover:text-error hover:bg-error-container rounded-lg font-medium transition-colors">
+                    <span class="material-symbols-outlined">logout</span>
+                    Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <div class="flex-1 flex flex-col h-full overflow-hidden">
+            <!-- Header -->
+            <header class="h-16 bg-surface-container-lowest border-b border-outline-variant flex items-center justify-between px-6 z-10 shrink-0">
+                <div class="flex items-center gap-4">
+                    <button class="md:hidden text-secondary hover:text-primary">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <h2 id="header-title" class="text-lg font-semibold text-primary">Pending Registrations</h2>
+                </div>
+                <div class="flex items-center gap-4">
+                    <!-- <div class="relative">
+                        <span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary transition-colors">notifications</span>
+                        <span class="absolute top-0 right-0 w-2 h-2 bg-error rounded-full"></span>
+                    </div> -->
+                    <div class="flex items-center gap-2 pl-4">
+                        <div class="w-8 h-8 bg-primary-container text-white rounded-full flex items-center justify-center font-bold text-sm">
+                            A
+                        </div>
+                        <span id="admin-user-display" class="text-sm font-medium text-secondary hidden sm:block">Admin User</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Table Area -->
+            <main class="flex-1 overflow-auto p-6 bg-surface">
+                <div class="max-w-6xl mx-auto">
+                    <!-- Toolbar -->
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+                        <div class="relative w-full sm:w-96">
+                            <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-secondary text-[20px]">search</span>
+                            <input type="text" id="search-input" placeholder="Search by company or email..." class="w-full pl-10 pr-4 py-2 border border-outline-variant rounded-lg focus:border-primary focus:ring-1 focus:ring-primary outline-none bg-surface-container-lowest text-sm transition-all">
+                        </div>
+                        <button onclick="refreshCurrentTab()" class="flex items-center gap-2 px-4 py-2 bg-surface-container-lowest border border-outline-variant rounded-lg text-sm font-medium text-secondary hover:text-primary hover:bg-surface-container-low transition-colors shadow-sm">
+                            <span class="material-symbols-outlined text-[18px]">refresh</span>
+                            Refresh Data
+                        </button>
+                    </div>
+
+                    <!-- Data Table -->
+                    <div class="bg-surface-container-lowest border border-outline-variant rounded-xl shadow-sm overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-surface-container-low border-b border-outline-variant text-sm font-semibold text-on-surface-variant">
+                                        <th class="p-4 whitespace-nowrap">Company Details</th>
+                                        <th class="p-4 whitespace-nowrap">Contact Number</th>
+                                        <th id="th-date" class="p-4 whitespace-nowrap">Applied Date</th>
+                                        <th id="th-action" class="p-4 whitespace-nowrap text-right">Review Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body" class="divide-y divide-outline-variant text-sm">
+                                    <!-- Dynamic rows injected via JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Empty State Container -->
+                        <div id="empty-state" class="hidden flex-col items-center justify-center py-16 px-4 text-center">
+                            <div class="w-16 h-16 bg-surface-container-low rounded-full flex items-center justify-center mb-4">
+                                <span class="material-symbols-outlined text-secondary text-[32px]">task</span>
+                            </div>
+                            <h3 id="empty-title" class="text-lg font-semibold text-primary mb-1">All Caught Up!</h3>
+                            <p id="empty-desc" class="text-secondary text-sm max-w-sm">There are no pending company registrations requiring your approval at this time.</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <!-- REJECT MODAL OVERLAY -->
+    <div id="reject-modal" class="fixed inset-0 z-50 hidden">
+        <!-- Backdrop -->
+        <div class="absolute inset-0 bg-[#001e40] bg-opacity-40 backdrop-blur-sm" onclick="closeRejectModal()"></div>
+        
+        <!-- Modal Content -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md bg-surface-container-lowest rounded-xl shadow-2xl p-6">
+            <div class="flex items-center gap-3 text-error mb-4">
+                <span class="material-symbols-outlined text-[28px]">warning</span>
+                <h3 class="text-xl font-bold">Reject Registration</h3>
+            </div>
+            
+            <p class="text-sm text-secondary mb-4">
+                You are about to reject <strong id="modal-company-name" class="text-primary"></strong>. Please provide a reason to send to the recruiter.
+            </p>
+            
+            <form id="form-reject" class="space-y-4">
+                <input type="hidden" id="modal-company-email">
+                
+                <div class="space-y-2">
+                    <label class="block text-sm font-medium text-on-surface-variant">Reason for Rejection</label>
+                    <select id="modal-reject-reason" class="w-full px-3 py-2 border border-outline-variant rounded focus:border-error focus:ring-1 focus:ring-error outline-none bg-surface-container-lowest text-sm" required onchange="toggleCustomReason()">
+                        <option value="">Select a standard reason...</option>
+                        <option value="Corporate domain mismatch (Use official email).">Corporate domain mismatch.</option>
+                        <option value="Company details could not be verified.">Unverifiable entity.</option>
+                        <option value="Duplicate registration exists.">Duplicate account.</option>
+                        <option value="custom">Other (Specify below)</option>
+                    </select>
+                </div>
+                
+                <div id="custom-reason-container" class="hidden space-y-2">
+                    <textarea id="modal-custom-reason" rows="3" class="w-full px-3 py-2 border border-outline-variant rounded focus:border-error focus:ring-1 focus:ring-error outline-none bg-surface-container-lowest text-sm resize-none" placeholder="Enter detailed reason..."></textarea>
+                </div>
+                
+                <div class="flex gap-3 pt-4">
+                    <button type="button" onclick="closeRejectModal()" class="flex-1 px-4 py-2 border border-outline-variant text-secondary rounded hover:bg-surface-container-low transition-colors font-medium">
+                        Cancel
+                    </button>
+                    <button type="submit" id="btn-confirm-reject" class="flex-1 px-4 py-2 bg-error text-white rounded hover:bg-on-error-container transition-colors font-medium flex items-center justify-center gap-2">
+                        Confirm Rejection
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none"></div>
+
+    <script>
+        // Application State
+        let adminState = {
+            email: null,
+            adminInfo: null,
+            activeTab: 'pending', // 'pending' | 'approved' | 'rejected'
+            pendingCompanies: [],
+            approvedCompanies: [],
+            rejectedCompanies: []
+        };
+
+        const API_BASE_URL = 'http://localhost:5000/api/v1';
+        
+        const api = {
+            requestLoginOtp: async (email) => {
+                const response = await fetch(`${API_BASE_URL}/admin/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Failed to request admin access code.');
+                return data;
+            },
+            verifyOtp: async (email, otp) => {
+                const response = await fetch(`${API_BASE_URL}/admin/auth/verify-otp`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, otp })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Invalid verification code.');
+                return data;
+            },
+            getAdminProfile: async () => {
+                const response = await fetch(`${API_BASE_URL}/admin/me`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                if (!response.ok) return null;
+                const data = await response.json();
+                return data.admin;
+            },
+            getPendingCompanies: async () => {
+                const response = await fetch(`${API_BASE_URL}/admin/pending-companies`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Failed to fetch pending queue.');
+                return data.companies || [];
+            },
+            getApprovedCompanies: async () => {
+                const response = await fetch(`${API_BASE_URL}/admin/approved-companies`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Failed to fetch approved partners.');
+                return data.companies || [];
+            },
+            getRejectedCompanies: async () => {
+                const response = await fetch(`${API_BASE_URL}/admin/rejected-companies`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Failed to fetch rejected applications.');
+                return data.companies || [];
+            },
+            updateStatus: async (email, status, rejectionReason = null) => {
+                const response = await fetch(`${API_BASE_URL}/admin/review-company`, {
+                    method: 'PATCH',
+                    headers: { 'Content-Type': 'application/json' },
+                    credentials: 'include',
+                    body: JSON.stringify({ email, status, rejectionReason })
+                });
+                const data = await response.json();
+                if (!response.ok) throw new Error(data.error || 'Failed to update company status.');
+                return data;
+            },
+            logout: async () => {
+                await fetch(`${API_BASE_URL}/admin/auth/logout`, {
+                    method: 'POST',
+                    credentials: 'include'
+                });
+            }
+        };
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            setupOtpInputs();
+            setupAuthForms();
+            
+            try {
+                const admin = await api.getAdminProfile();
+                if (admin) {
+                    adminState.adminInfo = admin;
+                    adminState.email = admin.email;
+                    document.getElementById('admin-user-display').innerText = admin.name || admin.email;
+                    showDashboard();
+                }
+            } catch (err) {
+                console.log('No active admin session found.');
+            }
+        });
+
+        function showDashboard() {
+            document.getElementById('auth-container').classList.remove('active');
+            document.getElementById('auth-container').style.display = 'none';
+            const dashboard = document.getElementById('dashboard-container');
+            dashboard.style.display = 'flex';
+            dashboard.classList.add('active');
+            refreshCurrentTab();
+        }
+
+        function setupAuthForms() {
+            document.getElementById('form-login').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const emailInput = document.getElementById('admin_email');
+                const btn = document.getElementById('btn-submit-login');
+                const email = emailInput.value.trim();
+
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Sending Code...`;
+                btn.disabled = true;
+
+                try {
+                    await api.requestLoginOtp(email);
+                    adminState.email = email;
+                    document.getElementById('display-admin-email').innerText = email;
+                    document.getElementById('view-login').classList.add('hidden');
+                    document.getElementById('view-otp').classList.remove('hidden');
+                    showToast('Verification code dispatched to email.', 'info');
+                } catch (err) {
+                    showToast(err.message, 'error');
+                } finally {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            });
+
+            document.getElementById('form-otp').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const otpInputs = document.querySelectorAll('.otp-container input');
+                const otp = Array.from(otpInputs).map(i => i.value).join('');
+                const btn = document.getElementById('btn-submit-otp');
+                const errDiv = document.getElementById('otp-error');
+
+                errDiv.classList.add('hidden');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Authenticating...`;
+                btn.disabled = true;
+
+                try {
+                    const res = await api.verifyOtp(adminState.email, otp);
+                    adminState.adminInfo = res.admin;
+                    document.getElementById('admin-user-display').innerText = res.admin.name || res.admin.email;
+                    showToast('Authenticated successfully.', 'success');
+                    showDashboard();
+                } catch (err) {
+                    errDiv.innerText = err.message;
+                    errDiv.classList.remove('hidden');
+                    otpInputs.forEach(i => { i.classList.add('border-error'); i.value = ''; });
+                    otpInputs[0].focus();
+                } finally {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            });
+        }
+
+        function setupOtpInputs() {
+            const inputs = document.querySelectorAll('.otp-container input');
+            const container = document.querySelector('.otp-container');
+
+            // Handle paste event across all OTP boxes
+            if (container) {
+                container.addEventListener('paste', (e) => {
+                    e.preventDefault();
+                    const pasteData = (e.clipboardData || window.clipboardData).getData('text').trim();
+                    const digits = pasteData.replace(/\D/g, '').slice(0, inputs.length);
+                    
+                    if (digits.length > 0) {
+                        inputs.forEach((input, idx) => {
+                            input.value = digits[idx] || '';
+                            input.classList.remove('border-error');
+                        });
+                        document.getElementById('otp-error').classList.add('hidden');
+                        
+                        // Move focus to the end of pasted digits or last box
+                        const targetIndex = Math.min(digits.length, inputs.length - 1);
+                        inputs[targetIndex].focus();
+                    }
+                });
+            }
+
+            inputs.forEach((input, index) => {
+                input.addEventListener('input', (e) => {
+                    if (e.target.value.length >= 1) {
+                        e.target.value = e.target.value.replace(/[^0-9]/g, '').slice(-1);
+                        if (index < inputs.length - 1 && e.target.value) {
+                            inputs[index + 1].focus();
+                        }
+                    }
+                    inputs.forEach(i => i.classList.remove('border-error'));
+                    document.getElementById('otp-error').classList.add('hidden');
+                });
+
+                input.addEventListener('keydown', (e) => {
+                    if (e.key === 'Backspace' && !e.target.value && index > 0) {
+                        inputs[index - 1].focus();
+                    }
+                });
+            });
+        }
+
+        function cancelLogin() {
+            document.getElementById('view-otp').classList.add('hidden');
+            document.getElementById('view-login').classList.remove('hidden');
+        }
+
+        async function handleLogout() {
+            try {
+                await api.logout();
+                showToast('Signed out successfully.', 'info');
+                window.location.reload();
+            } catch (err) {
+                window.location.reload();
+            }
+        }
+
+        function switchTab(tab) {
+            adminState.activeTab = tab;
+            const pendingBtn = document.getElementById('nav-pending-btn');
+            const approvedBtn = document.getElementById('nav-approved-btn');
+            const rejectedBtn = document.getElementById('nav-rejected-btn');
+            const headerTitle = document.getElementById('header-title');
+            const thDate = document.getElementById('th-date');
+            const thAction = document.getElementById('th-action');
+
+            const inactiveStyle = "w-full flex items-center gap-3 px-4 py-3 text-secondary hover:bg-surface-container-low hover:text-primary rounded-lg font-medium transition-colors border-l-4 border-transparent";
+            const activeStyle = "w-full flex items-center gap-3 px-4 py-3 bg-surface-container-high text-primary rounded-lg font-medium border-l-4 border-primary transition-colors";
+
+            pendingBtn.className = tab === 'pending' ? activeStyle : inactiveStyle;
+            approvedBtn.className = tab === 'approved' ? activeStyle : inactiveStyle;
+            rejectedBtn.className = tab === 'rejected' ? activeStyle : inactiveStyle;
+
+            if (tab === 'pending') {
+                headerTitle.innerText = "Pending Registrations";
+                thDate.innerText = "Applied Date";
+                thAction.innerText = "Review Action";
+                loadPendingCompanies();
+            } else if (tab === 'approved') {
+                headerTitle.innerText = "Approved Partners";
+                thDate.innerText = "Approval Date";
+                thAction.innerText = "Status";
+                loadApprovedCompanies();
+            } else {
+                headerTitle.innerText = "Rejected Applications";
+                thDate.innerText = "Rejection Date";
+                thAction.innerText = "Reason & Actions";
+                loadRejectedCompanies();
+            }
+        }
+
+        function refreshCurrentTab() {
+            if (adminState.activeTab === 'pending') {
+                loadPendingCompanies();
+            } else if (adminState.activeTab === 'approved') {
+                loadApprovedCompanies();
+            } else {
+                loadRejectedCompanies();
+            }
+        }
+
+        function refreshCurrentTab() {
+            if (adminState.activeTab === 'pending') {
+                loadPendingCompanies();
+            } else {
+                loadApprovedCompanies();
+            }
+        }
+
+        async function loadPendingCompanies() {
+            const tbody = document.getElementById('table-body');
+            const emptyState = document.getElementById('empty-state');
+            const badge = document.getElementById('nav-badge');
+            
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-secondary"><span class="material-symbols-outlined animate-spin align-middle mr-2">progress_activity</span>Loading application queue...</td></tr>`;
+            emptyState.classList.add('hidden');
+
+            try {
+                adminState.pendingCompanies = await api.getPendingCompanies();
+                badge.innerText = adminState.pendingCompanies.length;
+
+                if (adminState.pendingCompanies.length === 0) {
+                    tbody.innerHTML = '';
+                    document.getElementById('empty-title').innerText = "All Caught Up!";
+                    document.getElementById('empty-desc').innerText = "There are no pending company registrations requiring your approval at this time.";
+                    emptyState.classList.remove('hidden');
+                    emptyState.classList.add('flex');
+                    return;
+                }
+
+                renderTable();
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-error">${err.message || 'Failed to load queue.'}</td></tr>`;
+                showToast(err.message || "Error fetching companies", "error");
+            }
+        }
+
+        async function loadApprovedCompanies() {
+            const tbody = document.getElementById('table-body');
+            const emptyState = document.getElementById('empty-state');
+            const approvedBadge = document.getElementById('approved-nav-badge');
+            
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-secondary"><span class="material-symbols-outlined animate-spin align-middle mr-2">progress_activity</span>Loading approved partners...</td></tr>`;
+            emptyState.classList.add('hidden');
+
+            try {
+                adminState.approvedCompanies = await api.getApprovedCompanies();
+                approvedBadge.innerText = adminState.approvedCompanies.length;
+
+                if (adminState.approvedCompanies.length === 0) {
+                    tbody.innerHTML = '';
+                    document.getElementById('empty-title').innerText = "No Approved Partners Yet";
+                    document.getElementById('empty-desc').innerText = "Approved company registrations will appear in this directory.";
+                    emptyState.classList.remove('hidden');
+                    emptyState.classList.add('flex');
+                    return;
+                }
+
+                renderTable();
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-error">${err.message || 'Failed to load approved partners.'}</td></tr>`;
+                showToast(err.message || "Error fetching approved companies", "error");
+            }
+        }
+
+        async function loadRejectedCompanies() {
+            const tbody = document.getElementById('table-body');
+            const emptyState = document.getElementById('empty-state');
+            const rejectedBadge = document.getElementById('rejected-nav-badge');
+            
+            tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-secondary"><span class="material-symbols-outlined animate-spin align-middle mr-2">progress_activity</span>Loading rejected registrations...</td></tr>`;
+            emptyState.classList.add('hidden');
+
+            try {
+                adminState.rejectedCompanies = await api.getRejectedCompanies();
+                rejectedBadge.innerText = adminState.rejectedCompanies.length;
+
+                if (adminState.rejectedCompanies.length === 0) {
+                    tbody.innerHTML = '';
+                    document.getElementById('empty-title').innerText = "No Rejected Applications";
+                    document.getElementById('empty-desc').innerText = "Applications rejected during administrative review will be listed here.";
+                    emptyState.classList.remove('hidden');
+                    emptyState.classList.add('flex');
+                    return;
+                }
+
+                renderTable();
+            } catch (err) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-error">${err.message || 'Failed to load rejected list.'}</td></tr>`;
+                showToast(err.message || "Error fetching rejected applications", "error");
+            }
+        }
+
+        // Helper to escape inline strings safely
+        function escapeQuotes(str) {
+            return (str || '').replace(/'/g, "\\'").replace(/"/g, '&quot;');
+        }
+
+        function renderTable() {
+            const tbody = document.getElementById('table-body');
+            const searchTerm = document.getElementById('search-input').value.toLowerCase();
+            const tab = adminState.activeTab;
+            
+            let dataset = [];
+            if (tab === 'pending') dataset = adminState.pendingCompanies;
+            else if (tab === 'approved') dataset = adminState.approvedCompanies;
+            else dataset = adminState.rejectedCompanies;
+            
+            const filtered = dataset.filter(c => 
+                (c.name || '').toLowerCase().includes(searchTerm) || 
+                (c.email || '').toLowerCase().includes(searchTerm) ||
+                (c.rejectionReason || '').toLowerCase().includes(searchTerm)
+            );
+
+            if (filtered.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="4" class="text-center py-8 text-secondary">No companies match your search.</td></tr>`;
+                return;
+            }
+
+            tbody.innerHTML = filtered.map(company => `
+                <tr class="hover:bg-surface-container-lowest transition-colors group">
+                    <td class="p-4">
+                        <div class="font-medium text-primary">${company.name}</div>
+                        <div class="text-xs text-secondary mt-0.5">${company.email}</div>
+                    </td>
+                    <td class="p-4 font-mono text-secondary">${company.phone || 'N/A'}</td>
+                    <td class="p-4 text-secondary">${company.date || ''}</td>
+                    <td class="p-4 text-right">
+                        ${tab === 'pending' ? `
+                        <div class="flex items-center justify-end gap-2 opacity-80 group-hover:opacity-100 transition-opacity">
+                            <button onclick="handleApprove('${escapeQuotes(company.email)}', '${escapeQuotes(company.name)}')" class="w-8 h-8 rounded-full bg-success-container text-success flex items-center justify-center hover:bg-success hover:text-white transition-colors shadow-sm" title="Approve Registration">
+                                <span class="material-symbols-outlined text-[18px]">check</span>
+                            </button>
+                            <button onclick="openRejectModal('${escapeQuotes(company.email)}', '${escapeQuotes(company.name)}')" class="w-8 h-8 rounded-full bg-error-container text-error flex items-center justify-center hover:bg-error hover:text-white transition-colors shadow-sm" title="Reject Registration">
+                                <span class="material-symbols-outlined text-[18px]">close</span>
+                            </button>
+                        </div>
+                        ` : tab === 'approved' ? `
+                        <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-success-container text-success">
+                            <span class="material-symbols-outlined text-[14px]">verified</span> Active Partner
+                        </span>
+                        ` : `
+                        <div class="flex items-center justify-end gap-3">
+                            <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-medium bg-error-container text-error max-w-xs truncate" title="${escapeQuotes(company.rejectionReason)}">
+                                <span class="material-symbols-outlined text-[14px]">info</span> ${company.rejectionReason}
+                            </span>
+                            <button onclick="handleApprove('${escapeQuotes(company.email)}', '${escapeQuotes(company.name)}')" class="px-2.5 py-1 text-xs font-semibold rounded-md bg-surface-container-high text-primary hover:bg-primary hover:text-white transition-colors shadow-sm shrink-0" title="Re-approve Company">
+                                Re-approve
+                            </button>
+                        </div>
+                        `}
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        document.getElementById('search-input').addEventListener('input', renderTable);
+
+        async function handleApprove(email, name) {
+            removeCompanyFromState(email);
+            showToast(`Approving ${name}...`, 'info');
+            
+            try {
+                await api.updateStatus(email, 'APPROVED');
+                showToast(`${name} has been approved. Decision email sent.`, 'success');
+            } catch (err) {
+                showToast(`Failed to approve ${name}: ${err.message}`, 'error');
+                loadPendingCompanies();
+            }
+        }
+
+        function openRejectModal(email, name) {
+            document.getElementById('modal-company-name').innerText = name;
+            document.getElementById('modal-company-email').value = email;
+            document.getElementById('reject-modal').classList.remove('hidden');
+            document.getElementById('modal-reject-reason').value = '';
+            document.getElementById('custom-reason-container').classList.add('hidden');
+            document.getElementById('modal-custom-reason').removeAttribute('required');
+        }
+
+        function closeRejectModal() {
+            document.getElementById('reject-modal').classList.add('hidden');
+        }
+
+        function toggleCustomReason() {
+            const select = document.getElementById('modal-reject-reason');
+            const customContainer = document.getElementById('custom-reason-container');
+            const customInput = document.getElementById('modal-custom-reason');
+            
+            if (select.value === 'custom') {
+                customContainer.classList.remove('hidden');
+                customInput.setAttribute('required', 'true');
+            } else {
+                customContainer.classList.add('hidden');
+                customInput.removeAttribute('required');
+            }
+        }
+
+        document.getElementById('form-reject').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById('btn-confirm-reject');
+            const email = document.getElementById('modal-company-email').value;
+            const name = document.getElementById('modal-company-name').innerText;
+            
+            const selectVal = document.getElementById('modal-reject-reason').value;
+            const reason = selectVal === 'custom' ? document.getElementById('modal-custom-reason').value : selectVal;
+
+            const originalText = btn.innerHTML;
+            btn.innerHTML = `<span class="material-symbols-outlined animate-spin text-[18px]">progress_activity</span> Processing...`;
+            btn.disabled = true;
+
+            try {
+                await api.updateStatus(email, 'REJECTED', reason);
+                closeRejectModal();
+                removeCompanyFromState(email);
+                showToast(`${name} has been rejected. Notification dispatched.`, 'success');
+            } catch (err) {
+                showToast(`Failed to reject ${name}: ${err.message}`, 'error');
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        });
+
+        function removeCompanyFromState(email) {
+            if (adminState.activeTab === 'pending') {
+                adminState.pendingCompanies = adminState.pendingCompanies.filter(c => c.email !== email);
+                document.getElementById('nav-badge').innerText = adminState.pendingCompanies.length;
+                if (adminState.pendingCompanies.length === 0) {
+                    document.getElementById('table-body').innerHTML = '';
+                    document.getElementById('empty-state').classList.remove('hidden');
+                    document.getElementById('empty-state').classList.add('flex');
+                } else {
+                    renderTable();
+                }
+            } else if (adminState.activeTab === 'rejected') {
+                adminState.rejectedCompanies = adminState.rejectedCompanies.filter(c => c.email !== email);
+                document.getElementById('rejected-nav-badge').innerText = adminState.rejectedCompanies.length;
+                if (adminState.rejectedCompanies.length === 0) {
+                    document.getElementById('table-body').innerHTML = '';
+                    document.getElementById('empty-state').classList.remove('hidden');
+                    document.getElementById('empty-state').classList.add('flex');
+                } else {
+                    renderTable();
+                }
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            
+            let icon = 'info';
+            let iconColor = 'text-primary';
+
+            if (type === 'success') {
+                icon = 'check_circle';
+                iconColor = 'text-success';
+            } else if (type === 'error') {
+                icon = 'error';
+                iconColor = 'text-error';
+            }
+
+            toast.className = `toast-enter pointer-events-auto flex items-center gap-3 min-w-[300px] p-4 bg-surface-container-lowest border border-outline-variant rounded-lg shadow-lg`;
+            toast.innerHTML = `
+                <span class="material-symbols-outlined ${iconColor}">${icon}</span>
+                <span class="text-sm font-medium text-on-surface">${message}</span>
+                <button onclick="this.parentElement.remove()" class="ml-auto text-secondary hover:text-primary transition-colors">
+                    <span class="material-symbols-outlined text-[18px]">close</span>
+                </button>
+            `;
+
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.replace('toast-enter', 'toast-exit');
+                setTimeout(() => toast.remove(), 300);
+            }, 4000);
+        }
+    </script>
+</body>
+</html>

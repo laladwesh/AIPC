@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html class="scroll-smooth" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>49th AIPC Meet 2026 - The National Placement Summit</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-secondary-container": "#626566", "on-primary-fixed-variant": "#1f477b", error: "#ba1a1a", "inverse-primary": "#a7c8ff", "surface-container": "#eceef2", "inverse-on-surface": "#eff1f5", primary: "#001e40", "surface-container-low": "#f2f4f8", "surface-dim": "#d8dade", "on-tertiary": "#ffffff", "primary-fixed": "#d5e3ff", "on-tertiary-fixed-variant": "#3e4755", "surface-bright": "#f7f9fd", "surface-container-lowest": "#ffffff", "secondary-fixed": "#e1e3e4", tertiary: "#151f2b", "on-error": "#ffffff", outline: "#737780", "on-surface": "#191c1f", "tertiary-fixed": "#d9e3f4", "on-primary": "#ffffff", secondary: "#5c5f60", "on-error-container": "#93000a", "on-tertiary-fixed": "#121c28", "on-secondary": "#ffffff", surface: "#f7f9fd", "on-primary-container": "#799dd6", "tertiary-fixed-dim": "#bdc7d8", "primary-container": "#003366", "surface-container-highest": "#e0e2e6", "tertiary-container": "#2a3441", "on-background": "#191c1f", "on-secondary-fixed": "#191c1d", background: "#f7f9fd", "primary-fixed-dim": "#a7c8ff", "on-primary-fixed": "#001b3c", "error-container": "#ffdad6", "inverse-surface": "#2d3134", "surface-container-high": "#e6e8ec", "outline-variant": "#c3c6d1", "on-surface-variant": "#43474f", "on-secondary-fixed-variant": "#454748", "secondary-fixed-dim": "#c5c7c8", "surface-tint": "#3a5f94", "surface-variant": "#e0e2e6", "on-tertiary-container": "#929cac", "secondary-container": "#e1e3e4"
+                    },
+                    borderRadius: { DEFAULT: "0.125rem", lg: "0.25rem", xl: "0.5rem", full: "0.75rem" },
+                    spacing: { unit: "8px", "section-gap": "80px", "margin-mobile": "16px", gutter: "24px", "container-max": "1280px", xs: "4px", xl: "48px", lg: "24px", md: "16px", base: "4px", sm: "8px" },
+                    fontFamily: {
+                        "headline-md": ["Inter"], "body-lg": ["Inter"], "headline-xl-mobile": ["Inter"], "headline-lg": ["Inter"], "display-lg": ["Inter"], "headline-xl": ["Inter"], "body-md": ["Inter"], "label-md": ["Inter"], "label-sm": ["Inter"], "title-lg": ["Inter"], "headline-lg-mobile": ["Inter"]
+                    },
+                    fontSize: {
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }], "body-lg": ["18px", { lineHeight: "28px", fontWeight: "400" }], "headline-xl-mobile": ["32px", { lineHeight: "1.2", fontWeight: "700" }], "headline-lg": ["32px", { lineHeight: "40px", letterSpacing: "-0.01em", fontWeight: "600" }], "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }], "headline-xl": ["40px", { lineHeight: "1.2", fontWeight: "700" }], "body-md": ["16px", { lineHeight: "24px", fontWeight: "400" }], "label-md": ["14px", { lineHeight: "20px", letterSpacing: "0.01em", fontWeight: "500" }], "label-sm": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "600" }], "title-lg": ["20px", { lineHeight: "28px", fontWeight: "600" }], "headline-lg-mobile": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+
+<body class="bg-background text-on-background font-body-md antialiased overflow-x-hidden">
+    <!-- TopNavBar -->
+    <nav class="bg-primary/90 dark:bg-primary/95 backdrop-blur-md font-headline-md text-headline-md fixed top-0 w-full z-50 border-b border-secondary/20 shadow-md">
+        <div class="flex justify-between items-center max-w-container mx-auto px-margin-mobile md:px-gutter h-20">
+            <a class="font-headline-lg text-headline-lg font-bold text-secondary-fixed" href="#">AIPC 49</a>
+            <div class="hidden md:flex space-x-8 items-center">
+                <a class="font-label-md text-label-md uppercase tracking-wider text-on-primary hover:bg-secondary/10 hover:text-secondary-fixed transition-all duration-300" href="#about">About</a>
+                <a class="font-label-md text-label-md uppercase tracking-wider text-on-primary hover:bg-secondary/10 hover:text-secondary-fixed transition-all duration-300" href="#agenda">Agenda</a>
+                <a class="font-label-md text-label-md uppercase tracking-wider text-on-primary hover:bg-secondary/10 hover:text-secondary-fixed transition-all duration-300" href="#dignitaries">Professors in-charge</a>
+                <a class="font-label-md text-label-md uppercase tracking-wider text-on-primary hover:bg-secondary/10 hover:text-secondary-fixed transition-all duration-300" href="#venue">Venue</a>
+                <a class="font-label-md text-label-md uppercase tracking-wider text-on-primary hover:bg-secondary/10 hover:text-secondary-fixed transition-all duration-300" href="#partners">Partners</a>
+            </div>
+            <a class="hidden md:inline-flex items-center justify-center bg-secondary-fixed text-primary px-6 py-2 rounded-full font-label-md text-label-md uppercase tracking-wider hover:bg-primary hover:text-secondary-fixed border border-transparent hover:border-secondary-fixed transition-all duration-300" href="register" style="transform-origin: center center; transition: 0.3s;">
+                Corporate Registration
+            </a>
+            <button class="md:hidden text-on-primary">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="relative pt-32 pb-24 md:pt-48 md:pb-32 flex items-center justify-center min-h-[921px]">
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-cover bg-center" data-alt="A grand, high-end institutional conference hall with warm ambient lighting, rows of empty seating, and a large central stage, viewed from a slightly elevated perspective. Deep navy and gold tones dominate the cinematic, professional atmosphere." style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCdv21pNIKrmPkswQ63V8I-ebLKah31NjV05n3S8E7bQO8kyk5lzlyGxNLOlOFKOv468AYOIdzktYVrt_DV88Zcdfgx7ojlAOHgKU-pHeDhGpBeDlm9L36Unpn3mS8DYUTFWxbiZIqhSK6lvBlQ6SqW3eBTdPZU2UTqdJiD4QQKualHOKSpHEg792HLtj_s3rYhidC0iRdJsk1AswiNQq0MQ4VSTSdmgMcL6AphXg_Ggf0zTHeSBHIvDA");'></div>
+            <div class="absolute inset-0 bg-primary/70 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-primary via-primary/50 to-transparent"></div>
+            <div class="absolute bottom-0 left-0 w-full h-[2px] bg-secondary-fixed/50"></div>
+        </div>
+        <div class="relative z-10 max-w-container mx-auto px-margin-mobile md:px-gutter text-center text-on-primary flex flex-col items-center">
+            <p class="font-label-md text-label-md uppercase tracking-[0.2em] text-secondary-fixed mb-4">The National Placement Summit</p>
+            <h1 class="font-display-lg text-display-lg md:text-[72px] leading-tight mb-8">
+                <span class="text-secondary-fixed">49th AIPC Meet</span> 2026
+            </h1>
+            <p class="font-body-lg text-body-lg md:text-xl text-primary-fixed-dim max-w-2xl mx-auto mb-12">
+                Collaborating to shape the future of India's premier engineering talent ecosystem through strategic institutional partnerships.
+            </p>
+            <div class="flex flex-col md:flex-row gap-4 mb-16 w-full md:w-auto">
+                <a class="inline-flex items-center justify-center px-8 py-3 bg-secondary-fixed text-primary font-label-md text-label-md uppercase tracking-wider hover:bg-secondary-fixed-dim transition-colors rounded" href="#agenda">
+                    View Agenda
+                </a>
+                <a class="inline-flex items-center justify-center px-8 py-3 bg-transparent border border-secondary-fixed text-secondary-fixed font-label-md text-label-md uppercase tracking-wider hover:bg-secondary-fixed/10 transition-colors rounded" href="#brochure">
+                    Download Brochure
+                </a>
+            </div>
+            <!-- Info Bar -->
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 py-4 px-8 border-y border-secondary-fixed/30 bg-primary/40 backdrop-blur-sm w-full md:w-auto rounded-sm">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary-fixed">account_balance</span>
+                    <span class="font-body-md text-body-md text-on-primary">Hosted by <strong class="text-secondary-fixed font-semibold">IIT Guwahati</strong></span>
+                </div>
+                <div class="hidden md:block w-px h-6 bg-secondary-fixed/30"></div>
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary-fixed">calendar_month</span>
+                    <span class="font-body-md text-body-md text-on-primary">September 14-16, 2026</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Vision Section -->
+    <section class="py-section-gap bg-surface relative overflow-hidden" id="about">
+        <div class="max-w-container mx-auto px-margin-mobile md:px-gutter">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-center">
+                <div class="lg:col-span-5 z-10">
+                    <p class="font-label-md text-label-md uppercase text-secondary-fixed tracking-widest mb-2">Vision Section</p>
+                    <h2 class="font-headline-xl text-headline-xl text-primary-container mb-6">
+                        Unifying India's<br />Talent Ecosystem
+                    </h2>
+                    <p class="font-body-lg text-body-lg text-on-surface-variant mb-6">
+                        The premier assembly of India's top academic institutions and leading corporate entities, designed to align academic output with future industry demands.
+                    </p>
+                    <p class="font-body-md text-body-md text-outline mb-8">
+                        Fostering strategic dialogue between policy makers, academic leaders, and talent acquisition heads to create robust, sustainable placement networks across high-end academic zones.
+                    </p>
+                    <a class="inline-flex items-center text-primary-container font-label-md text-label-md uppercase hover:text-secondary-fixed transition-colors" href="#learn-more">
+                        Read Full Vision <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+                    </a>
+                </div>
+                <div class="lg:col-span-7 relative min-h-[500px]">
+                    <div class="absolute top-0 right-0 w-3/4 h-64 border border-secondary/20 p-2 bg-surface-container-lowest shadow-sm z-10 transform translate-x-4">
+                        <img class="w-full h-full object-cover" data-alt="Corporate executives in discussion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDk0jzS9FrBYa_cSytkaNCXtBT9UIZ7zwv0ssm__9qfC0AVspPKA64QJ2NhoEm40X8MXnydgcwb3brF7KF8YHb3AiSWROGTz2lKgC72uHbyJgdFQn9wsKAcZ2WXf3z2uDW5sAQIVPjZHrdkgZVoJOXLXVxD9SKlasm-uSfy5uuyJqWcjXxzfU-WwXdjW8IKF3jjd3OjySkaqOuaNvyu_AuJkuVHYhNzlbhfTebAjVdzNcuZVJdO5zCaBg" />
+                    </div>
+                    <div class="absolute bottom-0 left-12 w-2/3 h-72 border border-secondary/20 p-2 bg-surface-container-lowest shadow-sm z-20">
+                        <img class="w-full h-full object-cover" data-alt="Handshake between professionals" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDCqTEhaxniZSPZDvtcc_boUoiewwZhCnamErLekExd7HePnIyevG1bfMzolM2O7Jsl7mCGaBHE6PpS1e2BOzveuA7FXaA5rc6sU-cp2CbfDE7eMPo4HI794A9MGH20IRVJuyrDu9p-QHtbUYyfTpwJUhy8OecUpPQS45wQxPine3Lln_cYe16td9ID-b8newkmA2C7RbsCwiQowhKjYdaOr040Vx2SfLXM0_l2P4LCGrF0eG1OAdSFqQ" />
+                    </div>
+                    <div class="absolute top-1/2 left-0 w-32 h-32 bg-secondary-fixed/10 rounded-full blur-2xl -z-10"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Impact Metrics Section -->
+    <section class="py-16 bg-primary-container relative">
+        <div class="absolute top-0 w-full h-px bg-secondary-fixed/20"></div>
+        <div class="absolute bottom-0 w-full h-px bg-secondary-fixed/20"></div>
+        <div class="max-w-container mx-auto px-margin-mobile md:px-gutter">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-gutter divide-x divide-secondary-fixed/20">
+                <div class="flex flex-col items-center text-center px-4">
+                    <span class="material-symbols-outlined text-4xl text-secondary-fixed mb-4">hub</span>
+                    <h3 class="font-headline-lg text-headline-lg text-on-primary mb-1">23</h3>
+                    <p class="font-label-md text-label-md text-primary-fixed-dim uppercase tracking-wider">Participating IITs</p>
+                </div>
+                <div class="flex flex-col items-center text-center px-4">
+                    <span class="material-symbols-outlined text-4xl text-secondary-fixed mb-4">description</span>
+                    <h3 class="font-headline-lg text-headline-lg text-on-primary mb-1">50+</h3>
+                    <p class="font-label-md text-label-md text-primary-fixed-dim uppercase tracking-wider">Policy Sessions</p>
+                </div>
+                <div class="flex flex-col items-center text-center px-4">
+                    <span class="material-symbols-outlined text-4xl text-secondary-fixed mb-4">handshake</span>
+                    <h3 class="font-headline-lg text-headline-lg text-on-primary mb-1">500+</h3>
+                    <p class="font-label-md text-label-md text-primary-fixed-dim uppercase tracking-wider">Corporate Delegates</p>
+                </div>
+                <div class="flex flex-col items-center text-center px-4">
+                    <span class="material-symbols-outlined text-4xl text-secondary-fixed mb-4">school</span>
+                    <h3 class="font-headline-lg text-headline-lg text-on-primary mb-1">25k+</h3>
+                    <p class="font-label-md text-label-md text-primary-fixed-dim uppercase tracking-wider">Students Represented</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Highlights Section -->
+    <section class="py-section-gap bg-surface-container-lowest" id="agenda">
+        <div class="max-w-container mx-auto px-margin-mobile md:px-gutter">
+            <div class="text-center mb-16">
+                <h2 class="font-headline-xl text-headline-xl text-primary-container">Event Highlights</h2>
+                <div class="w-16 h-1 bg-secondary-fixed mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+                <!-- Card 1 -->
+                <div class="group relative bg-primary-container border border-secondary-fixed/20 p-6 flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-secondary-fixed/50 hover:shadow-[0_0_30px_rgba(255,222,165,0.1)]">
+                    <div class="relative h-48 mb-6 overflow-hidden border border-secondary/20">
+                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Experts on a panel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtFgu1X90aKZkmPzYViQlm3ralI6VSb0hlnkXtSl6eY1Ct85LBLxAulKN82TasQSZZ3kHZMZU2-RAitV2S86aydwzvOW0YwUGUuc-XDZ_QBeqxkUyeLgX1BHzB8RjC52Knxm7Usgk9ZMjTHaNXjgwTTgagwbhZchbzAdlZzYLYN8Pq9BaIvaWVBiBdbO3OXgc6jAn_vPBkywLJkuihtaOdoZfMo2NmbTX2KzEybwBB5RUj0B0q86UmIA" />
+                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-on-primary mb-3">Policy Formulations</h3>
+                    <p class="font-body-md text-body-md text-primary-fixed-dim mb-6 flex-grow">Strategic roundtables focused on standardizing placement policies across central technical institutes to streamline corporate hiring.</p>
+                    <a class="inline-flex items-center px-4 py-2 bg-secondary-fixed/10 text-secondary-fixed font-label-md text-label-md uppercase tracking-wider border border-secondary-fixed/30 hover:bg-secondary-fixed hover:text-primary transition-colors self-start" href="#">
+                        Learn More <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+                    </a>
+                </div>
+                <!-- Card 2 -->
+                <div class="group relative bg-primary-container border border-secondary-fixed/20 p-6 flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-secondary-fixed/50 hover:shadow-[0_0_30px_rgba(255,222,165,0.1)]">
+                    <div class="relative h-48 mb-6 overflow-hidden border border-secondary/20">
+                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Panel discussion" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDTqR-xYzSbuFhTN7yUhghI0It-HSvlTCDuEohqO8FSOB_N7P1s4a5ms9RLmHpHJ4T7VfTGCqCppAKnbqUImcIaVSo4qmZFg2oACDkfRqO2q9Tz64Z0LYMaK7yQcrsL_KpTN3OJ7xBWyjd-I-dST8in4QjD291n7V1CoWkpdEHSqtL7LlW1IbBRG8s68ckIoqzofhsn_Za6ruvIlOqHpxhrQ4rb4JZyL2Q_Q26RHHti535x2u1pLSx7bA" />
+                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-on-primary mb-3">Industry-Academia Panel</h3>
+                    <p class="font-body-md text-body-md text-primary-fixed-dim mb-6 flex-grow">Bridging the gap between curricular outcomes and industry expectations through direct dialogue with leading CXOs.</p>
+                    <a class="inline-flex items-center px-4 py-2 bg-secondary-fixed/10 text-secondary-fixed font-label-md text-label-md uppercase tracking-wider border border-secondary-fixed/30 hover:bg-secondary-fixed hover:text-primary transition-colors self-start" href="#">
+                        Learn More <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+                    </a>
+                </div>
+                <!-- Card 3 -->
+                <div class="group relative bg-primary-container border border-secondary-fixed/20 p-6 flex flex-col h-full overflow-hidden transition-all duration-300 hover:border-secondary-fixed/50 hover:shadow-[0_0_30px_rgba(255,222,165,0.1)]">
+                    <div class="relative h-48 mb-6 overflow-hidden border border-secondary/20">
+                        <img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="Networking gala" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCNkhSILh-OAHYtv7k5ARFD45AT4jsSGYuWgpPngvacwkyK5xfZOsw6FdjdxtaJJ4Z_QQoN5xVcp01-0iAQKCoKvn6_z5ODwFPD28qJThDDKYhVzv-Tvh-qquG_PucZSBTAUYEYOtdGj0V71ZVtYrhhxgLCyVi3fXWoR8OQzG84aZDs_uyRayd5p9vYYMnmJSMQGmYQc45IDLxPwW54wsp8FFIda9xhdmcO3c8Dk44-bPy6l2b3NkSKbA" />
+                        <div class="absolute inset-0 bg-primary/20 mix-blend-overlay"></div>
+                    </div>
+                    <h3 class="font-headline-md text-headline-md text-on-primary mb-3">Networking Gala</h3>
+                    <p class="font-body-md text-body-md text-primary-fixed-dim mb-6 flex-grow">An exclusive evening reception offering unscripted networking opportunities with peers, partners, and key decision-makers.</p>
+                    <a class="inline-flex items-center px-4 py-2 bg-secondary-fixed/10 text-secondary-fixed font-label-md text-label-md uppercase tracking-wider border border-secondary-fixed/30 hover:bg-secondary-fixed hover:text-primary transition-colors self-start" href="#">
+                        Learn More <span class="material-symbols-outlined ml-2 text-sm">arrow_forward</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dignitaries Section -->
+    <section class="py-section-gap bg-surface" id="dignitaries">
+        <div class="max-w-container mx-auto px-margin-mobile md:px-gutter">
+            <div class="text-center mb-16">
+                <h2 class="font-headline-xl text-headline-xl text-primary-container">Professor-In-Charge of Placement</h2>
+                <p class="font-body-lg text-body-lg text-on-surface-variant mt-2">from all the IITs</p>
+                <div class="w-16 h-1 bg-secondary-fixed mx-auto mt-4"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Rajib Maity</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Kharagpur</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Sameer Jadhav</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Bombay</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. S. Sathyan</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Madras</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Raju Kumar Gupta</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Kanpur</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. R Ayothiraman</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Delhi</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Lalit Pandey</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Guwahati</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Kaushik Pal</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Roorkee</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Sarang P. Gumfekar</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Ropar</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. A. Pradhan</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Bhubaneswar</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Mithun RadhaKrishna</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Gandhinagar</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Abhinav Kumar</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Hyderabad</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Anuj Pal Kapoor</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Jodhpur</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Ashwani Assam</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Patna</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Pavan Kumar Kankar</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Indore</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. K.V Uday</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Mandi</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. S. K. Shrivastava</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT (BHU) Varanasi</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Dupadu Chakradhar</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Palakkad</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Subba Reddy</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Tirupati</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Debjani Mitra</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT (ISM) Dhanbad</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. D. Saha</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Bhilai</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Satyapriya Gupta</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Dharwad</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. Ankit Dubey</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Jammu</p>
+                </div>
+                <div class="p-4 bg-surface-container-lowest border border-outline-variant/30 rounded-sm hover:border-secondary-fixed/50 transition-colors lg:col-span-2">
+                    <h4 class="font-headline-md text-headline-md text-on-surface text-lg">Prof. S. Yogaraj</h4>
+                    <p class="font-label-md text-label-md text-secondary">IIT Goa</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Venue Section -->
+    <section class="py-section-gap bg-surface-container-lowest border-t border-outline-variant/20" id="venue">
+        <div class="max-w-container mx-auto px-margin-mobile md:px-gutter">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="w-full md:w-1/2">
+                    <p class="font-label-md text-label-md uppercase text-on-surface-variant tracking-widest mb-2">Host Institution</p>
+                    <h2 class="font-headline-lg text-headline-lg text-primary-container mb-6">IIT Guwahati Campus</h2>
+                    <p class="font-body-md text-body-md text-on-surface-variant mb-6">
+                        Nestled along the banks of the majestic Brahmaputra River, the 700-acre campus provides a serene and intellectually stimulating backdrop for the 49th AIPC Meet.
+                    </p>
+                    <ul class="space-y-3 mb-8">
+                        <li class="flex items-center gap-3 text-on-surface">
+                            <span class="material-symbols-outlined text-secondary">check_circle</span>
+                            <span class="font-body-md">State-of-the-art conference facilities</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-on-surface">
+                            <span class="material-symbols-outlined text-secondary">check_circle</span>
+                            <span class="font-body-md">Premium on-campus accommodation for delegates</span>
+                        </li>
+                        <li class="flex items-center gap-3 text-on-surface">
+                            <span class="material-symbols-outlined text-secondary">check_circle</span>
+                            <span class="font-body-md">Dedicated transport hubs from Lokpriya Gopinath Bordoloi Int. Airport</span>
+                        </li>
+                    </ul>
+                </div>
+                <div class="w-full md:w-1/2 h-[400px] border p-2 border-secondary/20 bg-surface">
+                    <img class="w-full h-full object-cover" data-alt="IIT Guwahati campus aerial view" src="https://www.iitg.ac.in/storage/gallery/1/1205088503.jpg" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white mt-20 pb-16 px-margin-mobile md:px-gutter border-t border-outline-variant/20" id="partners">
+        <div class="text-center mb-10 pt-10">
+            <p class="font-label-md text-label-md uppercase tracking-[0.2em] text-on-surface-variant mb-2">Participating Network</p>
+            <h3 class="font-headline-md text-headline-md text-primary-container">The 23 IITs of India</h3>
+        </div>
+        
+        <div class="flex flex-wrap justify-center items-center gap-8 sm:gap-10 md:gap-14 lg:gap-16 max-w-container mx-auto px-4 lg:px-12">
+            <a href="https://www.iitkgp.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/kharagpur.svg" alt="IIT Kharagpur" title="Kharagpur" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitb.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/bombay.svg" alt="IIT Bombay" title="Bombay" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitm.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/madras.svg" alt="IIT Madras" title="Madras" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitk.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/kanpur.png" alt="IIT Kanpur" title="Kanpur" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://home.iitd.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/delhi.svg" alt="IIT Delhi" title="Delhi" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitg.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/guwahati.webp" alt="IIT Guwahati" title="Guwahati" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitr.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/roorkee.svg" alt="IIT Roorkee" title="Roorkee" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitrpr.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/ropar.svg" alt="IIT Ropar" title="Ropar" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitbbs.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/bhubaneswar.svg" alt="IIT Bhubaneswar" title="Bhubaneswar" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitgn.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/gandhinagar.svg" alt="IIT Gandhinagar" title="Gandhinagar" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iith.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/hyderabad.svg" alt="IIT Hyderabad" title="Hyderabad" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://iitj.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/jodhpur.svg" alt="IIT Jodhpur" title="Jodhpur" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitp.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/patna.jpg" alt="IIT Patna" title="Patna" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iiti.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/indore.webp" alt="IIT Indore" title="Indore" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitmandi.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/mandi.svg" alt="IIT Mandi" title="Mandi" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://iitbhu.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/varanasi.webp" alt="IIT Varanasi" title="Varanasi" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://iitpkd.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/palakkad.jpg" alt="IIT Palakkad" title="Palakkad" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://iittp.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/tirupati.svg" alt="IIT Tirupati" title="Tirupati" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitism.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/dhanbad.svg" alt="IIT Dhanbad" title="Dhanbad" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitbhilai.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/bhilai.svg" alt="IIT Bhilai" title="Bhilai" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitdh.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/dharwad.svg" alt="IIT Dharwad" title="Dharwad" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://www.iitjammu.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/jammu.svg" alt="IIT Jammu" title="Jammu" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+            <a href="https://iitgoa.ac.in/" target="_blank" rel="noopener noreferrer" class="hover:scale-110 hover:-translate-y-2 transition-all duration-300">
+                <img src="logos/goa.svg" alt="IIT Goa" title="Goa" class="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 object-contain iit-logo drop-shadow-sm">
+            </a>
+        </div>
+    </footer>
+</body>
+</html>

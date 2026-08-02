@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html class="h-full bg-surface-container-low antialiased" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Company Profile - AIPC Recruitment Portal</title>
+    
+    <!-- Tailwind CSS with plugins -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    
+    <!-- Material Icons & Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-tint": "#3a5f94",
+                        "on-primary-container": "#799dd6",
+                        "tertiary-fixed": "#d9e3f4",
+                        "primary-container": "#003366",
+                        "on-secondary-container": "#626566",
+                        "on-error-container": "#93000a",
+                        "tertiary": "#151f2b",
+                        "secondary-container": "#e1e3e4",
+                        "tertiary-fixed-dim": "#bdc7d8",
+                        "tertiary-container": "#2a3441",
+                        "surface-variant": "#e0e2e6",
+                        "on-surface": "#191c1f",
+                        "secondary-fixed": "#e1e3e4",
+                        "on-primary-fixed-variant": "#1f477b",
+                        "error": "#ba1a1a",
+                        "surface-container": "#eceef2",
+                        "on-tertiary-container": "#929cac",
+                        "surface-container-low": "#f2f4f8",
+                        "on-surface-variant": "#43474f",
+                        "secondary-fixed-dim": "#c5c7c8",
+                        "on-secondary-fixed-variant": "#454748",
+                        "on-tertiary-fixed": "#121c28",
+                        "inverse-on-surface": "#eff1f5",
+                        "primary-fixed-dim": "#a7c8ff",
+                        "surface-container-lowest": "#ffffff",
+                        "outline-variant": "#c3c6d1",
+                        "primary-fixed": "#d5e3ff",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#3e4755",
+                        "on-secondary": "#ffffff",
+                        "on-primary-fixed": "#001b3c",
+                        "outline": "#737780",
+                        "inverse-surface": "#2d3134",
+                        "inverse-primary": "#a7c8ff",
+                        "secondary": "#5c5f60",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#191c1d",
+                        "error-container": "#ffdad6",
+                        "surface-bright": "#f7f9fd",
+                        "surface-dim": "#d8dade",
+                        "surface-container-high": "#e6e8ec",
+                        "primary": "#001e40",
+                        "surface": "#f7f9fd",
+                        "surface-container-highest": "#e0e2e6",
+                        "background": "#f7f9fd",
+                        "on-tertiary": "#ffffff",
+                        "on-background": "#191c1f"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "base": "4px",
+                        "lg": "24px",
+                        "xl": "48px",
+                        "md": "16px",
+                        "xs": "4px",
+                        "gutter": "24px",
+                        "container-max": "1280px",
+                        "sm": "8px"
+                    },
+                    fontFamily: {
+                        "sans": ["Inter", "sans-serif"]
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+    </style>
+</head>
+<body class="bg-background text-on-background h-full font-sans flex flex-col min-h-screen">
+
+    <!-- Notification Toast Container -->
+    <div id="toast-container" class="fixed top-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+    <!-- TOP APP BAR -->
+    <header class="flex justify-between items-center px-lg w-full sticky top-0 z-50 bg-surface-container-lowest h-16 border-b border-outline-variant shadow-sm">
+        <div class="flex items-center gap-md">
+            <a href="register.html" class="flex items-center gap-2">
+                <span class="font-bold text-xl tracking-tight text-primary">AIPC PORTAL</span>
+            </a>
+            <span class="hidden sm:inline-block text-outline-variant">|</span>
+            <span class="hidden sm:inline-block text-xs font-semibold text-secondary uppercase tracking-wider">Recruiter Dashboard</span>
+        </div>
+
+        <div class="flex items-center gap-md">
+            <!-- Logged-in profile preview -->
+            <div id="header-user-badge" class="flex items-center gap-3 pl-md border-l border-outline-variant">
+                <div class="hidden sm:flex flex-col text-right">
+                    <span id="header-company-name" class="text-xs font-bold text-primary truncate max-w-[160px]">Loading...</span>
+                    <span id="header-user-email" class="text-[11px] text-secondary truncate max-w-[160px]">...</span>
+                </div>
+                <button onclick="handleLogout()" title="Log Out" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-secondary hover:text-error hover:bg-error-container/20 rounded transition-colors cursor-pointer border border-outline-variant">
+                    <span class="material-symbols-outlined text-[16px]">logout</span>
+                    <span class="hidden sm:inline">Logout</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CANVAS -->
+    <main class="flex-1 p-lg md:p-xl max-w-[1280px] w-full mx-auto">
+        
+        <!-- ZONE 1: PROFILE HEADER -->
+        <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg mb-lg flex flex-col md:flex-row items-start md:items-center justify-between gap-md relative overflow-hidden shadow-sm">
+            <!-- Background Accent -->
+            <div class="absolute top-0 right-0 w-64 h-64 bg-primary-fixed opacity-10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/4 pointer-events-none"></div>
+            
+            <div class="flex items-center gap-lg z-10">
+                <div class="w-16 h-16 rounded-2xl bg-primary-fixed flex items-center justify-center shrink-0 border border-primary/10 text-primary">
+                    <span class="material-symbols-outlined text-[32px]">domain</span>
+                </div>
+                <div>
+                    <h1 id="company-name" class="text-2xl sm:text-3xl font-semibold text-on-surface mb-xs">
+                        <span class="inline-block w-48 h-8 bg-surface-container-high animate-pulse rounded"></span>
+                    </h1>
+                    <div class="flex flex-wrap items-center gap-sm text-sm text-secondary">
+                        <span class="flex items-center gap-xs">
+                            <span class="material-symbols-outlined text-[16px]">calendar_today</span> 
+                            Registered on <span id="company-joined" class="font-medium text-on-surface">...</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Status Badge Container -->
+            <div id="status-badge-container" class="flex flex-col items-start md:items-end z-10 shrink-0">
+                <div class="h-8 w-32 bg-surface-container-high animate-pulse rounded"></div>
+            </div>
+        </section>
+
+        <!-- GRID LAYOUT FOR ZONES 2 & 4 -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-lg">
+            
+            <!-- LEFT COLUMN: CORPORATE INFORMATION -->
+            <div class="lg:col-span-8 flex flex-col gap-lg">
+                
+                <!-- ZONE 2: CORPORATE IDENTITY -->
+                <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+                    <div class="flex items-center justify-between border-b border-outline-variant pb-md mb-md">
+                        <h2 class="text-lg font-semibold text-on-surface flex items-center gap-sm">
+                            <span class="material-symbols-outlined text-primary">badge</span>
+                            Corporate Identity & Credentials
+                        </h2>
+                        <span class="text-xs bg-surface-container-low text-secondary px-2 py-1 rounded border border-outline-variant font-medium">Verified ID</span>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-lg">
+                        <div class="bg-surface border border-outline-variant/60 rounded-lg p-4">
+                            <label class="text-xs font-semibold text-secondary uppercase tracking-wider block mb-1">Company Name</label>
+                            <div id="info-company-name" class="text-base font-medium text-on-surface">...</div>
+                        </div>
+                        <div class="bg-surface border border-outline-variant/60 rounded-lg p-4">
+                            <label class="text-xs font-semibold text-secondary uppercase tracking-wider block mb-1">Corporate Email</label>
+                            <div id="info-company-email" class="text-base font-medium text-on-surface truncate">...</div>
+                        </div>
+                        <div class="sm:col-span-2 bg-surface border border-outline-variant/60 rounded-lg p-4">
+                            <label class="text-xs font-semibold text-secondary uppercase tracking-wider block mb-1">Primary Contact Number</label>
+                            <div id="info-company-phone" class="text-base font-medium text-on-surface">...</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- RECRUITMENT PORTAL QUICK ACTIONS -->
+                <!-- <section id="portal-actions-card" class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg shadow-sm">
+                    <div class="flex items-center justify-between border-b border-outline-variant pb-md mb-md">
+                        <h2 class="text-lg font-semibold text-on-surface flex items-center gap-sm">
+                            <span class="material-symbols-outlined text-primary">work</span>
+                            Placement Services
+                        </h2>
+                    </div>
+                    
+                    <div id="portal-actions-content" class="text-sm text-secondary">
+                    </div>
+                </section> -->
+
+            </div>
+
+            <!-- RIGHT COLUMN: VERIFICATION STATUS TIMELINE -->
+            <div class="lg:col-span-4 flex flex-col gap-lg">
+                
+                <!-- ZONE 4: INSTITUTIONAL VERIFICATION STATUS -->
+                <section class="bg-surface-container-lowest border border-outline-variant rounded-xl p-lg sticky top-[88px] shadow-sm">
+                    <div class="border-b border-outline-variant pb-md mb-md">
+                        <h2 class="text-lg font-semibold text-on-surface flex items-center gap-sm">
+                            <span class="material-symbols-outlined text-primary">verified</span>
+                            Verification Progress
+                        </h2>
+                    </div>
+                    
+                    <div id="timeline-container" class="relative pl-sm mt-md">
+                        <!-- Dynamically populated based on status -->
+                    </div>
+
+                    <div id="verification-footnote" class="mt-xl p-md bg-surface-container-low rounded-lg border border-outline-variant">
+                        <!-- Footnote copy -->
+                    </div>
+                </section>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="flex justify-between items-center px-lg py-md border-t border-outline-variant bg-surface-container-lowest mt-auto text-xs text-secondary">
+        <span>© 2026 AIPC Portal. Institutional Placement System.</span>
+        <div class="flex gap-4">
+            <a href="register.html" class="hover:text-primary">Home</a>
+            <a href="mailto:support@aipc.edu" class="hover:text-primary">Support Hotline</a>
+        </div>
+    </footer>
+
+    <!-- APPLICATION LOGIC & SESSION API INTEGRATION -->
+    <script>
+        // Global State
+        let companyProfile = null;
+
+        // Dynamic API Base URL Detection (handles file://, localhost, 127.0.0.1, and custom IPs)
+        const getApiBaseUrl = () => {
+            if (window.API_BASE_URL) return window.API_BASE_URL;
+            const host = window.location.hostname;
+            const isLocal = !host || host === 'localhost' || host === '127.0.0.1' || window.location.protocol === 'file:';
+            return isLocal ? 'http://localhost:5000/api/v1' : '/api/v1';
+        };
+        const API_BASE_URL = getApiBaseUrl();
+
+        // Helper to format exact joining date with day, month, and year
+        function formatExactDate(profile) {
+            if (!profile) return 'Recently';
+            
+            const raw = profile.createdAt || profile.created_at || profile.joinedAt || profile.joined_at || profile.joinedDate || profile.registrationDate;
+            if (!raw) return 'Recently';
+
+            const d = new Date(raw);
+            if (!isNaN(d.getTime())) {
+                return d.toLocaleDateString('en-US', { day: 'numeric', month: 'short', year: 'numeric' });
+            }
+
+            return raw; // Fallback if string is non-standard
+        }
+
+        // Toast Notification System
+        function showToast(message, type = 'info') {
+            const container = document.getElementById('toast-container');
+            if (!container) return;
+            const toast = document.createElement('div');
+            
+            const bgColor = type === 'error' ? 'bg-red-800' : type === 'success' ? 'bg-emerald-800' : 'bg-primary';
+            const icon = type === 'error' ? 'error' : type === 'success' ? 'check_circle' : 'info';
+            
+            toast.className = `${bgColor} text-white px-4 py-3 rounded-lg shadow-lg flex items-center gap-3 text-sm transition-all transform translate-y-2 opacity-0 pointer-events-auto max-w-md`;
+            toast.innerHTML = `
+                <span class="material-symbols-outlined text-[20px] shrink-0">${icon}</span>
+                <span class="flex-1">${message}</span>
+                <button onclick="this.parentElement.remove()" class="text-white/80 hover:text-white">&times;</button>
+            `;
+            
+            container.appendChild(toast);
+            requestAnimationFrame(() => toast.classList.remove('translate-y-2', 'opacity-0'));
+
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.classList.add('opacity-0');
+                    setTimeout(() => toast.remove(), 300);
+                }
+            }, 4000);
+        }
+
+        const api = {
+            // 1. Fetch Session Profile using Cookie credentials
+            fetchProfile: async () => {
+                let response;
+                try {
+                    response = await fetch(`${API_BASE_URL}/auth/me`, {
+                        method: 'GET',
+                        credentials: 'include' // Transmits session HTTP-only cookie
+                    });
+                } catch (err) {
+                    throw new Error('Unable to connect to backend at ' + API_BASE_URL + '. Ensure server is running.');
+                }
+
+                if (response.status === 401 || response.status === 403) {
+                    // Unauthorized -> Session expired or not logged in
+                    window.location.href = 'register.html';
+                    return null;
+                }
+
+                const result = await response.json().catch(() => ({}));
+                if (!response.ok) {
+                    throw new Error(result.error || result.message || 'Failed to retrieve company profile.');
+                }
+
+                return result.company || result.data?.company || result.data || result;
+            },
+
+            // 2. Terminate Cookie Session
+            logout: async () => {
+                try {
+                    await fetch(`${API_BASE_URL}/auth/logout`, {
+                        method: 'POST',
+                        credentials: 'include'
+                    });
+                } catch (err) {
+                    console.log('Logout network error:', err);
+                }
+                window.location.href = 'register.html';
+            }
+        };
+
+        // --- Page Initialization ---
+        document.addEventListener("DOMContentLoaded", async () => {
+            // Step 1: Attempt to fetch data from API
+            try {
+                companyProfile = await api.fetchProfile();
+            } catch (error) {
+                console.error('Fetch error:', error);
+                showToast(error.message, 'error');
+                renderErrorState(error.message);
+                return;
+            }
+
+            // Step 2: Render UI safely in its own scope
+            if (companyProfile) {
+                try {
+                    renderProfileUI(companyProfile);
+                } catch (uiError) {
+                    console.error('UI Render Error:', uiError);
+                    showToast('Failed to render dashboard interface.', 'error');
+                }
+            }
+        });
+
+        async function handleLogout() {
+            showToast('Logging out...', 'info');
+            await api.logout();
+        }
+
+        // --- Render UI Data ---
+        function renderProfileUI(profile) {
+            if (!profile) return;
+
+            const companyName = profile.name || profile.companyName || 'Company';
+            const email = profile.email || 'N/A';
+            const phone = profile.phone || profile.contactNumber || 'N/A';
+            const status = profile.status || 'PENDING_APPROVAL';
+            
+            // Format joined date to include exact day, month, and year
+            const joinedDateStr = formatExactDate(profile);
+
+            // Header identity
+            const companyNameEl = document.getElementById('company-name');
+            const companyJoinedEl = document.getElementById('company-joined');
+            const headerCompanyNameEl = document.getElementById('header-company-name');
+            const headerUserEmailEl = document.getElementById('header-user-email');
+
+            if (companyNameEl) companyNameEl.innerText = companyName;
+            if (companyJoinedEl) companyJoinedEl.innerText = joinedDateStr;
+            if (headerCompanyNameEl) headerCompanyNameEl.innerText = companyName;
+            if (headerUserEmailEl) headerUserEmailEl.innerText = email;
+
+            // Identity card
+            const infoName = document.getElementById('info-company-name');
+            const infoEmail = document.getElementById('info-company-email');
+            const infoPhone = document.getElementById('info-company-phone');
+
+            if (infoName) infoName.innerText = companyName;
+            if (infoEmail) infoEmail.innerText = email;
+            if (infoPhone) infoPhone.innerText = phone;
+
+            // Render Status Badge
+            const badgeContainer = document.getElementById('status-badge-container');
+            if (badgeContainer) {
+                if (status === 'APPROVED') {
+                    badgeContainer.innerHTML = `
+                        <div class="inline-flex items-center gap-1.5 bg-emerald-50 border border-emerald-300 px-3 py-1.5 rounded-lg text-emerald-800 font-semibold text-xs shadow-sm">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-600">verified</span>
+                            Verified Partner
+                        </div>
+                        <span class="text-xs text-secondary mt-1 font-medium">Full Recruitment Access</span>
+                    `;
+                } else if (status === 'REJECTED') {
+                    badgeContainer.innerHTML = `
+                        <div class="inline-flex items-center gap-1.5 bg-red-50 border border-red-300 px-3 py-1.5 rounded-lg text-red-800 font-semibold text-xs shadow-sm">
+                            <span class="material-symbols-outlined text-[16px] text-red-600">cancel</span>
+                            Registration Rejected
+                        </div>
+                        <span class="text-xs text-red-600 mt-1 font-medium">Action Required</span>
+                    `;
+                } else {
+                    // PENDING_APPROVAL
+                    badgeContainer.innerHTML = `
+                        <div class="inline-flex items-center gap-1.5 bg-amber-50 border border-amber-300 px-3 py-1.5 rounded-lg text-amber-800 font-semibold text-xs shadow-sm">
+                            <span class="material-symbols-outlined text-[16px] text-amber-600 animate-pulse">hourglass_empty</span>
+                            Verification Pending
+                        </div>
+                        <span class="text-xs text-secondary mt-1 font-medium">Under Review</span>
+                    `;
+                }
+            }
+
+            // Render Verification Timeline & Actions
+            renderTimelineAndActions(status, profile.rejectionReason);
+        }
+
+        function renderTimelineAndActions(status, rejectionReason) {
+            const timeline = document.getElementById('timeline-container');
+            const footnote = document.getElementById('verification-footnote');
+            const portalActions = document.getElementById('portal-actions-content');
+
+            if (timeline && status === 'APPROVED') {
+                timeline.innerHTML = `
+                    <div class="absolute left-[15px] top-[14px] bottom-[24px] w-[2px] bg-emerald-500"></div>
+                    
+                    <div class="relative flex items-start gap-md mb-lg">
+                        <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 z-10 ring-4 ring-surface-container-lowest">
+                            <span class="material-symbols-outlined text-[18px]">check</span>
+                        </div>
+                        <div class="pt-1">
+                            <h3 class="text-sm font-semibold text-on-surface">Contact Information</h3>
+                            <p class="text-xs text-emerald-700 font-medium mt-0.5">Verified</p>
+                        </div>
+                    </div>
+
+                    <div class="relative flex items-start gap-md">
+                        <div class="w-8 h-8 rounded-full bg-emerald-600 text-white flex items-center justify-center shrink-0 z-10 ring-4 ring-surface-container-lowest">
+                            <span class="material-symbols-outlined text-[18px]">verified</span>
+                        </div>
+                        <div class="pt-1">
+                            <h3 class="text-sm font-semibold text-emerald-900">Institutional Approval</h3>
+                            <p class="text-xs text-emerald-700 font-medium mt-0.5">Account Active & Approved</p>
+                        </div>
+                    </div>
+                `;
+
+                if (footnote) {
+                    footnote.innerHTML = `
+                        <p class="text-xs text-emerald-800 flex items-start gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-emerald-600 shrink-0">check_circle</span>
+                            <span>Your corporate profile is fully verified. You can post job openings and participate in placement drives.</span>
+                        </p>
+                    `;
+                }
+
+                if (portalActions) {
+                    portalActions.innerHTML = `
+                        <div class="p-4 bg-emerald-50/50 border border-emerald-200 rounded-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-semibold text-primary text-base">Campus Recruitment Pipeline</h4>
+                                <p class="text-secondary text-xs mt-1">Post new roles, schedule interviews, and review candidate applications.</p>
+                            </div>
+                            <button onclick="showToast('Campus Recruitment Module Active', 'success')" class="px-4 py-2 bg-primary text-white text-xs font-semibold rounded hover:bg-primary-container transition-all shrink-0 cursor-pointer">
+                                Manage Postings
+                            </button>
+                        </div>
+                    `;
+                }
+            } else if (timeline && status === 'REJECTED') {
+                timeline.innerHTML = `
+                    <div class="absolute left-[15px] top-[14px] bottom-[24px] w-[2px] bg-red-300"></div>
+                    
+                    <div class="relative flex items-start gap-md mb-lg">
+                        <div class="w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center shrink-0 z-10 ring-4 ring-surface-container-lowest">
+                            <span class="material-symbols-outlined text-[18px]">check</span>
+                        </div>
+                        <div class="pt-1">
+                            <h3 class="text-sm font-semibold text-on-surface">Contact Information</h3>
+                            <p class="text-xs text-secondary mt-0.5">Completed</p>
+                        </div>
+                    </div>
+
+                    <div class="relative flex items-start gap-md">
+                        <div class="w-8 h-8 rounded-full bg-red-600 text-white flex items-center justify-center shrink-0 z-10 ring-4 ring-surface-container-lowest">
+                            <span class="material-symbols-outlined text-[18px]">close</span>
+                        </div>
+                        <div class="pt-1">
+                            <h3 class="text-sm font-semibold text-red-700">Institutional Review</h3>
+                            <p class="text-xs text-red-600 font-semibold mt-0.5">Application Declined</p>
+                        </div>
+                    </div>
+                `;
+
+                if (footnote) {
+                    footnote.innerHTML = `
+                        <div class="text-red-800">
+                            <p class="text-xs font-bold uppercase tracking-wider mb-1 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[16px]">error</span>
+                                Rejection Reason
+                            </p>
+                            <p class="text-xs leading-relaxed text-red-900">${rejectionReason || 'Your domain credentials could not be matched. Please contact support@aipc.edu for assistance.'}</p>
+                        </div>
+                    `;
+                }
+
+                if (portalActions) {
+                    portalActions.innerHTML = `
+                        <div class="p-4 bg-red-50 border border-red-200 rounded-lg flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+                            <div>
+                                <h4 class="font-semibold text-red-900 text-base">Account Access Restricted</h4>
+                                <p class="text-red-700 text-xs mt-1">Please reach out to the placement office with updated documentation.</p>
+                            </div>
+                            <a href="mailto:support@aipc.edu" class="px-4 py-2 bg-red-700 text-white text-xs font-semibold rounded hover:bg-red-800 transition-all shrink-0">
+                                Contact Support
+                            </a>
+                        </div>
+                    `;
+                }
+            } else if (timeline) {
+                // PENDING_APPROVAL
+                timeline.innerHTML = `
+                    <div class="absolute left-[15px] top-[14px] bottom-[24px] w-[2px] bg-outline-variant"></div>
+                    
+                    <div class="relative flex items-start gap-md mb-lg">
+                        <div class="w-8 h-8 rounded-full bg-primary-container text-white flex items-center justify-center shrink-0 z-10 ring-4 ring-surface-container-lowest">
+                            <span class="material-symbols-outlined text-[18px]">check</span>
+                        </div>
+                        <div class="pt-1">
+                            <h3 class="text-sm font-semibold text-on-surface">Contact Information</h3>
+                            <p class="text-xs text-secondary mt-0.5">Completed</p>
+                        </div>
+                    </div>
+
+                    <div class="relative flex items-start gap-md">
+                        <div class="w-8 h-8 rounded-full border-2 border-primary-container bg-surface-container-lowest text-primary-container flex items-center justify-center shrink-0 z-10 ring-4 ring-surface-container-lowest">
+                            <span class="material-symbols-outlined text-[18px] animate-spin">progress_activity</span>
+                        </div>
+                        <div class="pt-1">
+                            <h3 class="text-sm font-semibold text-primary">Institutional Review</h3>
+                            <p class="text-xs text-amber-700 font-semibold mt-0.5">In Progress (24-48 hrs)</p>
+                        </div>
+                    </div>
+                `;
+
+                if (footnote) {
+                    footnote.innerHTML = `
+                        <p class="text-xs text-secondary flex items-start gap-2">
+                            <span class="material-symbols-outlined text-[16px] text-primary shrink-0">info</span>
+                            <span>Verification typically takes 24-48 business hours. You will receive an automated email as soon as review completes.</span>
+                        </p>
+                    `;
+                }
+
+                if (portalActions) {
+                    portalActions.innerHTML = `
+                        <div class="p-4 bg-surface-container-low border border-outline-variant rounded-lg flex items-center gap-3">
+                            <span class="material-symbols-outlined text-secondary">lock</span>
+                            <div>
+                                <h4 class="font-semibold text-primary text-sm">Features Locked Pending Verification</h4>
+                                <p class="text-secondary text-xs mt-0.5">Job postings, candidate browsing, and interview scheduling will unlock upon TPO approval.</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+        }
+
+        function renderErrorState(message) {
+            const badgeContainer = document.getElementById('status-badge-container');
+            if (badgeContainer) {
+                badgeContainer.innerHTML = `<span class="text-xs text-red-600 font-bold">Offline / Disconnected</span>`;
+            }
+            const nameEl = document.getElementById('company-name');
+            const joinedEl = document.getElementById('company-joined');
+            if (nameEl) nameEl.innerText = 'Connection Error';
+            if (joinedEl) joinedEl.innerText = 'N/A';
+        }
+    </script>
+</body>
+</html>
