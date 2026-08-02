@@ -1,16 +1,19 @@
 services:
   backend:
     build: .
-    expose:
-      - "5000"
+    network_mode: host
     env_file:
       - .env
+    environment:
+      MONGO_URI: mongodb://127.0.0.1:27017/aipc
     restart: unless-stopped
 
   frontend:
     build: ./frontend
     ports:
       - "6025:80"
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     depends_on:
       - backend
     restart: unless-stopped
