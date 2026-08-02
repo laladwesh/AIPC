@@ -1,19 +1,17 @@
 services:
-  backend:
-    build: .
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_BASE_PATH: /aipc/
+        VITE_API_BASE_URL: /aipc/api/v1
+    container_name: aipc-app
     network_mode: host
     env_file:
       - .env
     environment:
+      PORT: 6025
+      BASE_PATH: /aipc
       MONGO_URI: mongodb://127.0.0.1:27017/aipc
-    restart: unless-stopped
-
-  frontend:
-    build: ./frontend
-    ports:
-      - "6025:80"
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    depends_on:
-      - backend
     restart: unless-stopped
