@@ -12,7 +12,7 @@ const Header = () => {
                 />
                 <div className="flex flex-col leading-tight">
                     <span className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium">
-                        49TH AIPC &middot; ORGANISING IIT: IIT GUWAHATI
+                        ORGANISING IIT | 49TH AIPC MEET
                     </span>
                     <span className={styles.aipc49}>ALL IITs PLACEMENT COMMITTEE</span>
                 </div>
