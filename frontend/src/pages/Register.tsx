@@ -40,16 +40,16 @@ const Register = () => {
                 </div>
             )}
 
-            <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-10 md:py-14">
-                <Link to="/" className="inline-flex items-center gap-2 text-[#c9d0d1] text-xs tracking-[0.1em] hover:text-white transition-colors mb-6">
+            <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-6 md:py-8">
+                <Link to="/" className="inline-flex items-center gap-2 text-[#c9d0d1] text-xs tracking-[0.1em] hover:text-white transition-colors mb-4">
                     <span className="material-symbols-outlined text-[16px]">arrow_back</span>
                     BACK TO HOME
                 </Link>
-                <p className="text-[#8fa3ab] text-xs tracking-[0.2em] font-medium mb-3">REGISTRATION &middot; 49th AIPC MEET 2026</p>
-                <h1 className="font-display text-3xl md:text-4xl font-bold text-white mb-3">
+                <p className="text-[#8fa3ab] text-xs tracking-[0.2em] font-medium mb-2">REGISTRATION &middot; 49th AIPC MEET 2026</p>
+                <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
                     Register your company
                 </h1>
-                <p className="text-[#c9d0d1] max-w-[480px]">
+                <p className="text-[#c9d0d1] max-w-[480px] text-sm">
                     Enter your company details and the IIT bringing you. We'll email a verification code to confirm.
                 </p>
             </div>
