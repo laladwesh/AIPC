@@ -41,7 +41,7 @@ const Register = () => {
             )}
 
             <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-6 md:py-8">
-                <p className="text-[#8fa3ab] text-xs tracking-[0.2em] font-medium mb-2">REGISTRATION &middot; 49th AIPC MEET 2026</p>
+                {/* <p className="text-[#8fa3ab] text-xs tracking-[0.2em] font-medium mb-2">REGISTRATION &middot; 49th AIPC MEET 2026</p> */}
                 <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
                     Register your company
                 </h1>
@@ -78,9 +78,16 @@ const Register = () => {
             <div className="w-full flex flex-col lg:flex-row">
                 <main className="w-full lg:w-[58%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
                     <div className="grid grid-cols-1 sm:grid-cols-[1fr_260px] gap-6">
-                        <CompanyRegistrationForm showToast={showToast} />
+                        <div>
+                            <h2 className="font-display text-xl md:text-2xl font-bold text-[#001e40] mb-2">Registration Form</h2>
+                            <p className="flex items-start gap-2 text-sm text-[#5c5f60] bg-[#fff8e1] border border-[#e6d9a6] rounded-lg px-4 py-3 mb-4">
+                                <span className="material-symbols-outlined text-[18px] text-[#9c7a00]">info</span>
+                                <span>This registration is only for companies that have been invited by a participating IIT. Please register only if an IIT has invited you.</span>
+                            </p>
+                            <CompanyRegistrationForm showToast={showToast} />
+                        </div>
 
-                        <aside className="space-y-4">
+                        {/* <aside className="space-y-4">
                             <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
                                 <div className="flex items-center gap-3 mb-2">
                                     <span className="material-symbols-outlined text-[#001e40]">event</span>
@@ -102,7 +109,7 @@ const Register = () => {
                                 </div>
                                 <p className="text-sm text-[#5c5f60]">Once verified, we'll follow up by email with further details closer to the meet.</p>
                             </div>
-                        </aside>
+                        </aside> */}
                     </div>
                 </main>
 

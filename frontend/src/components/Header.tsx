@@ -21,7 +21,7 @@ const Header = () => {
                 </div>
                 <span className="w-px h-9 bg-[#8fa3ab]/40 flex-shrink-0" />
                 <div className="flex flex-col leading-tight">
-                    <span className={styles.aipc49}>INDUSTRY CONCLAVE @ 49<sup>TH</sup> ALL IITs PLACEMENT COMMITTEE</span>
+                    <span className={styles.aipc49}>INDUSTRY CONCLAVE @ 49<sup>TH</sup> ALL IITs PLACEMENT COMMITTEE Meeting 2026</span>
                     <span className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium"></span>
                 </div>
             </Link>

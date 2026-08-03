@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { INSTITUTES } from '../institutes';
-import { eventCompanyApi } from '../api';
+import { eventCompanyApi, type Attendee } from '../api';
 import OtpInput from './OtpInput';
 
 interface FormData {
@@ -11,17 +11,21 @@ interface FormData {
 }
 
 const EMPTY_FORM: FormData = { companyName: '', institute: '', email: '', phoneNumber: '' };
+const EMPTY_ATTENDEE: Attendee = { name: '', designation: '' };
+const MAX_ATTENDEES = 2;
 
 interface Props {
     showToast: (message: string, type?: 'info' | 'success' | 'error') => void;
 }
 
 const CompanyRegistrationForm = ({ showToast }: Props) => {
-    const [step, setStep] = useState<1 | 2 | 3>(1);
+    const [step, setStep] = useState<1 | 2 | 3 | 4>(1);
     const [formData, setFormData] = useState<FormData>(EMPTY_FORM);
     const [otp, setOtp] = useState<string[]>(['', '', '', '', '', '']);
+    const [attendees, setAttendees] = useState<Attendee[]>([{ ...EMPTY_ATTENDEE }]);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isVerifying, setIsVerifying] = useState(false);
+    const [isSavingAttendees, setIsSavingAttendees] = useState(false);
     const [resendCooldown, setResendCooldown] = useState(0);
 
     useEffect(() => {
@@ -68,6 +72,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
     const handleRegisterAnother = () => {
         setFormData(EMPTY_FORM);
         setOtp(['', '', '', '', '', '']);
+        setAttendees([{ ...EMPTY_ATTENDEE }]);
         setStep(1);
     };
 
@@ -91,21 +96,53 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
         }
     };
 
+    const handleAttendeeChange = (index: number, field: keyof Attendee, value: string) => {
+        setAttendees(prev => prev.map((a, i) => i === index ? { ...a, [field]: value } : a));
+    };
+
+    const handleAddAttendee = () => {
+        if (attendees.length >= MAX_ATTENDEES) return;
+        setAttendees(prev => [...prev, { ...EMPTY_ATTENDEE }]);
+    };
+
+    const handleRemoveAttendee = (index: number) => {
+        setAttendees(prev => prev.filter((_, i) => i !== index));
+    };
+
+    const handleAttendeesSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        const namedAttendees = attendees.filter(a => a.name.trim());
+        if (namedAttendees.length === 0) {
+            showToast('Please add at least one attendee.', 'error');
+            return;
+        }
+
+        setIsSavingAttendees(true);
+        try {
+            await eventCompanyApi.submitAttendees(formData.email, formData.institute, namedAttendees);
+            setStep(4);
+        } catch (error: any) {
+            showToast(error.message || 'Could not save attendee details.', 'error');
+        } finally {
+            setIsSavingAttendees(false);
+        }
+    };
+
     const selectedInstitute = INSTITUTES.find(i => i.code === formData.institute);
 
-    if (step === 3) {
+    if (step === 4) {
         return (
             <div className="bg-white border border-[#c3c6d1] rounded-xl shadow-sm overflow-hidden animate-fadeIn">
                 <div className="bg-[#f2f4f8] h-28 w-full flex items-end justify-center relative">
                     <div className="absolute -bottom-8 w-16 h-16 bg-white rounded-2xl shadow-md border border-[#c3c6d1] flex items-center justify-center">
-                        <span className="material-symbols-outlined text-[32px] text-[#003366]" style={{ fontVariationSettings: "'FILL' 1" }}>pending_actions</span>
+                        <span className="material-symbols-outlined text-[32px] text-[#003366]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
                     </div>
                 </div>
                 <div className="pt-14 pb-10 px-6 sm:px-10 text-center">
-                    <h2 className="text-2xl font-semibold text-[#001e40] mb-2">Registration request received</h2>
+                    <h2 className="text-2xl font-semibold text-[#001e40] mb-2">Thank you for showing interest</h2>
                     <p className="text-[#5c5f60] mb-6">
-                        Your request for <strong className="text-[#001e40]">{formData.companyName}</strong>, brought by{' '}
-                        <strong className="text-[#001e40]">{selectedInstitute?.name}</strong>, has been received. Further updates will be communicated to <strong className="text-[#001e40]">{formData.email}</strong> by email.
+                        We'll let you know the further process if needed.
                     </p>
                     <button
                         type="button"
@@ -116,6 +153,89 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
                     </button>
                 </div>
             </div>
+        );
+    }
+
+    if (step === 3) {
+        return (
+            <form onSubmit={handleAttendeesSubmit} className="bg-white border border-[#c3c6d1] rounded-xl shadow-sm p-6 sm:p-10 space-y-6 animate-fadeIn">
+                <div>
+                    <h2 className="text-xl font-semibold text-[#001e40] mb-1">Who's attending?</h2>
+                    <p className="text-sm text-[#5c5f60]">Up to {MAX_ATTENDEES} people from {formData.companyName} can attend.</p>
+                </div>
+
+                <div className="space-y-4">
+                    {attendees.map((attendee, index) => (
+                        <div key={index} className="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 border border-[#c3c6d1] rounded-lg relative">
+                            {attendees.length > 1 && (
+                                <button
+                                    type="button"
+                                    onClick={() => handleRemoveAttendee(index)}
+                                    aria-label="Remove attendee"
+                                    className="absolute top-2 right-2 text-[#5c5f60] hover:text-red-700"
+                                >
+                                    <span className="material-symbols-outlined text-[18px]">close</span>
+                                </button>
+                            )}
+                            <div className="space-y-2">
+                                <label htmlFor={`attendee-name-${index}`} className="block text-sm font-medium text-[#43474f]">
+                                    Attendee {index + 1} name
+                                </label>
+                                <input
+                                    type="text"
+                                    id={`attendee-name-${index}`}
+                                    value={attendee.name}
+                                    onChange={e => handleAttendeeChange(index, 'name', e.target.value)}
+                                    disabled={isSavingAttendees}
+                                    className="w-full px-4 py-3 border border-[#c3c6d1] rounded focus:border-[#001e40] focus:ring-1 focus:ring-[#001e40] outline-none disabled:bg-gray-100"
+                                    placeholder="Full name"
+                                />
+                            </div>
+                            <div className="space-y-2">
+                                <label htmlFor={`attendee-designation-${index}`} className="block text-sm font-medium text-[#43474f]">
+                                    Designation <span className="text-[#5c5f60] font-normal">(optional)</span>
+                                </label>
+                                <input
+                                    type="text"
+                                    id={`attendee-designation-${index}`}
+                                    value={attendee.designation}
+                                    onChange={e => handleAttendeeChange(index, 'designation', e.target.value)}
+                                    disabled={isSavingAttendees}
+                                    className="w-full px-4 py-3 border border-[#c3c6d1] rounded focus:border-[#001e40] focus:ring-1 focus:ring-[#001e40] outline-none disabled:bg-gray-100"
+                                    placeholder="e.g., HR Manager"
+                                />
+                            </div>
+                        </div>
+                    ))}
+                </div>
+
+                {attendees.length < MAX_ATTENDEES && (
+                    <button
+                        type="button"
+                        onClick={handleAddAttendee}
+                        disabled={isSavingAttendees}
+                        className="inline-flex items-center gap-1 text-sm font-medium text-[#003366] hover:text-[#001e40] disabled:opacity-50"
+                    >
+                        <span className="material-symbols-outlined text-[18px]">add</span>
+                        Add another attendee
+                    </button>
+                )}
+
+                <button
+                    type="submit"
+                    disabled={isSavingAttendees}
+                    className="w-full h-12 flex items-center justify-center gap-2 bg-[#001e40] text-white text-sm font-medium rounded hover:bg-[#003366] transition-all cursor-pointer disabled:bg-[#001e40]/50 disabled:cursor-not-allowed"
+                >
+                    {isSavingAttendees ? (
+                        <span className="material-symbols-outlined animate-spin text-[18px]">progress_activity</span>
+                    ) : (
+                        <>
+                            <span>Continue</span>
+                            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+                        </>
+                    )}
+                </button>
+            </form>
         );
     }
 
@@ -162,7 +282,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
         <form onSubmit={handleDetailsSubmit} className="bg-white border border-[#c3c6d1] rounded-xl shadow-sm p-6 sm:p-10 space-y-6 animate-fadeIn">
             <div>
                 <h2 className="text-xl font-semibold text-[#001e40] mb-1">Company details</h2>
-                <p className="text-sm text-[#5c5f60]">Just the company's details — no individual contact person required.</p>
+                {/* <p className=   "text-sm text-[#5c5f60]">Just the company's details — no individual contact person required.</p> */}
             </div>
 
             <div className="space-y-2">

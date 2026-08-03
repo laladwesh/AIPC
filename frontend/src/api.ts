@@ -47,6 +47,11 @@ export interface EventCompanyRegistration {
     institute: string;
 }
 
+export interface Attendee {
+    name: string;
+    designation: string;
+}
+
 // Companies attending the meet, brought by an institute — separate from the
 // legacy recruiter/JAF flow in `companyApi` above.
 export const eventCompanyApi = {
@@ -63,6 +68,14 @@ export const eventCompanyApi = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, otp })
+        });
+        return parseResponse(response);
+    },
+    submitAttendees: async (email: string, institute: string, attendees: Attendee[]) => {
+        const response = await fetch(`${API_BASE_URL}/companies/attendees`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, institute, attendees })
         });
         return parseResponse(response);
     }

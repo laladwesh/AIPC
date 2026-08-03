@@ -124,3 +124,44 @@ exports.verifyCompanyOtp = async (req, res) => {
     return res.status(500).json({ success: false, error: 'Server error during verification.' });
   }
 };
+
+// --- STEP 3: SUBMIT ATTENDEE DETAILS (up to 2), AFTER OTP VERIFICATION ---
+exports.submitAttendees = async (req, res) => {
+  try {
+    const { email, institute, attendees } = req.body;
+
+    if (!email || !institute) {
+      return res.status(400).json({ success: false, error: 'Email and institute are required.' });
+    }
+
+    if (!Array.isArray(attendees) || attendees.length === 0) {
+      return res.status(400).json({ success: false, error: 'At least one attendee is required.' });
+    }
+
+    if (attendees.length > 2) {
+      return res.status(400).json({ success: false, error: 'A company can register at most 2 attendees.' });
+    }
+
+    const cleanAttendees = attendees
+      .map(a => ({ name: (a.name || '').trim(), designation: (a.designation || '').trim() }))
+      .filter(a => a.name);
+
+    if (cleanAttendees.length === 0) {
+      return res.status(400).json({ success: false, error: 'At least one attendee name is required.' });
+    }
+
+    const cleanEmail = email.toLowerCase().trim();
+    const company = await EventCompany.findOne({ email: cleanEmail, institute, status: 'CONFIRMED' });
+    if (!company) {
+      return res.status(404).json({ success: false, error: 'Confirmed registration not found.' });
+    }
+
+    company.attendees = cleanAttendees;
+    await company.save();
+
+    return res.status(200).json({ success: true, message: 'Attendee details saved.' });
+  } catch (error) {
+    console.error('Submit Attendees Error:', error);
+    return res.status(500).json({ success: false, error: 'Server error saving attendee details.' });
+  }
+};

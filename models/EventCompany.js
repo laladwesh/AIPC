@@ -10,12 +10,27 @@ const INSTITUTE_CODES = [
 
 // A company brought to the meet by an institute — multiple companies per
 // institute are fine, unlike the one-delegate-per-institute rule.
+const attendeeSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  designation: { type: String, trim: true }
+}, { _id: false });
+
 const eventCompanySchema = new mongoose.Schema({
   companyName: { type: String, required: true, trim: true },
   email: { type: String, required: true, lowercase: true, trim: true },
   phoneNumber: { type: String, required: true, trim: true },
   institute: { type: String, required: true, enum: INSTITUTE_CODES },
-  status: { type: String, enum: ['PENDING_OTP', 'CONFIRMED'], default: 'PENDING_OTP' }
+  status: { type: String, enum: ['PENDING_OTP', 'CONFIRMED'], default: 'PENDING_OTP' },
+  // Up to 2 people attending on behalf of the company, collected after OTP
+  // verification so we only ask for it once the registration is real.
+  attendees: {
+    type: [attendeeSchema],
+    validate: {
+      validator: (arr) => arr.length <= 2,
+      message: 'A company can register at most 2 attendees.'
+    },
+    default: []
+  }
 }, { timestamps: true });
 
 // Guards against accidental duplicate submits, not a "one company total" rule
