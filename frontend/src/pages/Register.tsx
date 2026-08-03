@@ -50,6 +50,31 @@ const Register = () => {
                 </p>
             </div>
 
+            <section className={styles.membershipBand} aria-labelledby="members-title">
+                <h2 id="members-title" className={styles.the23Member}>THE 23 MEMBER INSTITUTES</h2>
+                <div className={styles.emblemGrid}>
+                    {INSTITUTES.map((institute, index) => (
+                        <a
+                            key={institute.code}
+                            href={institute.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.iitBhilai}
+                        >
+                            <img
+                                src={institute.logo}
+                                alt={institute.name}
+                                title={institute.shortName}
+                                className={styles.emblemRingIcon}
+                                width={84}
+                                height={84}
+                                loading={index < 8 ? 'eager' : 'lazy'}
+                            />
+                        </a>
+                    ))}
+                </div>
+            </section>
+
             <div className="w-full flex flex-col lg:flex-row">
                 <main className="w-full lg:w-[58%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
                     <div className="grid grid-cols-1 sm:grid-cols-[1fr_260px] gap-6">
@@ -85,31 +110,6 @@ const Register = () => {
                     <InstituteCarousel />
                 </div>
             </div>
-
-            <section className={styles.membershipBand} aria-labelledby="members-title">
-                <h2 id="members-title" className={styles.the23Member}>THE 23 MEMBER INSTITUTES</h2>
-                <div className={styles.emblemGrid}>
-                    {INSTITUTES.map((institute, index) => (
-                        <a
-                            key={institute.code}
-                            href={institute.website}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className={styles.iitBhilai}
-                        >
-                            <img
-                                src={institute.logo}
-                                alt={institute.name}
-                                title={institute.shortName}
-                                className={styles.emblemRingIcon}
-                                width={84}
-                                height={84}
-                                loading={index < 8 ? 'eager' : 'lazy'}
-                            />
-                        </a>
-                    ))}
-                </div>
-            </section>
         </div>
     );
 };
