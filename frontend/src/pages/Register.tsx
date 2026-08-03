@@ -41,7 +41,14 @@ const Register = () => {
             )}
 
             <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-6 md:py-8">
-                {/* <p className="text-[#8fa3ab] text-xs tracking-[0.2em] font-medium mb-2">REGISTRATION &middot; 49th AIPC MEET 2026</p> */}
+                <div className="flex items-center gap-4 mb-4">
+                    <img
+                        src={`${import.meta.env.BASE_URL}iitg.png`}
+                        alt="IIT Guwahati"
+                        className="h-16 w-16 md:h-20 md:w-20 object-contain flex-shrink-0"
+                    />
+                    <p className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium">HOSTED AT IIT GUWAHATI</p>
+                </div>
                 <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
                     Register your company
                 </h1>

@@ -5,17 +5,13 @@ const sendEmail = require('../utils/mailer');
 
 const hashData = (data) => crypto.createHash('sha256').update(data).digest('hex');
 
-// --- STEP 1: SUBMIT DETAILS, SEND OTP ---
+// --- STEP 1: SUBMIT COMPANY NAME + EMAIL, SEND OTP ---
 exports.registerCompany = async (req, res) => {
   try {
-    const { companyName, email, phoneNumber, institute } = req.body;
+    const { companyName, email } = req.body;
 
-    if (!companyName || !email || !phoneNumber || !institute) {
-      return res.status(400).json({ success: false, error: 'All fields are required.' });
-    }
-
-    if (!EventCompany.INSTITUTE_CODES.includes(institute)) {
-      return res.status(400).json({ success: false, error: 'Invalid institute selection.' });
+    if (!companyName || !email) {
+      return res.status(400).json({ success: false, error: 'Company name and email are required.' });
     }
 
     const cleanEmail = email.toLowerCase().trim();
@@ -24,21 +20,18 @@ exports.registerCompany = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Invalid email address.' });
     }
 
-    let company = await EventCompany.findOne({ email: cleanEmail, institute });
+    let company = await EventCompany.findOne({ email: cleanEmail });
     if (company && company.status === 'CONFIRMED') {
-      return res.status(400).json({ success: false, error: 'This company is already registered for this institute.' });
+      return res.status(400).json({ success: false, error: 'This email has already completed registration.' });
     }
 
     if (company) {
       company.companyName = companyName.trim();
-      company.phoneNumber = phoneNumber.trim();
       await company.save();
     } else {
       company = await EventCompany.create({
         companyName: companyName.trim(),
         email: cleanEmail,
-        phoneNumber: phoneNumber.trim(),
-        institute,
         status: 'PENDING_OTP'
       });
     }
@@ -61,14 +54,14 @@ exports.registerCompany = async (req, res) => {
     });
   } catch (error) {
     if (error.code === 11000) {
-      return res.status(400).json({ success: false, error: 'This company is already registered for this institute.' });
+      return res.status(400).json({ success: false, error: 'This email is already registered.' });
     }
     console.error('Company Registration Error:', error);
     return res.status(500).json({ success: false, error: 'Server error during registration.' });
   }
 };
 
-// --- STEP 2: VERIFY OTP, CONFIRM REGISTRATION ---
+// --- STEP 2: VERIFY OTP ---
 exports.verifyCompanyOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
@@ -94,29 +87,22 @@ exports.verifyCompanyOtp = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Invalid verification code.' });
     }
 
-    const company = await EventCompany.findOne({ email: cleanEmail, status: 'PENDING_OTP' }).sort({ createdAt: -1 });
+    const company = await EventCompany.findOne({ email: cleanEmail });
     if (!company) {
       await Otp.deleteOne({ email: cleanEmail });
       return res.status(404).json({ success: false, error: 'Registration not found. Please start again.' });
     }
 
-    company.status = 'CONFIRMED';
+    company.status = 'PENDING_DETAILS';
     await company.save();
     await Otp.deleteOne({ email: cleanEmail });
 
-    await sendEmail(
-      cleanEmail,
-      'AIPC 2026 - Registration Request Received',
-      `Dear ${company.companyName} team,\n\nYour company's registration request for the 49th AIPC Meet (4th September 2026, IIT Guwahati) has been received. Further updates will be communicated to you by email closer to the date.`
-    );
-
     return res.status(200).json({
       success: true,
-      message: 'Registration request received.',
+      message: 'Email verified.',
       company: {
         companyName: company.companyName,
-        email: company.email,
-        institute: company.institute
+        email: company.email
       }
     });
   } catch (error) {
@@ -125,43 +111,48 @@ exports.verifyCompanyOtp = async (req, res) => {
   }
 };
 
-// --- STEP 3: SUBMIT ATTENDEE DETAILS (up to 2), AFTER OTP VERIFICATION ---
-exports.submitAttendees = async (req, res) => {
+// --- STEP 3: COMPLETE REGISTRATION WITH REMAINING DETAILS ---
+exports.completeRegistration = async (req, res) => {
   try {
-    const { email, institute, attendees } = req.body;
+    const { email, designation, institute, phoneNumber } = req.body;
 
-    if (!email || !institute) {
-      return res.status(400).json({ success: false, error: 'Email and institute are required.' });
+    if (!email || !designation || !institute || !phoneNumber) {
+      return res.status(400).json({ success: false, error: 'All fields are required.' });
     }
 
-    if (!Array.isArray(attendees) || attendees.length === 0) {
-      return res.status(400).json({ success: false, error: 'At least one attendee is required.' });
-    }
-
-    if (attendees.length > 2) {
-      return res.status(400).json({ success: false, error: 'A company can register at most 2 attendees.' });
-    }
-
-    const cleanAttendees = attendees
-      .map(a => ({ name: (a.name || '').trim(), designation: (a.designation || '').trim() }))
-      .filter(a => a.name);
-
-    if (cleanAttendees.length === 0) {
-      return res.status(400).json({ success: false, error: 'At least one attendee name is required.' });
+    if (!EventCompany.INSTITUTE_CODES.includes(institute)) {
+      return res.status(400).json({ success: false, error: 'Invalid institute selection.' });
     }
 
     const cleanEmail = email.toLowerCase().trim();
-    const company = await EventCompany.findOne({ email: cleanEmail, institute, status: 'CONFIRMED' });
+    const company = await EventCompany.findOne({ email: cleanEmail, status: 'PENDING_DETAILS' });
     if (!company) {
-      return res.status(404).json({ success: false, error: 'Confirmed registration not found.' });
+      return res.status(404).json({ success: false, error: 'Verified registration not found. Please start again.' });
     }
 
-    company.attendees = cleanAttendees;
+    company.designation = designation.trim();
+    company.institute = institute;
+    company.phoneNumber = phoneNumber.trim();
+    company.status = 'CONFIRMED';
     await company.save();
 
-    return res.status(200).json({ success: true, message: 'Attendee details saved.' });
+    await sendEmail(
+      cleanEmail,
+      'AIPC 2026 - Registration Request Received',
+      `Dear ${company.companyName} team,\n\nYour registration request for the 49th AIPC Meet (4th September 2026, IIT Guwahati) has been received. Further updates will be communicated to you by email closer to the date.`
+    );
+
+    return res.status(200).json({
+      success: true,
+      message: 'Registration complete.',
+      company: {
+        companyName: company.companyName,
+        email: company.email,
+        institute: company.institute
+      }
+    });
   } catch (error) {
-    console.error('Submit Attendees Error:', error);
-    return res.status(500).json({ success: false, error: 'Server error saving attendee details.' });
+    console.error('Complete Registration Error:', error);
+    return res.status(500).json({ success: false, error: 'Server error completing registration.' });
   }
 };

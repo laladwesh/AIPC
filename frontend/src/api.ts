@@ -43,13 +43,13 @@ export const companyApi = {
 export interface EventCompanyRegistration {
     companyName: string;
     email: string;
-    phoneNumber: string;
-    institute: string;
 }
 
-export interface Attendee {
-    name: string;
+export interface EventCompanyDetails {
+    email: string;
     designation: string;
+    institute: string;
+    phoneNumber: string;
 }
 
 // Companies attending the meet, brought by an institute — separate from the
@@ -71,11 +71,11 @@ export const eventCompanyApi = {
         });
         return parseResponse(response);
     },
-    submitAttendees: async (email: string, institute: string, attendees: Attendee[]) => {
-        const response = await fetch(`${API_BASE_URL}/companies/attendees`, {
+    complete: async (data: EventCompanyDetails) => {
+        const response = await fetch(`${API_BASE_URL}/companies/complete`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, institute, attendees })
+            body: JSON.stringify(data)
         });
         return parseResponse(response);
     }

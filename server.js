@@ -105,7 +105,7 @@ app.get(`${apiBase}/company/details`, authController.getCompanyDetails);
 // --- COMPANY REGISTRATION (brought to the meet by an institute) ---
 app.post(`${apiBase}/companies/register`, otpLimiter, eventCompanyController.registerCompany);
 app.post(`${apiBase}/companies/verify-otp`, otpLimiter, eventCompanyController.verifyCompanyOtp);
-app.post(`${apiBase}/companies/attendees`, eventCompanyController.submitAttendees);
+app.post(`${apiBase}/companies/complete`, eventCompanyController.completeRegistration);
 
 // --- TPO ADMIN ROUTES ---
 app.post(`${apiBase}/admin/auth/login`, adminAuthLimiter, adminController.requestAdminOtp);
