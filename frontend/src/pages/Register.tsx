@@ -42,14 +42,15 @@ const Register = () => {
 
             <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-6 md:py-8">
                 <div className="flex items-center justify-between gap-6">
-                    <div>
-                        <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
+                    <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-0">
+                        <button
+                            type="button"
+                            onClick={() => document.getElementById('registration-form')?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+                            className="text-left hover:opacity-80 transition-opacity cursor-pointer"
+                        >
                             Register your company
-                        </h1>
-                        <p className="text-[#c9d0d1] max-w-[480px] text-sm">
-                            Enter your company details and the IIT bringing you. We'll email a verification code to confirm.
-                        </p>
-                    </div>
+                        </button>
+                    </h1>
                     <div className="flex flex-col items-center gap-1 flex-shrink-0">
                         <img
                             src={`${import.meta.env.BASE_URL}iitg.png`}
@@ -87,7 +88,7 @@ const Register = () => {
             </section>
 
             <div className="w-full flex flex-col lg:flex-row">
-                <main className="w-full lg:w-[60%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
+                <main id="registration-form" className="w-full lg:w-[60%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
                     <h2 className="font-display text-xl md:text-2xl font-bold text-[#001e40] mb-2">Registration Form</h2>
                     <p className="flex items-start gap-2 text-sm text-[#5c5f60] bg-[#fff8e1] border border-[#e6d9a6] rounded-lg px-4 py-3 mb-4">
                         <span className="material-symbols-outlined text-[18px] text-[#9c7a00]">info</span>
