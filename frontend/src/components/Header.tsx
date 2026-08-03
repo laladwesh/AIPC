@@ -12,9 +12,9 @@ const Header = () => {
                 />
                 <div className="flex flex-col leading-tight">
                     <span className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium">
-                        ORGANISING IIT | 49TH AIPC MEET
+                        ORGANISING IIT
                     </span>
-                    <span className={styles.aipc49}>ALL IITs PLACEMENT COMMITTEE</span>
+                    <span className={styles.aipc49}>49TH ALL IITs PLACEMENT COMMITTEE</span>
                 </div>
             </Link>
             <div className={styles.navCta}>
