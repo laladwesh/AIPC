@@ -13,10 +13,6 @@ const InstituteCarousel = () => {
         }, SLIDE_DURATION);
         return () => clearInterval(timer);
     }, []);
-
-    // Warm the browser cache for every institute's scene image (and logo) up
-    // front, so rotating onto one later never shows a pop-in/flicker — by
-    // the time the carousel reaches it, it's already downloaded.
     useEffect(() => {
         INSTITUTES.forEach(institute => {
             const scene = new Image();
