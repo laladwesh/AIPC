@@ -6,7 +6,7 @@ export interface Institute {
     website: string;
 }
 
-// Keep codes in sync with models/Delegate.js
+// Keep codes in sync with models/EventCompany.js
 export const INSTITUTES: Institute[] = [
     { code: 'kharagpur', name: 'IIT Kharagpur', shortName: 'Kharagpur', logo: 'logos/kharagpur.svg', website: 'https://www.iitkgp.ac.in/' },
     { code: 'bombay', name: 'IIT Bombay', shortName: 'Bombay', logo: 'logos/bombay.svg', website: 'https://www.iitb.ac.in/' },
