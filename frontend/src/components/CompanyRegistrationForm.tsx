@@ -281,7 +281,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
     return (
         <form onSubmit={handleDetailsSubmit} className="bg-white border border-[#c3c6d1] rounded-xl shadow-sm p-6 sm:p-10 space-y-6 animate-fadeIn">
             <div>
-                <h2 className="text-xl font-semibold text-[#001e40] mb-1">Company details</h2>
+                <h2 className="text-xl font-semibold text-[#001e40] mb-1">One Time registration</h2>
                 {/* <p className=   "text-sm text-[#5c5f60]">Just the company's details — no individual contact person required.</p> */}
             </div>
 

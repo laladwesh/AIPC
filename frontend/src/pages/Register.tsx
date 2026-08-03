@@ -77,40 +77,12 @@ const Register = () => {
 
             <div className="w-full flex flex-col lg:flex-row">
                 <main className="w-full lg:w-[60%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
-                    <div className="grid grid-cols-1 sm:grid-cols-[1fr_260px] gap-6">
-                        <div>
-                            <h2 className="font-display text-xl md:text-2xl font-bold text-[#001e40] mb-2">Registration Form</h2>
-                            <p className="flex items-start gap-2 text-sm text-[#5c5f60] bg-[#fff8e1] border border-[#e6d9a6] rounded-lg px-4 py-3 mb-4">
-                                <span className="material-symbols-outlined text-[18px] text-[#9c7a00]">info</span>
-                                <span>This registration is only for companies that have been invited by a participating IIT. Please register only if an IIT has invited you.</span>
-                            </p>
-                            <CompanyRegistrationForm showToast={showToast} />
-                        </div>
-
-                        {/* <aside className="space-y-4">
-                            <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <span className="material-symbols-outlined text-[#001e40]">event</span>
-                                    <h3 className="font-semibold text-[#001e40]">The 49th meet</h3>
-                                </div>
-                                <p className="text-sm text-[#5c5f60]">4th September 2026, hosted by IIT Guwahati.</p>
-                            </div>
-                            <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <span className="material-symbols-outlined text-[#001e40]">domain</span>
-                                    <h3 className="font-semibold text-[#001e40]">Brought by an institute</h3>
-                                </div>
-                                <p className="text-sm text-[#5c5f60]">Each IIT can bring multiple companies — just select which institute is bringing yours.</p>
-                            </div>
-                            <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
-                                <div className="flex items-center gap-3 mb-2">
-                                    <span className="material-symbols-outlined text-[#001e40]">mail</span>
-                                    <h3 className="font-semibold text-[#001e40]">What happens next</h3>
-                                </div>
-                                <p className="text-sm text-[#5c5f60]">Once verified, we'll follow up by email with further details closer to the meet.</p>
-                            </div>
-                        </aside> */}
-                    </div>
+                    <h2 className="font-display text-xl md:text-2xl font-bold text-[#001e40] mb-2">Registration Form</h2>
+                    <p className="flex items-start gap-2 text-sm text-[#5c5f60] bg-[#fff8e1] border border-[#e6d9a6] rounded-lg px-4 py-3 mb-4">
+                        <span className="material-symbols-outlined text-[18px] text-[#9c7a00]">info</span>
+                        <span>This registration is only for companies that have been invited by a participating IIT. Please register only if an IIT has invited you.</span>
+                    </p>
+                    <CompanyRegistrationForm showToast={showToast} />
                 </main>
 
                 <div className="hidden lg:block lg:w-[40%]">
