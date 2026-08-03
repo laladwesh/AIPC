@@ -76,7 +76,7 @@ const Register = () => {
             </section>
 
             <div className="w-full flex flex-col lg:flex-row">
-                <main className="w-full lg:w-[58%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
+                <main className="w-full lg:w-[60%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
                     <div className="grid grid-cols-1 sm:grid-cols-[1fr_260px] gap-6">
                         <div>
                             <h2 className="font-display text-xl md:text-2xl font-bold text-[#001e40] mb-2">Registration Form</h2>
@@ -113,7 +113,7 @@ const Register = () => {
                     </div>
                 </main>
 
-                <div className="hidden lg:block lg:w-[42%]">
+                <div className="hidden lg:block lg:w-[40%]">
                     <InstituteCarousel />
                 </div>
             </div>
