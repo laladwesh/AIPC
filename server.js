@@ -4,6 +4,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const cookieParser = require('cookie-parser');
+const rateLimit = require('express-rate-limit');
 require('dotenv').config();
 
 const authController = require('./controllers/authController');
@@ -13,10 +14,50 @@ const requireAdmin = require('./middleware/adminAuth');
 
 const app = express();
 
+// The production deployment sits behind the server's system nginx
+// (iitg.ac.in/aipc -> 127.0.0.1:6025), so req.ip would otherwise always
+// resolve to the proxy's own address (127.0.0.1) for every visitor —
+// silently pooling every client into one rate-limit bucket. Trusting one
+// proxy hop makes req.ip read the real client IP from X-Forwarded-For.
+app.set('trust proxy', 1);
+
 // BASE_PATH lets the whole app (API + built frontend) be served under a
 // sub-path, e.g. BASE_PATH=/aipc when reverse-proxied at https://host/aipc
 const BASE_PATH = process.env.BASE_PATH || '';
 const apiBase = `${BASE_PATH}/api/v1`;
+
+// General ceiling across the whole API — defense in depth against scraping
+// and abuse that isn't otherwise covered by a more specific limiter below.
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 300,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many requests. Please try again later.' }
+});
+
+// Tighter limit for OTP request/verify endpoints specifically — these are
+// the routes an attacker would actually want to hammer (spam OTP emails,
+// or brute-force the 6-digit code across many freshly-requested OTPs
+// instead of exhausting the 3-attempt-per-OTP cap already enforced in the
+// controllers).
+const otpLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many attempts. Please try again later.' }
+});
+
+// Admin login is the highest-value target on this app, so it gets its own
+// stricter, separately-tracked limit.
+const adminAuthLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { success: false, error: 'Too many attempts. Please try again later.' }
+});
 
 // Whitelist origins for CORS & Credentials. Scoped to the API routes only —
 // static asset requests (e.g. Vite's crossorigin script/link tags) send an
@@ -42,6 +83,8 @@ app.use(apiBase, cors({
   credentials: true
 }));
 
+app.use(apiBase, apiLimiter);
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -51,21 +94,21 @@ mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/aipc_portal
   .catch((err) => console.error('MongoDB Connection Error:', err));
 
 // --- RECRUITER & PUBLIC ROUTES ---
-app.post(`${apiBase}/auth/register`, authController.registerCompany);
-app.post(`${apiBase}/auth/login`, authController.requestLoginOtp);
-app.post(`${apiBase}/auth/verify-otp`, authController.verifyOtp);
+app.post(`${apiBase}/auth/register`, otpLimiter, authController.registerCompany);
+app.post(`${apiBase}/auth/login`, otpLimiter, authController.requestLoginOtp);
+app.post(`${apiBase}/auth/verify-otp`, otpLimiter, authController.verifyOtp);
 app.get(`${apiBase}/auth/me`, authController.getAuthenticatedUser);
 app.post(`${apiBase}/auth/logout`, authController.logout);
 app.get(`${apiBase}/auth/check-company`, authController.checkCompany);
 app.get(`${apiBase}/company/details`, authController.getCompanyDetails);
 
 // --- COMPANY REGISTRATION (brought to the meet by an institute) ---
-app.post(`${apiBase}/companies/register`, eventCompanyController.registerCompany);
-app.post(`${apiBase}/companies/verify-otp`, eventCompanyController.verifyCompanyOtp);
+app.post(`${apiBase}/companies/register`, otpLimiter, eventCompanyController.registerCompany);
+app.post(`${apiBase}/companies/verify-otp`, otpLimiter, eventCompanyController.verifyCompanyOtp);
 
 // --- TPO ADMIN ROUTES ---
-app.post(`${apiBase}/admin/auth/login`, adminController.requestAdminOtp);
-app.post(`${apiBase}/admin/auth/verify-otp`, adminController.verifyAdminOtp);
+app.post(`${apiBase}/admin/auth/login`, adminAuthLimiter, adminController.requestAdminOtp);
+app.post(`${apiBase}/admin/auth/verify-otp`, adminAuthLimiter, adminController.verifyAdminOtp);
 app.get(`${apiBase}/admin/me`, requireAdmin, adminController.getAdminProfile);
 app.get(`${apiBase}/admin/pending-companies`, requireAdmin, adminController.getPendingCompanies);
 app.get(`${apiBase}/admin/approved-companies`, requireAdmin, adminController.getApprovedCompanies);

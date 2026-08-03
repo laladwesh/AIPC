@@ -4,6 +4,7 @@ export interface Institute {
     shortName: string;
     logo: string;
     website: string;
+    sceneImage: string;
 }
 
 // Vite gotcha: public/ assets referenced with a leading "/" resolve against
@@ -12,7 +13,7 @@ export interface Institute {
 const asset = (path: string) => `${import.meta.env.BASE_URL}${path}`;
 
 // Keep codes in sync with models/EventCompany.js
-export const INSTITUTES: Institute[] = [
+const INSTITUTE_DATA: Omit<Institute, 'sceneImage'>[] = [
     { code: 'kharagpur', name: 'IIT Kharagpur', shortName: 'Kharagpur', logo: asset('logos/kharagpur.svg'), website: 'https://www.iitkgp.ac.in/' },
     { code: 'bombay', name: 'IIT Bombay', shortName: 'Bombay', logo: asset('logos/bombay.svg'), website: 'https://www.iitb.ac.in/' },
     { code: 'madras', name: 'IIT Madras', shortName: 'Madras', logo: asset('logos/madras.svg'), website: 'https://www.iitm.ac.in/' },
@@ -37,3 +38,8 @@ export const INSTITUTES: Institute[] = [
     { code: 'jammu', name: 'IIT Jammu', shortName: 'Jammu', logo: asset('logos/jammu.svg'), website: 'https://www.iitjammu.ac.in/' },
     { code: 'goa', name: 'IIT Goa', shortName: 'Goa', logo: asset('logos/goa.svg'), website: 'https://iitgoa.ac.in/' }
 ];
+
+export const INSTITUTES: Institute[] = INSTITUTE_DATA.map(institute => ({
+    ...institute,
+    sceneImage: asset(`campus/${institute.code}.jpg`)
+}));

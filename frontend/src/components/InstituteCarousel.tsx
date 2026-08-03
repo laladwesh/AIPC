@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { INSTITUTES } from '../institutes';
 
 const SLIDE_DURATION = 2800;
+const FALLBACK_IMAGE = `${import.meta.env.BASE_URL}campus.png`;
 
 const InstituteCarousel = () => {
     const [index, setIndex] = useState(0);
@@ -18,11 +19,13 @@ const InstituteCarousel = () => {
     return (
         <div className="relative w-full h-full overflow-hidden bg-[#101e24]">
             <img
-                src={`${import.meta.env.BASE_URL}campus.png`}
+                key={current.code}
+                src={current.sceneImage}
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = FALLBACK_IMAGE; }}
                 alt=""
-                className="absolute inset-0 w-full h-full object-cover opacity-25"
+                className="absolute inset-0 w-full h-full object-contain opacity-40 animate-fadeIn"
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-[#101e24]/80 via-[#101e24]/70 to-[#101e24]/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-[#101e24]/60 via-[#101e24]/45 to-[#101e24]/70" />
 
             <div className="relative h-full flex flex-col items-center justify-center px-10 text-center">
                 <div key={current.code} className="flex flex-col items-center animate-fadeIn">
