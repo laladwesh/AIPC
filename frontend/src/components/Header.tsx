@@ -3,7 +3,7 @@ import styles from '../App.module.css';
 
 const Header = () => {
     return (
-        <header className={styles.masthead}>
+        <header className={`${styles.masthead} relative z-20`}>
             <Link to="/" className={styles.aipc49} style={{ textDecoration: 'none', color: 'inherit' }}>
                 ALL IITs PLACEMENT COMMITTEE
             </Link>

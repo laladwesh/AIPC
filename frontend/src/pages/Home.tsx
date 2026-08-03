@@ -18,7 +18,7 @@ const Home = () => {
                 <section
                     className={styles.hero}
                     aria-labelledby="hero-title"
-                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}bg.png)` }}
+                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}bg.webp)` }}
                 >
                     <div className={styles.ruleDevice}>
                         <div className={styles.rectangle} />
