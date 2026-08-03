@@ -180,7 +180,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
             </div>
 
             <div className="space-y-2">
-                <label htmlFor="companyInstitute" className="block text-sm font-medium text-[#43474f]">Brought to the meet by</label>
+                <label htmlFor="companyInstitute" className="block text-sm font-medium text-[#43474f]">Name of the IIT invited you</label>
                 <div className="relative">
                     <select
                         id="companyInstitute"
@@ -207,7 +207,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                    <label htmlFor="companyEmail" className="block text-sm font-medium text-[#43474f]">Company email</label>
+                    <label htmlFor="companyEmail" className="block text-sm font-medium text-[#43474f]">Your email</label>
                     <input
                         type="email"
                         id="companyEmail"

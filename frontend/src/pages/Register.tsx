@@ -4,6 +4,7 @@ import Header from '../components/Header';
 import CompanyRegistrationForm from '../components/CompanyRegistrationForm';
 import InstituteCarousel from '../components/InstituteCarousel';
 import { useDocumentMeta } from '../hooks/useDocumentMeta';
+import { INSTITUTES } from '../institutes';
 
 interface ToastState {
     message: string;
@@ -84,6 +85,31 @@ const Register = () => {
                     <InstituteCarousel />
                 </div>
             </div>
+
+            <section className={styles.membershipBand} aria-labelledby="members-title">
+                <h2 id="members-title" className={styles.the23Member}>THE 23 MEMBER INSTITUTES</h2>
+                <div className={styles.emblemGrid}>
+                    {INSTITUTES.map((institute, index) => (
+                        <a
+                            key={institute.code}
+                            href={institute.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className={styles.iitBhilai}
+                        >
+                            <img
+                                src={institute.logo}
+                                alt={institute.name}
+                                title={institute.shortName}
+                                className={styles.emblemRingIcon}
+                                width={84}
+                                height={84}
+                                loading={index < 8 ? 'eager' : 'lazy'}
+                            />
+                        </a>
+                    ))}
+                </div>
+            </section>
         </div>
     );
 };

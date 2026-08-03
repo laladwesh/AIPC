@@ -16,7 +16,10 @@ const Header = () => {
                     </span>
                 </div>
                 <span className="w-px h-9 bg-[#8fa3ab]/40 flex-shrink-0" />
-                <span className={styles.aipc49}>49<sup>TH</sup> ALL IITs PLACEMENT COMMITTEE</span>
+                <div className="flex flex-col leading-tight">
+                    <span className={styles.aipc49}>INDUSTRY CONCLAVE @ 49<sup>TH</sup> ALL IITs PLACEMENT COMMITTEE</span>
+                    <span className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium">HOSTED AT IIT GUWAHATI</span>
+                </div>
             </Link>
             <div className={styles.navCta}>
                 <nav className={styles.nav} aria-label="Primary">
