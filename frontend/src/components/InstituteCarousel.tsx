@@ -23,7 +23,7 @@ const InstituteCarousel = () => {
                 src={current.sceneImage}
                 onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = FALLBACK_IMAGE; }}
                 alt=""
-                className="absolute inset-0 w-full h-full object-contain opacity-40 animate-fadeIn"
+                className="absolute inset-0 w-full h-full object-cover opacity-40 animate-fadeIn"
             />
             <div className="absolute inset-0 bg-gradient-to-b from-[#101e24]/60 via-[#101e24]/45 to-[#101e24]/70" />
 
