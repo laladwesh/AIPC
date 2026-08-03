@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
 import styles from '../App.module.css';
 import Header from '../components/Header';
 import CompanyRegistrationForm from '../components/CompanyRegistrationForm';
@@ -13,7 +12,7 @@ interface ToastState {
 
 const Register = () => {
     useDocumentMeta({
-        path: '/register',
+        path: '/',
         title: 'Register Your Company | 49th AIPC Meet 2026',
         description: "Register your company for the 49th AIPC Meet, 4th September 2026 at IIT Guwahati. Enter your company details and the IIT bringing you, verify by email, and you're done."
     });
@@ -41,10 +40,6 @@ const Register = () => {
             )}
 
             <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-6 md:py-8">
-                <Link to="/" className="inline-flex items-center gap-2 text-[#c9d0d1] text-xs tracking-[0.1em] hover:text-white transition-colors mb-4">
-                    <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-                    BACK TO HOME
-                </Link>
                 <p className="text-[#8fa3ab] text-xs tracking-[0.2em] font-medium mb-2">REGISTRATION &middot; 49th AIPC MEET 2026</p>
                 <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
                     Register your company

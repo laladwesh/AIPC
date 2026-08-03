@@ -24,11 +24,6 @@ const Header = () => {
                         <span className={styles.about}>CONTACT</span>
                     </a>
                 </nav>
-                <Link to="/register" aria-label="Register your institute's delegate">
-                    <span className={styles.registerCta}>
-                        <span className={styles.register}>REGISTER</span>
-                    </span>
-                </Link>
             </div>
         </header>
     );

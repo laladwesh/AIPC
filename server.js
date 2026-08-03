@@ -117,57 +117,17 @@ app.patch(`${apiBase}/admin/review-company`, requireAdmin, adminController.revie
 app.post(`${apiBase}/admin/auth/logout`, adminController.adminLogout);
 
 // --- BUILT FRONTEND (served directly, no nginx) ---
+// Single-page app now — the registration form IS the home page, so every
+// route just gets the same static index.html (its baked-in meta tags
+// already describe the registration page).
 const FRONTEND_DIST = path.join(__dirname, 'frontend', 'dist');
 if (fs.existsSync(FRONTEND_DIST)) {
-  const SITE_URL = 'https://iitg.ac.in/aipc';
-  const indexHtml = fs.readFileSync(path.join(FRONTEND_DIST, 'index.html'), 'utf-8');
-
-  // Per-route <title>/meta overrides so crawlers and social-preview bots that
-  // don't execute JS (Googlebot does; most link-unfurl bots don't) still see
-  // route-correct tags on first response, not just the Home defaults already
-  // baked into index.html. Client-side nav updates the same tags via
-  // useDocumentMeta for consistency after SPA route changes.
-  const ROUTE_META = {
-    '/register': {
-      title: 'Register Your Company | 49th AIPC Meet 2026',
-      description: "Register your company for the 49th AIPC Meet, 4th September 2026 at IIT Guwahati. Enter your company details and the IIT bringing you, verify by email, and you're done."
-    }
-  };
-
-  const escapeHtml = (str) => str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;')
-    .replace(/"/g, '&quot;');
-
-  const renderIndexHtml = (routePath) => {
-    const meta = ROUTE_META[routePath];
-    if (!meta) return indexHtml;
-
-    const title = escapeHtml(meta.title);
-    const description = escapeHtml(meta.description);
-    const canonicalUrl = `${SITE_URL}${routePath}`;
-
-    return indexHtml
-      .replace(/<title id="meta-title">[^<]*<\/title>/, `<title id="meta-title">${title}</title>`)
-      .replace(/(id="meta-description"[^>]*content=")[^"]*(")/, `$1${description}$2`)
-      .replace(/(id="meta-og-title"[^>]*content=")[^"]*(")/, `$1${title}$2`)
-      .replace(/(id="meta-og-description"[^>]*content=")[^"]*(")/, `$1${description}$2`)
-      .replace(/(id="meta-og-url"[^>]*content=")[^"]*(")/, `$1${canonicalUrl}$2`)
-      .replace(/(id="meta-twitter-title"[^>]*content=")[^"]*(")/, `$1${title}$2`)
-      .replace(/(id="meta-twitter-description"[^>]*content=")[^"]*(")/, `$1${description}$2`)
-      .replace(/(id="meta-canonical"[^>]*href=")[^"]*(")/, `$1${canonicalUrl}$2`);
-  };
-
   app.use(BASE_PATH || '/', express.static(FRONTEND_DIST));
   app.use((req, res, next) => {
     if (req.method !== 'GET' || (BASE_PATH && !req.path.startsWith(BASE_PATH))) {
       return next();
     }
-    let routePath = req.path.slice(BASE_PATH.length) || '/';
-    if (routePath.length > 1 && routePath.endsWith('/')) routePath = routePath.slice(0, -1);
-
-    res.type('html').send(renderIndexHtml(routePath));
+    res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
   });
 }
 

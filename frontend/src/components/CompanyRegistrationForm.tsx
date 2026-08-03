@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { INSTITUTES } from '../institutes';
 import { eventCompanyApi } from '../api';
 import OtpInput from './OtpInput';
@@ -66,6 +65,12 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
         }
     };
 
+    const handleRegisterAnother = () => {
+        setFormData(EMPTY_FORM);
+        setOtp(['', '', '', '', '', '']);
+        setStep(1);
+    };
+
     const handleOtpSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const code = otp.join('');
@@ -102,12 +107,13 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
                         Your request for <strong className="text-[#001e40]">{formData.companyName}</strong>, brought by{' '}
                         <strong className="text-[#001e40]">{selectedInstitute?.name}</strong>, has been received. Further updates will be communicated to <strong className="text-[#001e40]">{formData.email}</strong> by email.
                     </p>
-                    <Link
-                        to="/"
+                    <button
+                        type="button"
+                        onClick={handleRegisterAnother}
                         className="inline-flex h-11 px-6 items-center justify-center gap-2 bg-[#001e40] text-white text-sm font-medium rounded hover:bg-[#003366] transition-all"
                     >
-                        Back to home
-                    </Link>
+                        Register another company
+                    </button>
                 </div>
             </div>
         );
