@@ -54,38 +54,40 @@ const Register = () => {
                 </p>
             </div>
 
-            <main className="w-full lg:w-[58%] flex-1 bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
-                <div className="grid grid-cols-1 sm:grid-cols-[1fr_260px] gap-6">
-                    <CompanyRegistrationForm showToast={showToast} />
+            <div className="w-full flex flex-col lg:flex-row">
+                <main className="w-full lg:w-[58%] bg-[#f7f9fd] px-6 md:px-[56px] py-12 md:py-16">
+                    <div className="grid grid-cols-1 sm:grid-cols-[1fr_260px] gap-6">
+                        <CompanyRegistrationForm showToast={showToast} />
 
-                    <aside className="space-y-4">
-                        <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="material-symbols-outlined text-[#001e40]">event</span>
-                                <h3 className="font-semibold text-[#001e40]">The 49th meet</h3>
+                        <aside className="space-y-4">
+                            <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <span className="material-symbols-outlined text-[#001e40]">event</span>
+                                    <h3 className="font-semibold text-[#001e40]">The 49th meet</h3>
+                                </div>
+                                <p className="text-sm text-[#5c5f60]">4th September 2026, hosted by IIT Guwahati.</p>
                             </div>
-                            <p className="text-sm text-[#5c5f60]">4th September 2026, hosted by IIT Guwahati.</p>
-                        </div>
-                        <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="material-symbols-outlined text-[#001e40]">domain</span>
-                                <h3 className="font-semibold text-[#001e40]">Brought by an institute</h3>
+                            <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <span className="material-symbols-outlined text-[#001e40]">domain</span>
+                                    <h3 className="font-semibold text-[#001e40]">Brought by an institute</h3>
+                                </div>
+                                <p className="text-sm text-[#5c5f60]">Each IIT can bring multiple companies — just select which institute is bringing yours.</p>
                             </div>
-                            <p className="text-sm text-[#5c5f60]">Each IIT can bring multiple companies — just select which institute is bringing yours.</p>
-                        </div>
-                        <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
-                            <div className="flex items-center gap-3 mb-2">
-                                <span className="material-symbols-outlined text-[#001e40]">mail</span>
-                                <h3 className="font-semibold text-[#001e40]">What happens next</h3>
+                            <div className="bg-white p-5 border border-[#c3c6d1] rounded-lg">
+                                <div className="flex items-center gap-3 mb-2">
+                                    <span className="material-symbols-outlined text-[#001e40]">mail</span>
+                                    <h3 className="font-semibold text-[#001e40]">What happens next</h3>
+                                </div>
+                                <p className="text-sm text-[#5c5f60]">Once verified, we'll follow up by email with further details closer to the meet.</p>
                             </div>
-                            <p className="text-sm text-[#5c5f60]">Once verified, we'll follow up by email with further details closer to the meet.</p>
-                        </div>
-                    </aside>
+                        </aside>
+                    </div>
+                </main>
+
+                <div className="hidden lg:block lg:w-[42%]">
+                    <InstituteCarousel />
                 </div>
-            </main>
-
-            <div className="hidden lg:block lg:fixed lg:top-0 lg:right-0 lg:w-[42%] lg:h-screen z-10">
-                <InstituteCarousel />
             </div>
         </div>
     );
