@@ -14,8 +14,12 @@ const Home = () => {
     return (
         <div className={styles.app}>
             <Header />
-            <main>
-                <section className={styles.hero} aria-labelledby="hero-title">
+            <main className="w-full">
+                <section
+                    className={styles.hero}
+                    aria-labelledby="hero-title"
+                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}bg.png)` }}
+                >
                     <div className={styles.ruleDevice}>
                         <div className={styles.rectangle} />
                         <div className={styles.rectangle2} />
@@ -151,7 +155,10 @@ const Home = () => {
                                 <div className={styles.bracketArm3} />
                                 <div className={styles.bracketArm4} />
                             </div>
-                            <div className={styles.campusPhotograph}>
+                            <div
+                                className={styles.campusPhotograph}
+                                style={{ backgroundImage: `url(${import.meta.env.BASE_URL}campus.png)` }}
+                            >
                                 <span className={styles.campusPhotograph2}>CAMPUS PHOTOGRAPH</span>
                             </div>
                         </div>

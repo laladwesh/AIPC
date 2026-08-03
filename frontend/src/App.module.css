@@ -9,7 +9,7 @@
   	text-align: left;
   	font-size: 11px;
   	color: #5f6a6e;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
 	scroll-behavior: smooth;
 }
 .masthead {
@@ -23,7 +23,7 @@
   	gap: 20px;
   	font-size: 18px;
   	color: #fcfcfb;
-  	font-family: 'Libre Caslon Text';
+  	font-family: 'Manrope', sans-serif;
 }
 .aipc49 {
   	position: relative;
@@ -36,7 +36,7 @@
   	gap: 32px;
   	font-size: 11px;
   	color: #c9d0d1;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
 }
 .nav {
   	overflow: hidden;
@@ -70,7 +70,6 @@
   	align-items: flex-start;
   	padding: 92px 72px 56px;
   	gap: 20px;
-	background-image: url('/bg.png');
   	background-size: cover;
   	background-repeat: no-repeat;
   	background-position: top;
@@ -119,7 +118,7 @@
   	font-size: 64px;
   	letter-spacing: 0.02em;
   	line-height: 68px;
-  	font-family: 'Libre Caslon Display';
+  	font-family: 'Manrope', sans-serif;
   	color: #fcfcfb;
   	text-shadow: 1px 0 0 #fcfcfb, 0 1px 0 #fcfcfb, -1px 0 0 #fcfcfb, 0 -1px 0 #fcfcfb;
 }
@@ -130,7 +129,7 @@
   	font-size: 18px;
   	line-height: 24px;
   	font-weight: 300;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
   	display: inline-block;
 }
 .factRow {
@@ -157,7 +156,7 @@
   	font-size: 18px;
   	line-height: 24px;
   	font-weight: 600;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
   	color: #fcfcfb;
 }
 .membershipBand {
@@ -216,7 +215,7 @@
   	flex-direction: column;
   	align-items: flex-start;
   	padding: 104px 72px;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
 }
 .twoColumns {
   	align-self: stretch;
@@ -242,7 +241,7 @@
   	font-size: 24px;
   	line-height: 30px;
   	font-weight: 600;
-  	font-family: 'Libre Caslon Text';
+  	font-family: 'Manrope', sans-serif;
   	color: #1d4a57;
 }
 .eachInstituteSends {
@@ -267,7 +266,7 @@
   	align-items: flex-start;
   	gap: 16px;
   	min-width: 330px;
-  	font-family: 'Libre Caslon Text';
+  	font-family: 'Manrope', sans-serif;
 }
 .thisEdition {
   	align-self: stretch;
@@ -276,7 +275,7 @@
   	line-height: 14px;
   	text-transform: uppercase;
   	font-weight: 500;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
 }
 .the49thMeet {
   	align-self: stretch;
@@ -291,7 +290,7 @@
   	position: relative;
   	font-size: 16px;
   	line-height: 26px;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
 }
 .figuresRule {
   	align-self: stretch;
@@ -335,7 +334,7 @@
   	line-height: 14px;
   	text-transform: uppercase;
   	font-weight: 500;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
   	color: #5f6a6e;
 }
 .riverRule {
@@ -412,7 +411,7 @@
   	font-size: 11px;
   	letter-spacing: 0.16em;
   	font-weight: 500;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
   	color: #5f6a6e;
 }
 .rule {
@@ -432,7 +431,7 @@
   	font-size: 32px;
   	line-height: 38px;
   	font-weight: 600;
-  	font-family: 'Libre Caslon Text';
+  	font-family: 'Manrope', sans-serif;
   	color: #1d4a57;
 }
 .monday {
@@ -449,7 +448,7 @@
   	position: relative;
   	font-size: 13px;
   	line-height: 18px;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
 }
 .travelAndStay {
   	align-self: stretch;
@@ -493,7 +492,7 @@
   	isolation: isolate;
   	font-size: 18px;
   	color: #101e24;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
 }
 .sevenHundredAcres {
   	align-self: stretch;
@@ -555,7 +554,6 @@
     margin: 32px; /* Breathing room from the text above */
     
     /* 2. Image Handling */
-    background-image: url('/campus.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -604,7 +602,7 @@
   	gap: 18px;
   	min-width: 330px;
   	font-size: 16px;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
 }
 .gettingThere {
   	align-self: stretch;
@@ -614,7 +612,7 @@
   	line-height: 14px;
   	text-transform: uppercase;
   	font-weight: 500;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
 }
 .item {
   	align-self: stretch;
@@ -670,7 +668,7 @@
   	padding: 104px 72px;
   	gap: 16px;
   	font-size: 16px;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
 }
 .searchBar {
   	align-self: stretch;
@@ -703,7 +701,7 @@
   	line-height: 14px;
   	text-transform: uppercase;
   	font-weight: 500;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
 }
 .rollTable {
   	align-self: stretch;
@@ -722,7 +720,7 @@
   	padding: 0px 0px 12px;
   	font-size: 11px;
   	color: #5f6a6e;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
 }
 .c1 {
   	height: 14px;
@@ -799,7 +797,7 @@
   	padding: 4px 9px;
   	font-size: 10px;
   	color: #fcfcfb;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
 }
 .host {
   	position: relative;
@@ -818,7 +816,7 @@
   	gap: 36px;
   	font-size: 18px;
   	color: #fcfcfb;
-  	font-family: 'IBM Plex Sans';
+  	font-family: 'Inter', sans-serif;
 }
 .ruleDevice2 {
   	align-self: stretch;
@@ -912,7 +910,7 @@
   	line-height: 14px;
   	text-transform: uppercase;
   	font-weight: 500;
-  	font-family: 'IBM Plex Mono';
+  	font-family: 'Manrope', sans-serif;
   	color: #c9d0d1;
 }
 

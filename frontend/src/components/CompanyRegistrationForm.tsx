@@ -93,14 +93,14 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
             <div className="bg-white border border-[#c3c6d1] rounded-xl shadow-sm overflow-hidden animate-fadeIn">
                 <div className="bg-[#f2f4f8] h-28 w-full flex items-end justify-center relative">
                     <div className="absolute -bottom-8 w-16 h-16 bg-white rounded-2xl shadow-md border border-[#c3c6d1] flex items-center justify-center">
-                        <span className="material-symbols-outlined text-[32px] text-[#003366]" style={{ fontVariationSettings: "'FILL' 1" }}>check_circle</span>
+                        <span className="material-symbols-outlined text-[32px] text-[#003366]" style={{ fontVariationSettings: "'FILL' 1" }}>pending_actions</span>
                     </div>
                 </div>
                 <div className="pt-14 pb-10 px-6 sm:px-10 text-center">
-                    <h2 className="text-2xl font-semibold text-[#001e40] mb-2">Registration confirmed</h2>
+                    <h2 className="text-2xl font-semibold text-[#001e40] mb-2">Registration request received</h2>
                     <p className="text-[#5c5f60] mb-6">
-                        <strong className="text-[#001e40]">{formData.companyName}</strong>, brought by{' '}
-                        <strong className="text-[#001e40]">{selectedInstitute?.name}</strong>, is registered for the 49th AIPC Meet. A confirmation has been sent to <strong className="text-[#001e40]">{formData.email}</strong>.
+                        Your request for <strong className="text-[#001e40]">{formData.companyName}</strong>, brought by{' '}
+                        <strong className="text-[#001e40]">{selectedInstitute?.name}</strong>, has been received. Further updates will be communicated to <strong className="text-[#001e40]">{formData.email}</strong> by email.
                     </p>
                     <Link
                         to="/"

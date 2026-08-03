@@ -106,13 +106,13 @@ exports.verifyCompanyOtp = async (req, res) => {
 
     await sendEmail(
       cleanEmail,
-      'AIPC 2026 - Company Registration Confirmed',
-      `Dear ${company.companyName} team,\n\nYour company's registration for the 49th AIPC Meet (4th September 2026, IIT Guwahati) is confirmed. Further details will be communicated to you by email closer to the date.`
+      'AIPC 2026 - Registration Request Received',
+      `Dear ${company.companyName} team,\n\nYour company's registration request for the 49th AIPC Meet (4th September 2026, IIT Guwahati) has been received. Further updates will be communicated to you by email closer to the date.`
     );
 
     return res.status(200).json({
       success: true,
-      message: 'Registration confirmed.',
+      message: 'Registration request received.',
       company: {
         companyName: company.companyName,
         email: company.email,
