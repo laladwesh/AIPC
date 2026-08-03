@@ -18,7 +18,7 @@ const Home = () => {
                 <section
                     className={styles.hero}
                     aria-labelledby="hero-title"
-                    style={{ backgroundImage: `url(${import.meta.env.BASE_URL}bg.png)` }}
+                    style={{ backgroundImage: `linear-gradient(rgba(16, 30, 36, 0.45), rgba(16, 30, 36, 0.45)), url(${import.meta.env.BASE_URL}bg.png)` }}
                 >
                     <div className={styles.ruleDevice}>
                         <div className={styles.rectangle} />
