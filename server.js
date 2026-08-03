@@ -12,16 +12,25 @@ const requireAdmin = require('./middleware/adminAuth');
 
 const app = express();
 
-// Whitelist origins for CORS & Credentials
+// BASE_PATH lets the whole app (API + built frontend) be served under a
+// sub-path, e.g. BASE_PATH=/aipc when reverse-proxied at https://host/aipc
+const BASE_PATH = process.env.BASE_PATH || '';
+const apiBase = `${BASE_PATH}/api/v1`;
+
+// Whitelist origins for CORS & Credentials. Scoped to the API routes only —
+// static asset requests (e.g. Vite's crossorigin script/link tags) send an
+// Origin header too, and gating those against this whitelist as well made
+// same-origin asset loads fail with a CORS-rejection 500.
 const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:5173',
   'http://127.0.0.1:5500',
   'http://localhost:5000',
-  'http://localhost:6025'
+  'http://localhost:6025',
+  'http://172.17.1.148'
 ];
 
-app.use(cors({
+app.use(apiBase, cors({
   origin: function (origin, callback) {
     if (!origin || origin === 'null' || allowedOrigins.indexOf(origin) !== -1) {
       callback(null, true);
@@ -39,11 +48,6 @@ app.use(cookieParser());
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/aipc_portal')
   .then(() => console.log('MongoDB Connected: AIPC Multi-Role Backend Ready'))
   .catch((err) => console.error('MongoDB Connection Error:', err));
-
-// BASE_PATH lets the whole app (API + built frontend) be served under a
-// sub-path, e.g. BASE_PATH=/aipc when reverse-proxied at https://host/aipc
-const BASE_PATH = process.env.BASE_PATH || '';
-const apiBase = `${BASE_PATH}/api/v1`;
 
 // --- RECRUITER & PUBLIC ROUTES ---
 app.post(`${apiBase}/auth/register`, authController.registerCompany);
