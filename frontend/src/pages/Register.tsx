@@ -84,7 +84,7 @@ const Register = () => {
                 </div>
             </main>
 
-            <div className="hidden lg:block lg:fixed lg:top-[220px] lg:right-0 lg:w-[42%] lg:h-[calc(100vh-220px)] z-10">
+            <div className="hidden lg:block lg:fixed lg:top-0 lg:right-0 lg:w-[42%] lg:h-screen z-10">
                 <InstituteCarousel />
             </div>
         </div>
