@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../App.module.css';
 import Header from '../components/Header';
@@ -19,26 +19,11 @@ const Register = () => {
     });
 
     const [toast, setToast] = useState<ToastState | null>(null);
-    const heroRef = useRef<HTMLDivElement>(null);
-    const [heroHeight, setHeroHeight] = useState(0);
 
     const showToast = (message: string, type: ToastState['type'] = 'info') => {
         setToast({ message, type });
         setTimeout(() => setToast(null), 4000);
     };
-
-    // The hero band's height varies with viewport width (text reflow, padding
-    // breakpoints), so the carousel below it can't start at a hardcoded
-    // offset — measure it and keep it in sync as the layout changes.
-    useEffect(() => {
-        const el = heroRef.current;
-        if (!el) return;
-        const update = () => setHeroHeight(el.offsetHeight);
-        update();
-        const observer = new ResizeObserver(update);
-        observer.observe(el);
-        return () => observer.disconnect();
-    }, []);
 
     return (
         <div className={styles.app}>
@@ -55,7 +40,7 @@ const Register = () => {
                 </div>
             )}
 
-            <div ref={heroRef} className="w-full bg-[#101e24] px-6 md:px-[56px] py-10 md:py-14">
+            <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-10 md:py-14">
                 <Link to="/" className="inline-flex items-center gap-2 text-[#c9d0d1] text-xs tracking-[0.1em] hover:text-white transition-colors mb-6">
                     <span className="material-symbols-outlined text-[16px]">arrow_back</span>
                     BACK TO HOME
@@ -99,10 +84,7 @@ const Register = () => {
                 </div>
             </main>
 
-            <div
-                className="hidden lg:block lg:fixed lg:right-0 lg:w-[42%] z-10"
-                style={{ top: heroHeight, height: `calc(100vh - ${heroHeight}px)` }}
-            >
+            <div className="hidden lg:block lg:fixed lg:top-[220px] lg:right-0 lg:w-[42%] lg:h-[calc(100vh-220px)] z-10">
                 <InstituteCarousel />
             </div>
         </div>
