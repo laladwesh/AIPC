@@ -8,17 +8,20 @@ const CONTACTS = [
     {
         role: 'Convenor, AIPC',
         name: 'Dr. John Jose (Head, Center for Career Development)',
-        email: 'alliitpc@gmail.com'
+        email: 'alliitpc@gmail.com',
+        phone: '+91 90486 65842'
     },
     {
         role: 'Registration help',
         name: 'CCD Tech Support',
-        email: 'ccd.techsupport@iitg.ac.in'
+        email: 'ccd.techsupport@iitg.ac.in',
+        phone: null
     },
     {
         role: 'Logistics',
         name: 'Akangshita Goswami (Career Development Officer, IITG)',
-        email: 'cdo.ccd@iitg.ac.in'
+        email: 'cdo.ccd@iitg.ac.in',
+        phone: '+91 91014 67789'
     }
 ];
 
