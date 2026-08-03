@@ -82,6 +82,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
     const handleRegisterAnother = () => {
         setFormData(EMPTY_FORM);
         setOtp(['', '', '', '', '', '']);
+        setAlreadyRegistered(null);
         setStep(1);
     };
 
@@ -124,13 +125,42 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
             });
             setStep(4);
         } catch (error: any) {
-            showToast(error.message || 'Could not complete registration.', 'error');
+            if (error instanceof ApiError && error.alreadyRegistered) {
+                setAlreadyRegistered({ companyName: formData.companyName, ...error.company });
+            } else {
+                showToast(error.message || 'Could not complete registration.', 'error');
+            }
         } finally {
             setIsCompleting(false);
         }
     };
 
     const selectedInstitute = INSTITUTES.find(i => i.code === formData.institute);
+
+    if (alreadyRegistered) {
+        return (
+            <div className="bg-white border border-[#c3c6d1] rounded-xl shadow-sm overflow-hidden animate-fadeIn">
+                <div className="bg-[#f2f4f8] h-28 w-full flex items-end justify-center relative">
+                    <div className="absolute -bottom-8 w-16 h-16 bg-white rounded-2xl shadow-md border border-[#c3c6d1] flex items-center justify-center">
+                        <span className="material-symbols-outlined text-[32px] text-[#003366]" style={{ fontVariationSettings: "'FILL' 1" }}>how_to_reg</span>
+                    </div>
+                </div>
+                <div className="pt-14 pb-10 px-6 sm:px-10 text-center">
+                    <h2 className="text-2xl font-semibold text-[#001e40] mb-2">You've already registered</h2>
+                    <p className="text-[#5c5f60] mb-6">
+                        {alreadyRegistered.name ? <>Hi <strong className="text-[#001e40]">{alreadyRegistered.name}</strong>, y</> : 'Y'}ou've already registered{alreadyRegistered.companyName ? <> on behalf of <strong className="text-[#001e40]">{alreadyRegistered.companyName}</strong></> : ''} and submitted your details. We will get back to you within 48 hours regarding registration confirmation.
+                    </p>
+                    <button
+                        type="button"
+                        onClick={handleRegisterAnother}
+                        className="inline-flex h-11 px-6 items-center justify-center gap-2 bg-[#001e40] text-white text-sm font-medium rounded hover:bg-[#003366] transition-all"
+                    >
+                        Use a different email
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     if (step === 4) {
         return (
