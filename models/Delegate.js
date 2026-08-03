@@ -13,7 +13,11 @@ const delegateSchema = new mongoose.Schema({
   designation: { type: String, trim: true, default: 'Professor-in-charge, Placement' },
   institute: { type: String, required: true, enum: INSTITUTE_CODES, unique: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
-  contactNumber: { type: String, required: true, trim: true }
+  contactNumber: { type: String, required: true, trim: true },
+
+  // PENDING_OTP: submitted but email not yet verified (doesn't hold the institute slot)
+  // PENDING_APPROVAL: OTP verified, registration request received
+  status: { type: String, enum: ['PENDING_OTP', 'PENDING_APPROVAL'], default: 'PENDING_OTP' }
 }, { timestamps: true });
 
 delegateSchema.statics.INSTITUTE_CODES = INSTITUTE_CODES;

@@ -3,27 +3,27 @@ import styles from '../App.module.css';
 
 const Header = () => {
     return (
-        <div className={styles.masthead}>
+        <header className={styles.masthead}>
             <Link to="/" className={styles.aipc49} style={{ textDecoration: 'none', color: 'inherit' }}>
                 ALL IITs PLACEMENT COMMITTEE
             </Link>
             <div className={styles.navCta}>
-                <div className={styles.nav}>
-                    <div className={styles.about}>ABOUT</div>
-                    <div className={styles.about}>PROGRAMME</div>
-                    <div className={styles.about}>TRAVEL</div>
-                    <div className={styles.about}>OFFICERS</div>
+                <nav className={styles.nav} aria-label="Primary">
+                    <span className={styles.about}>ABOUT</span>
+                    <span className={styles.about}>PROGRAMME</span>
+                    <span className={styles.about}>TRAVEL</span>
+                    <span className={styles.about}>OFFICERS</span>
                     <a href="https://iitg.ac.in/ccd/contact_us.html" target="_blank" rel="noopener noreferrer">
-                        <div className={styles.about}>CONTACT</div>
+                        <span className={styles.about}>CONTACT</span>
                     </a>
-                </div>
-                <Link to="/register">
-                    <div className={styles.registerCta}>
-                        <div className={styles.register}>REGISTER</div>
-                    </div>
+                </nav>
+                <Link to="/register" aria-label="Register your institute's delegate">
+                    <span className={styles.registerCta}>
+                        <span className={styles.register}>REGISTER</span>
+                    </span>
                 </Link>
             </div>
-        </div>
+        </header>
     );
 };
 

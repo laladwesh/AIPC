@@ -124,7 +124,8 @@
   	text-shadow: 1px 0 0 #fcfcfb, 0 1px 0 #fcfcfb, -1px 0 0 #fcfcfb, 0 -1px 0 #fcfcfb;
 }
 .registerToConfirm {
-  	width: 400px;
+  	width: 100%;
+  	max-width: 400px;
   	position: relative;
   	font-size: 18px;
   	line-height: 24px;
@@ -137,6 +138,7 @@
   	overflow: hidden;
   	display: flex;
   	align-items: flex-start;
+  	flex-wrap: wrap;
 }
 .fact {
   	flex: 1;
@@ -942,3 +944,67 @@
 
 /* intl-tel-input override */
 #aipc-registration-widget .iti { width: 100%; display: block; }
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 900px) {
+  	.masthead,
+  	.hero,
+  	.membershipBand,
+  	.registration2,
+  	.riverRule,
+  	.programme2,
+  	.travelAndStay,
+  	.directory,
+  	.footer {
+  		padding-left: 32px;
+  		padding-right: 32px;
+  	}
+  	.thAipcMeet {
+  		font-size: 44px;
+  		line-height: 48px;
+  	}
+}
+
+@media (max-width: 640px) {
+  	.masthead,
+  	.hero,
+  	.membershipBand,
+  	.registration2,
+  	.riverRule,
+  	.programme2,
+  	.travelAndStay,
+  	.directory,
+  	.footer {
+  		padding-left: 20px;
+  		padding-right: 20px;
+  	}
+  	.masthead {
+  		flex-wrap: wrap;
+  		gap: 12px;
+  	}
+  	.navCta .nav {
+  		display: none;
+  	}
+  	.hero {
+  		padding-top: 56px;
+  		padding-bottom: 40px;
+  	}
+  	.thAipcMeet {
+  		font-size: 34px;
+  		line-height: 38px;
+  	}
+  	.registration2,
+  	.programme2,
+  	.travelAndStay,
+  	.directory {
+  		padding-top: 56px;
+  		padding-bottom: 56px;
+  	}
+  	.iitBhilai,
+  	.emblemRingIcon {
+  		width: 64px;
+  	}
+  	.emblemRingIcon {
+  		height: 64px;
+  	}
+}

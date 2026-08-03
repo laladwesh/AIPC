@@ -24,17 +24,21 @@ if (process.env.EMAIL_USER && process.env.EMAIL_PASS) {
   console.warn('EMAIL_USER/EMAIL_PASS not set — outgoing email is disabled.');
 }
 
+const SIGNATURE = '\n\n—\n49th AIPC 2026 · IIT Guwahati\n\nRegards,\nCenter for Career Development\nIIT Guwahati';
+
 const sendEmail = async (to, subject, text) => {
+  const body = `${text}${SIGNATURE}`;
+
   if (!process.env.EMAIL_USER || !process.env.EMAIL_PASS) {
-    console.log(`\n[EMAIL SKIPPED - no credentials configured]\nTo: ${to}\nSubject: ${subject}\nBody: ${text}\n`);
+    console.log(`\n[EMAIL SKIPPED - no credentials configured]\nTo: ${to}\nSubject: ${subject}\nBody: ${body}\n`);
     return;
   }
 
   await transporter.sendMail({
-    from: `"AIPC Portal" <${process.env.EMAIL_USER}>`,
+    from: `"49th AIPC 2026, IIT Guwahati" <${process.env.EMAIL_USER}>`,
     to,
     subject,
-    text
+    text: body
   });
 };
 

@@ -1,20 +1,20 @@
 const crypto = require('crypto');
-const Delegate = require('../models/Delegate');
+const EventCompany = require('../models/EventCompany');
 const Otp = require('../models/Otp');
 const sendEmail = require('../utils/mailer');
 
 const hashData = (data) => crypto.createHash('sha256').update(data).digest('hex');
 
 // --- STEP 1: SUBMIT DETAILS, SEND OTP ---
-exports.registerDelegate = async (req, res) => {
+exports.registerCompany = async (req, res) => {
   try {
-    const { name, designation, institute, email, contactNumber } = req.body;
+    const { companyName, email, phoneNumber, institute } = req.body;
 
-    if (!name || !institute || !email || !contactNumber) {
+    if (!companyName || !email || !phoneNumber || !institute) {
       return res.status(400).json({ success: false, error: 'All fields are required.' });
     }
 
-    if (!Delegate.INSTITUTE_CODES.includes(institute)) {
+    if (!EventCompany.INSTITUTE_CODES.includes(institute)) {
       return res.status(400).json({ success: false, error: 'Invalid institute selection.' });
     }
 
@@ -24,28 +24,21 @@ exports.registerDelegate = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Invalid email address.' });
     }
 
-    let delegate = await Delegate.findOne({ institute });
-    if (delegate && delegate.status === 'PENDING_APPROVAL') {
-      return res.status(400).json({
-        success: false,
-        error: `A delegate for this institute is already registered (${delegate.name}).`
-      });
+    let company = await EventCompany.findOne({ email: cleanEmail, institute });
+    if (company && company.status === 'CONFIRMED') {
+      return res.status(400).json({ success: false, error: 'This company is already registered for this institute.' });
     }
 
-    if (delegate) {
-      // Retry of an unconfirmed (PENDING_OTP) submission — overwrite with latest details
-      delegate.name = name.trim();
-      delegate.designation = designation ? designation.trim() : delegate.designation;
-      delegate.email = cleanEmail;
-      delegate.contactNumber = contactNumber.trim();
-      await delegate.save();
+    if (company) {
+      company.companyName = companyName.trim();
+      company.phoneNumber = phoneNumber.trim();
+      await company.save();
     } else {
-      delegate = await Delegate.create({
-        name: name.trim(),
-        designation: designation ? designation.trim() : undefined,
-        institute,
+      company = await EventCompany.create({
+        companyName: companyName.trim(),
         email: cleanEmail,
-        contactNumber: contactNumber.trim(),
+        phoneNumber: phoneNumber.trim(),
+        institute,
         status: 'PENDING_OTP'
       });
     }
@@ -68,15 +61,15 @@ exports.registerDelegate = async (req, res) => {
     });
   } catch (error) {
     if (error.code === 11000) {
-      return res.status(400).json({ success: false, error: 'This email or institute is already registered.' });
+      return res.status(400).json({ success: false, error: 'This company is already registered for this institute.' });
     }
-    console.error('Delegate Registration Error:', error);
+    console.error('Company Registration Error:', error);
     return res.status(500).json({ success: false, error: 'Server error during registration.' });
   }
 };
 
-// --- STEP 2: VERIFY OTP, CONFIRM REGISTRATION REQUEST ---
-exports.verifyDelegateOtp = async (req, res) => {
+// --- STEP 2: VERIFY OTP, CONFIRM REGISTRATION ---
+exports.verifyCompanyOtp = async (req, res) => {
   try {
     const { email, otp } = req.body;
     if (!email || !otp) {
@@ -101,45 +94,33 @@ exports.verifyDelegateOtp = async (req, res) => {
       return res.status(400).json({ success: false, error: 'Invalid verification code.' });
     }
 
-    const delegate = await Delegate.findOne({ email: cleanEmail });
-    if (!delegate) {
+    const company = await EventCompany.findOne({ email: cleanEmail, status: 'PENDING_OTP' }).sort({ createdAt: -1 });
+    if (!company) {
       await Otp.deleteOne({ email: cleanEmail });
       return res.status(404).json({ success: false, error: 'Registration not found. Please start again.' });
     }
 
-    delegate.status = 'PENDING_APPROVAL';
-    await delegate.save();
+    company.status = 'CONFIRMED';
+    await company.save();
     await Otp.deleteOne({ email: cleanEmail });
 
     await sendEmail(
       cleanEmail,
-      'AIPC 2026 - Registration Request Received',
-      `Dear ${delegate.name},\n\nYour registration request as the delegate for your institute at the 49th AIPC Meet (4th September 2026, IIT Guwahati) has been received and is pending approval. Further details will be communicated to you by email closer to the date.`
+      'AIPC 2026 - Company Registration Confirmed',
+      `Dear ${company.companyName} team,\n\nYour company's registration for the 49th AIPC Meet (4th September 2026, IIT Guwahati) is confirmed. Further details will be communicated to you by email closer to the date.`
     );
 
     return res.status(200).json({
       success: true,
-      message: 'Registration request received.',
-      delegate: {
-        name: delegate.name,
-        designation: delegate.designation,
-        institute: delegate.institute,
-        email: delegate.email
+      message: 'Registration confirmed.',
+      company: {
+        companyName: company.companyName,
+        email: company.email,
+        institute: company.institute
       }
     });
   } catch (error) {
-    console.error('Delegate OTP Verification Error:', error);
+    console.error('Company OTP Verification Error:', error);
     return res.status(500).json({ success: false, error: 'Server error during verification.' });
-  }
-};
-
-// --- LIST INSTITUTES ALREADY CONFIRMED (so the frontend can disable them) ---
-exports.getRegisteredInstitutes = async (req, res) => {
-  try {
-    const institutes = await Delegate.distinct('institute', { status: 'PENDING_APPROVAL' });
-    return res.status(200).json({ success: true, institutes });
-  } catch (error) {
-    console.error('Fetch Registered Institutes Error:', error);
-    return res.status(500).json({ success: false, error: 'Server error fetching registered institutes.' });
   }
 };

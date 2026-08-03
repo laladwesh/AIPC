@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /aipc/
+
+Sitemap: https://iitg.ac.in/aipc/sitemap.xml

@@ -57,9 +57,45 @@ export const delegateApi = {
         });
         return parseResponse(response);
     },
+    verifyOtp: async (email: string, otp: string) => {
+        const response = await fetch(`${API_BASE_URL}/delegates/verify-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, otp })
+        });
+        return parseResponse(response);
+    },
     getRegisteredInstitutes: async (): Promise<string[]> => {
         const response = await fetch(`${API_BASE_URL}/delegates/registered-institutes`);
         const result = await parseResponse(response);
         return result.institutes ?? [];
+    }
+};
+
+export interface EventCompanyRegistration {
+    companyName: string;
+    email: string;
+    phoneNumber: string;
+    institute: string;
+}
+
+// Companies attending the meet, brought by an institute — separate from the
+// legacy recruiter/JAF flow in `companyApi` above.
+export const eventCompanyApi = {
+    register: async (data: EventCompanyRegistration) => {
+        const response = await fetch(`${API_BASE_URL}/companies/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        return parseResponse(response);
+    },
+    verifyOtp: async (email: string, otp: string) => {
+        const response = await fetch(`${API_BASE_URL}/companies/verify-otp`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, otp })
+        });
+        return parseResponse(response);
     }
 };

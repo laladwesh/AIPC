@@ -9,6 +9,7 @@ require('dotenv').config();
 const authController = require('./controllers/authController');
 const adminController = require('./controllers/adminController');
 const delegateController = require('./controllers/delegateController');
+const eventCompanyController = require('./controllers/eventCompanyController');
 const requireAdmin = require('./middleware/adminAuth');
 
 const app = express();
@@ -61,7 +62,12 @@ app.get(`${apiBase}/company/details`, authController.getCompanyDetails);
 
 // --- INSTITUTE DELEGATE REGISTRATION ---
 app.post(`${apiBase}/delegates/register`, delegateController.registerDelegate);
+app.post(`${apiBase}/delegates/verify-otp`, delegateController.verifyDelegateOtp);
 app.get(`${apiBase}/delegates/registered-institutes`, delegateController.getRegisteredInstitutes);
+
+// --- COMPANY REGISTRATION (brought to the meet by an institute) ---
+app.post(`${apiBase}/companies/register`, eventCompanyController.registerCompany);
+app.post(`${apiBase}/companies/verify-otp`, eventCompanyController.verifyCompanyOtp);
 
 // --- TPO ADMIN ROUTES ---
 app.post(`${apiBase}/admin/auth/login`, adminController.requestAdminOtp);
@@ -76,12 +82,55 @@ app.post(`${apiBase}/admin/auth/logout`, adminController.adminLogout);
 // --- BUILT FRONTEND (served directly, no nginx) ---
 const FRONTEND_DIST = path.join(__dirname, 'frontend', 'dist');
 if (fs.existsSync(FRONTEND_DIST)) {
+  const SITE_URL = 'https://iitg.ac.in/aipc';
+  const indexHtml = fs.readFileSync(path.join(FRONTEND_DIST, 'index.html'), 'utf-8');
+
+  // Per-route <title>/meta overrides so crawlers and social-preview bots that
+  // don't execute JS (Googlebot does; most link-unfurl bots don't) still see
+  // route-correct tags on first response, not just the Home defaults already
+  // baked into index.html. Client-side nav updates the same tags via
+  // useDocumentMeta for consistency after SPA route changes.
+  const ROUTE_META = {
+    '/register': {
+      title: 'Register Your Delegate | 49th AIPC Meet 2026',
+      description: "Register your IIT as a delegate institute for the 49th AIPC Meet, 4th September 2026 at IIT Guwahati. One delegate per institute — select your IIT and confirm in under a minute."
+    }
+  };
+
+  const escapeHtml = (str) => str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  const renderIndexHtml = (routePath) => {
+    const meta = ROUTE_META[routePath];
+    if (!meta) return indexHtml;
+
+    const title = escapeHtml(meta.title);
+    const description = escapeHtml(meta.description);
+    const canonicalUrl = `${SITE_URL}${routePath}`;
+
+    return indexHtml
+      .replace(/<title id="meta-title">[^<]*<\/title>/, `<title id="meta-title">${title}</title>`)
+      .replace(/(id="meta-description"[^>]*content=")[^"]*(")/, `$1${description}$2`)
+      .replace(/(id="meta-og-title"[^>]*content=")[^"]*(")/, `$1${title}$2`)
+      .replace(/(id="meta-og-description"[^>]*content=")[^"]*(")/, `$1${description}$2`)
+      .replace(/(id="meta-og-url"[^>]*content=")[^"]*(")/, `$1${canonicalUrl}$2`)
+      .replace(/(id="meta-twitter-title"[^>]*content=")[^"]*(")/, `$1${title}$2`)
+      .replace(/(id="meta-twitter-description"[^>]*content=")[^"]*(")/, `$1${description}$2`)
+      .replace(/(id="meta-canonical"[^>]*href=")[^"]*(")/, `$1${canonicalUrl}$2`);
+  };
+
   app.use(BASE_PATH || '/', express.static(FRONTEND_DIST));
   app.use((req, res, next) => {
     if (req.method !== 'GET' || (BASE_PATH && !req.path.startsWith(BASE_PATH))) {
       return next();
     }
-    res.sendFile(path.join(FRONTEND_DIST, 'index.html'));
+    let routePath = req.path.slice(BASE_PATH.length) || '/';
+    if (routePath.length > 1 && routePath.endsWith('/')) routePath = routePath.slice(0, -1);
+
+    res.type('html').send(renderIndexHtml(routePath));
   });
 }
 
