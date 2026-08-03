@@ -41,20 +41,24 @@ const Register = () => {
             )}
 
             <div className="w-full bg-[#101e24] px-6 md:px-[56px] py-6 md:py-8">
-                <div className="flex items-center gap-4 mb-4">
-                    <img
-                        src={`${import.meta.env.BASE_URL}iitg.png`}
-                        alt="IIT Guwahati"
-                        className="h-16 w-16 md:h-20 md:w-20 object-contain flex-shrink-0"
-                    />
-                    <p className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium">HOSTED AT IIT GUWAHATI</p>
+                <div className="flex items-center justify-between gap-6">
+                    <div>
+                        <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
+                            Register your company
+                        </h1>
+                        <p className="text-[#c9d0d1] max-w-[480px] text-sm">
+                            Enter your company details and the IIT bringing you. We'll email a verification code to confirm.
+                        </p>
+                    </div>
+                    <div className="flex flex-col items-center gap-1 flex-shrink-0">
+                        <img
+                            src={`${import.meta.env.BASE_URL}iitg.png`}
+                            alt="IIT Guwahati"
+                            className="h-16 w-16 md:h-20 md:w-20 object-contain"
+                        />
+                        <p className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium whitespace-nowrap">HOSTED AT IIT GUWAHATI</p>
+                    </div>
                 </div>
-                <h1 className="font-display text-2xl md:text-3xl font-bold text-white mb-2">
-                    Register your company
-                </h1>
-                <p className="text-[#c9d0d1] max-w-[480px] text-sm">
-                    Enter your company details and the IIT bringing you. We'll email a verification code to confirm.
-                </p>
             </div>
 
             <section className={styles.membershipBand} aria-labelledby="members-title">
