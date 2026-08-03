@@ -22,7 +22,16 @@ exports.registerCompany = async (req, res) => {
 
     let company = await EventCompany.findOne({ email: cleanEmail });
     if (company && company.status === 'CONFIRMED') {
-      return res.status(400).json({ success: false, error: 'This email has already completed registration.' });
+      return res.status(409).json({
+        success: false,
+        alreadyRegistered: true,
+        error: 'You have already registered and submitted your details.',
+        company: {
+          companyName: company.companyName,
+          name: company.name,
+          institute: company.institute
+        }
+      });
     }
 
     if (company) {
@@ -125,8 +134,22 @@ exports.completeRegistration = async (req, res) => {
     }
 
     const cleanEmail = email.toLowerCase().trim();
-    const company = await EventCompany.findOne({ email: cleanEmail, status: 'PENDING_DETAILS' });
-    if (!company) {
+    const company = await EventCompany.findOne({ email: cleanEmail });
+
+    if (company && company.status === 'CONFIRMED') {
+      return res.status(409).json({
+        success: false,
+        alreadyRegistered: true,
+        error: 'You have already registered and submitted your details.',
+        company: {
+          companyName: company.companyName,
+          name: company.name,
+          institute: company.institute
+        }
+      });
+    }
+
+    if (!company || company.status !== 'PENDING_DETAILS') {
       return res.status(404).json({ success: false, error: 'Verified registration not found. Please start again.' });
     }
 

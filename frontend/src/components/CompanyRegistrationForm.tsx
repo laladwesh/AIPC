@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { INSTITUTES } from '../institutes';
-import { eventCompanyApi } from '../api';
+import { eventCompanyApi, ApiError } from '../api';
 import OtpInput from './OtpInput';
 
 interface FormData {
@@ -10,6 +10,12 @@ interface FormData {
     designation: string;
     institute: string;
     phoneNumber: string;
+}
+
+interface AlreadyRegisteredInfo {
+    companyName?: string;
+    name?: string;
+    institute?: string;
 }
 
 const EMPTY_FORM: FormData = { companyName: '', email: '', name: '', designation: '', institute: '', phoneNumber: '' };
@@ -26,6 +32,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
     const [isVerifying, setIsVerifying] = useState(false);
     const [isCompleting, setIsCompleting] = useState(false);
     const [resendCooldown, setResendCooldown] = useState(0);
+    const [alreadyRegistered, setAlreadyRegistered] = useState<AlreadyRegisteredInfo | null>(null);
 
     useEffect(() => {
         if (resendCooldown <= 0) return;
@@ -48,7 +55,11 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
             setStep(2);
             setResendCooldown(60);
         } catch (error: any) {
-            showToast(error.message || 'An error occurred connecting to the server.', 'error');
+            if (error instanceof ApiError && error.alreadyRegistered) {
+                setAlreadyRegistered({ companyName: formData.companyName, ...error.company });
+            } else {
+                showToast(error.message || 'An error occurred connecting to the server.', 'error');
+            }
         } finally {
             setIsSubmitting(false);
         }
@@ -132,7 +143,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
                 <div className="pt-14 pb-10 px-6 sm:px-10 text-center">
                     <h2 className="text-2xl font-semibold text-[#001e40] mb-2">Thank you for showing interest</h2>
                     <p className="text-[#5c5f60] mb-6">
-                        We'll let you know the further process if needed.
+                        We will get back to you within 48 hours regarding registration confirmation.
                     </p>
                     <button
                         type="button"

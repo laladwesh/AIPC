@@ -4,9 +4,19 @@ export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL ?? (
         : '/api/v1'
 );
 
+export class ApiError extends Error {
+    alreadyRegistered?: boolean;
+    company?: { companyName?: string; name?: string; institute?: string };
+
+    constructor(message: string, extra?: Record<string, unknown>) {
+        super(message);
+        Object.assign(this, extra);
+    }
+}
+
 async function parseResponse(response: Response) {
     const result = await response.json().catch(() => ({}));
-    if (!response.ok) throw new Error(result.error || result.message || 'Something went wrong.');
+    if (!response.ok) throw new ApiError(result.error || result.message || 'Something went wrong.', result);
     return result;
 }
 
