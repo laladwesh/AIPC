@@ -8,6 +8,7 @@ require('dotenv').config();
 
 const authController = require('./controllers/authController');
 const adminController = require('./controllers/adminController');
+const delegateController = require('./controllers/delegateController');
 const requireAdmin = require('./middleware/adminAuth');
 
 const app = express();
@@ -57,6 +58,10 @@ app.get(`${apiBase}/auth/me`, authController.getAuthenticatedUser);
 app.post(`${apiBase}/auth/logout`, authController.logout);
 app.get(`${apiBase}/auth/check-company`, authController.checkCompany);
 app.get(`${apiBase}/company/details`, authController.getCompanyDetails);
+
+// --- INSTITUTE DELEGATE REGISTRATION ---
+app.post(`${apiBase}/delegates/register`, delegateController.registerDelegate);
+app.get(`${apiBase}/delegates/registered-institutes`, delegateController.getRegisteredInstitutes);
 
 // --- TPO ADMIN ROUTES ---
 app.post(`${apiBase}/admin/auth/login`, adminController.requestAdminOtp);
