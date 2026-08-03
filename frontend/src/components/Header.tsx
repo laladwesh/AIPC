@@ -1,7 +1,11 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import styles from '../App.module.css';
+import ContactModal from './ContactModal';
 
 const Header = () => {
+    const [isContactOpen, setIsContactOpen] = useState(false);
+
     return (
         <header className={`${styles.masthead} relative z-20`}>
             <Link to="/" className="flex items-center gap-3" style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -23,11 +27,13 @@ const Header = () => {
             </Link>
             <div className={styles.navCta}>
                 <nav className={styles.nav} aria-label="Primary">
-                    <a href="https://iitg.ac.in/ccd/contact_us.html" target="_blank" rel="noopener noreferrer">
+                    <button type="button" onClick={() => setIsContactOpen(true)}>
                         <span className={styles.about}>CONTACT</span>
-                    </a>
+                    </button>
                 </nav>
             </div>
+
+            {isContactOpen && <ContactModal onClose={() => setIsContactOpen(false)} />}
         </header>
     );
 };
