@@ -47,6 +47,7 @@ export interface EventCompanyRegistration {
 
 export interface EventCompanyDetails {
     email: string;
+    name: string;
     designation: string;
     institute: string;
     phoneNumber: string;

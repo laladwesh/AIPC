@@ -6,12 +6,13 @@ import OtpInput from './OtpInput';
 interface FormData {
     companyName: string;
     email: string;
+    name: string;
     designation: string;
     institute: string;
     phoneNumber: string;
 }
 
-const EMPTY_FORM: FormData = { companyName: '', email: '', designation: '', institute: '', phoneNumber: '' };
+const EMPTY_FORM: FormData = { companyName: '', email: '', name: '', designation: '', institute: '', phoneNumber: '' };
 
 interface Props {
     showToast: (message: string, type?: 'info' | 'success' | 'error') => void;
@@ -96,7 +97,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
     const handleDetailsCompleteSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        if (!formData.designation || !formData.institute || !formData.phoneNumber) {
+        if (!formData.name || !formData.designation || !formData.institute || !formData.phoneNumber) {
             showToast('Please fill in all required fields.', 'error');
             return;
         }
@@ -105,6 +106,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
         try {
             await eventCompanyApi.complete({
                 email: formData.email,
+                name: formData.name,
                 designation: formData.designation,
                 institute: formData.institute,
                 phoneNumber: formData.phoneNumber
@@ -150,6 +152,20 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
                 <div>
                     <h2 className="text-xl font-semibold text-[#001e40] mb-1">A few more details</h2>
                     <p className="text-sm text-[#5c5f60]">Just to complete your registration.</p>
+                </div>
+
+                <div className="space-y-2">
+                    <label htmlFor="attendeeName" className="block text-sm font-medium text-[#43474f]">Your name</label>
+                    <input
+                        type="text"
+                        id="attendeeName"
+                        value={formData.name}
+                        onChange={e => setFormData({ ...formData, name: e.target.value })}
+                        disabled={isCompleting}
+                        className="w-full px-4 py-3 border border-[#c3c6d1] rounded focus:border-[#001e40] focus:ring-1 focus:ring-[#001e40] outline-none disabled:bg-gray-100"
+                        placeholder="Full name"
+                        required
+                    />
                 </div>
 
                 <div className="space-y-2">

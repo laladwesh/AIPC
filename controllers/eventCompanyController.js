@@ -114,9 +114,9 @@ exports.verifyCompanyOtp = async (req, res) => {
 // --- STEP 3: COMPLETE REGISTRATION WITH REMAINING DETAILS ---
 exports.completeRegistration = async (req, res) => {
   try {
-    const { email, designation, institute, phoneNumber } = req.body;
+    const { email, name, designation, institute, phoneNumber } = req.body;
 
-    if (!email || !designation || !institute || !phoneNumber) {
+    if (!email || !name || !designation || !institute || !phoneNumber) {
       return res.status(400).json({ success: false, error: 'All fields are required.' });
     }
 
@@ -130,6 +130,7 @@ exports.completeRegistration = async (req, res) => {
       return res.status(404).json({ success: false, error: 'Verified registration not found. Please start again.' });
     }
 
+    company.name = name.trim();
     company.designation = designation.trim();
     company.institute = institute;
     company.phoneNumber = phoneNumber.trim();
@@ -139,7 +140,7 @@ exports.completeRegistration = async (req, res) => {
     await sendEmail(
       cleanEmail,
       'AIPC 2026 - Registration Request Received',
-      `Dear ${company.companyName} team,\n\nYour registration request for the 49th AIPC Meet (4th September 2026, IIT Guwahati) has been received. Further updates will be communicated to you by email closer to the date.`
+      `Dear ${company.name},\n\nYour registration request on behalf of ${company.companyName} for the 49th AIPC Meet (4th September 2026, IIT Guwahati) has been received. Further updates will be communicated to you by email closer to the date.`
     );
 
     return res.status(200).json({
@@ -147,6 +148,7 @@ exports.completeRegistration = async (req, res) => {
       message: 'Registration complete.',
       company: {
         companyName: company.companyName,
+        name: company.name,
         email: company.email,
         institute: company.institute
       }

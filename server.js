@@ -69,7 +69,8 @@ const allowedOrigins = [
   'http://127.0.0.1:5500',
   'http://localhost:5000',
   'http://localhost:6025',
-  'http://172.17.1.148'
+  'http://172.17.1.148',
+  'https://iitg.ac.in'
 ];
 
 app.use(apiBase, cors({

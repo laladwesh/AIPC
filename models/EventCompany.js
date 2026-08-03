@@ -15,6 +15,7 @@ const INSTITUTE_CODES = [
 const eventCompanySchema = new mongoose.Schema({
   companyName: { type: String, required: true, trim: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+  name: { type: String, trim: true },
   designation: { type: String, trim: true },
   phoneNumber: { type: String, trim: true },
   institute: { type: String, enum: INSTITUTE_CODES },

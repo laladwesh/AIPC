@@ -12,7 +12,7 @@ const Header = () => {
                 <span className="font-display text-2xl md:text-3xl font-bold text-white">
                     49<sup>TH</sup> All IITs Placement Committee (AIPC) Meet 2026
                 </span>
-                <span className="text-sm text-[#c9d0d1] mt-1">Industry conclave &middot; 4th September 2026</span>
+                <span className="text-ls text-[#c9d0d1] mt-1">Industry conclave &middot; 4th September 2026</span>
             </Link>
             <div className={styles.navCta}>
                 <nav className={styles.nav} aria-label="Primary">
