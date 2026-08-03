@@ -10,19 +10,14 @@ const Header = () => {
                     alt="IIT Guwahati"
                     className="h-10 w-10 object-contain flex-shrink-0"
                 />
-                <div className="flex flex-col leading-tight">
-                    <span className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium">
-                        ORGANISING IIT
-                    </span>
-                    <span className={styles.aipc49}>49TH ALL IITs PLACEMENT COMMITTEE</span>
-                </div>
+                <span className="text-[10px] tracking-[0.15em] text-[#8fa3ab] font-medium">
+                    ORGANISING IIT
+                </span>
+                <span className="w-px h-9 bg-[#8fa3ab]/40 flex-shrink-0" />
+                <span className={styles.aipc49}>49TH ALL IITs PLACEMENT COMMITTEE</span>
             </Link>
             <div className={styles.navCta}>
                 <nav className={styles.nav} aria-label="Primary">
-                    <span className={styles.about}>ABOUT</span>
-                    <span className={styles.about}>PROGRAMME</span>
-                    <span className={styles.about}>TRAVEL</span>
-                    <span className={styles.about}>OFFICERS</span>
                     <a href="https://iitg.ac.in/ccd/contact_us.html" target="_blank" rel="noopener noreferrer">
                         <span className={styles.about}>CONTACT</span>
                     </a>
