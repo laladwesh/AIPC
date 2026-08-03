@@ -8,7 +8,7 @@ const Home = () => {
     useDocumentMeta({
         path: '/',
         title: '49th AIPC Meet 2026 | All IITs Placement Committee, IIT Guwahati',
-        description: 'The 49th All IITs Placement Committee (AIPC) meet — 4th September 2026 at IIT Guwahati. Register your institute\'s delegate for the industry conclave, policy sessions, and placement season coordination across all 23 IITs.'
+        description: 'The 49th All IITs Placement Committee (AIPC) meet — 4th September 2026 at IIT Guwahati. Register your company for the industry conclave, policy sessions, and placement season coordination across all 23 IITs.'
     });
 
     return (
@@ -106,8 +106,8 @@ const Home = () => {
                         <div className="inline-flex items-center justify-center w-16 h-16 bg-[#d5e3ff] rounded-2xl mb-6">
                             <span className="material-symbols-outlined text-[#001e40] text-[32px]" style={{ fontVariationSettings: "'FILL' 1" }}>how_to_reg</span>
                         </div>
-                        <h2 id="register-cta-title" className="text-2xl sm:text-3xl font-semibold text-[#001e40] mb-3">Register your institute's delegate</h2>
-                        <p className="text-[#5c5f60] max-w-[520px] mb-8">Select your IIT, confirm your details, and you're done. Confirmation and joining instructions follow by email.</p>
+                        <h2 id="register-cta-title" className="text-2xl sm:text-3xl font-semibold text-[#001e40] mb-3">Register your company</h2>
+                        <p className="text-[#5c5f60] max-w-[520px] mb-8">Enter your company details and the IIT bringing you, and you're done. Confirmation follows by email.</p>
                         <Link
                             to="/register"
                             className="h-12 px-8 flex items-center justify-center gap-2 bg-[#001e40] text-white text-sm font-medium rounded hover:bg-[#003366] transition-all"

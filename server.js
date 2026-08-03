@@ -8,7 +8,6 @@ require('dotenv').config();
 
 const authController = require('./controllers/authController');
 const adminController = require('./controllers/adminController');
-const delegateController = require('./controllers/delegateController');
 const eventCompanyController = require('./controllers/eventCompanyController');
 const requireAdmin = require('./middleware/adminAuth');
 
@@ -60,11 +59,6 @@ app.post(`${apiBase}/auth/logout`, authController.logout);
 app.get(`${apiBase}/auth/check-company`, authController.checkCompany);
 app.get(`${apiBase}/company/details`, authController.getCompanyDetails);
 
-// --- INSTITUTE DELEGATE REGISTRATION ---
-app.post(`${apiBase}/delegates/register`, delegateController.registerDelegate);
-app.post(`${apiBase}/delegates/verify-otp`, delegateController.verifyDelegateOtp);
-app.get(`${apiBase}/delegates/registered-institutes`, delegateController.getRegisteredInstitutes);
-
 // --- COMPANY REGISTRATION (brought to the meet by an institute) ---
 app.post(`${apiBase}/companies/register`, eventCompanyController.registerCompany);
 app.post(`${apiBase}/companies/verify-otp`, eventCompanyController.verifyCompanyOtp);
@@ -92,8 +86,8 @@ if (fs.existsSync(FRONTEND_DIST)) {
   // useDocumentMeta for consistency after SPA route changes.
   const ROUTE_META = {
     '/register': {
-      title: 'Register Your Delegate | 49th AIPC Meet 2026',
-      description: "Register your IIT as a delegate institute for the 49th AIPC Meet, 4th September 2026 at IIT Guwahati. One delegate per institute — select your IIT and confirm in under a minute."
+      title: 'Register Your Company | 49th AIPC Meet 2026',
+      description: "Register your company for the 49th AIPC Meet, 4th September 2026 at IIT Guwahati. Enter your company details and the IIT bringing you, verify by email, and you're done."
     }
   };
 

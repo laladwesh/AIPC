@@ -40,38 +40,6 @@ export const companyApi = {
     }
 };
 
-export interface DelegateRegistration {
-    name: string;
-    designation: string;
-    institute: string;
-    email: string;
-    contactNumber: string;
-}
-
-export const delegateApi = {
-    register: async (data: DelegateRegistration) => {
-        const response = await fetch(`${API_BASE_URL}/delegates/register`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
-        });
-        return parseResponse(response);
-    },
-    verifyOtp: async (email: string, otp: string) => {
-        const response = await fetch(`${API_BASE_URL}/delegates/verify-otp`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ email, otp })
-        });
-        return parseResponse(response);
-    },
-    getRegisteredInstitutes: async (): Promise<string[]> => {
-        const response = await fetch(`${API_BASE_URL}/delegates/registered-institutes`);
-        const result = await parseResponse(response);
-        return result.institutes ?? [];
-    }
-};
-
 export interface EventCompanyRegistration {
     companyName: string;
     email: string;
