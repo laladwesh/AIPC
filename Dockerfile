@@ -21,6 +21,7 @@ RUN npm ci --omit=dev
 COPY controllers ./controllers
 COPY middleware ./middleware
 COPY models ./models
+COPY utils ./utils
 COPY server.js ./server.js
 COPY --from=frontend-build /app/frontend/dist ./frontend/dist
 

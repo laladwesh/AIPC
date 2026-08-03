@@ -3,20 +3,10 @@ const jwt = require('jsonwebtoken');
 const Company = require('../models/Company');
 const Otp = require('../models/Otp');
 const Admin = require('../models/Admin');
+const sendEmail = require('../utils/mailer');
 
 // Helper: SHA-256 Hash Function
 const hashData = (data) => crypto.createHash('sha256').update(data).digest('hex');
-
-// Helper: Email Transporter Dispatcher
-const sendEmail = async (to, subject, text) => {
-  console.log(`\n========================================`);
-  console.log(`[TPO EMAIL NOTIFICATION SENT]`);
-  console.log(`To: ${to}`);
-  console.log(`Subject: ${subject}`);
-  console.log(`Body: ${text}`);
-  console.log(`========================================\n`);
-  return true;
-};
 
 /**
  * Request OTP for TPO Admin Login

@@ -1,15 +1,5 @@
 const Delegate = require('../models/Delegate');
-
-// Dummy Nodemailer Transporter (same pattern as authController)
-const sendEmail = async (to, subject, text) => {
-  console.log(`\n========================================`);
-  console.log(`[DUMMY EMAIL SENT]`);
-  console.log(`To: ${to}`);
-  console.log(`Subject: ${subject}`);
-  console.log(`Body: ${text}`);
-  console.log(`========================================\n`);
-  return true;
-};
+const sendEmail = require('../utils/mailer');
 
 // --- REGISTER INSTITUTE DELEGATE ---
 exports.registerDelegate = async (req, res) => {

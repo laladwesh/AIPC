@@ -2,21 +2,10 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken'); // Added missing dependency
 const Company = require('../models/Company');
 const Otp = require('../models/Otp');
+const sendEmail = require('../utils/mailer');
 
 // Helper: Hash OTP using SHA-256 before database storage
 const hashData = (data) => crypto.createHash('sha256').update(data).digest('hex');
-
-// Helper: Dummy Nodemailer Transporter
-const sendEmail = async (to, subject, text) => {
-  // In production, configure your SMTP settings (e.g., SendGrid, AWS SES)
-  console.log(`\n========================================`);
-  console.log(`[DUMMY EMAIL SENT]`);
-  console.log(`To: ${to}`);
-  console.log(`Subject: ${subject}`);
-  console.log(`Body: ${text}`);
-  console.log(`========================================\n`);
-  return true;
-};
 
 // --- 1. REGISTER / INITIATE OTP ---
 exports.registerCompany = async (req, res) => {
