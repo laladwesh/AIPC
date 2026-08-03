@@ -68,9 +68,17 @@ const ContactModal = ({ onClose }: ContactModalProps) => {
                                 {contact.email && (
                                     <a
                                         href={`mailto:${contact.email}`}
-                                        className="text-sm text-[#003366] hover:text-[#001e40] hover:underline"
+                                        className="block text-sm text-[#003366] hover:text-[#001e40] hover:underline"
                                     >
                                         {contact.email}
+                                    </a>
+                                )}
+                                {contact.phone && (
+                                    <a
+                                        href={`tel:${contact.phone.replace(/\s+/g, '')}`}
+                                        className="block text-sm text-[#003366] hover:text-[#001e40] hover:underline"
+                                    >
+                                        {contact.phone}
                                     </a>
                                 )}
                             </div>
