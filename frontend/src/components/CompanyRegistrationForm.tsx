@@ -155,7 +155,7 @@ const CompanyRegistrationForm = ({ showToast }: Props) => {
                         onClick={handleRegisterAnother}
                         className="inline-flex h-11 px-6 items-center justify-center gap-2 bg-[#001e40] text-white text-sm font-medium rounded hover:bg-[#003366] transition-all"
                     >
-                        Use a different email
+                        Change email
                     </button>
                 </div>
             </div>
